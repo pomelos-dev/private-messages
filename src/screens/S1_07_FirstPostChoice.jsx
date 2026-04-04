@@ -26,13 +26,61 @@ const postOptions = [
 // ── Base Connor profile (before posting) ─────────────────────────
 const baseConnorProfile = {
   username: 'connor_s',
-  displayName: 'Connor Storrie',
+  displayName: 'Connor S.',
   avatar: 'connorAvatar',
   isFollowing: true,
   posts: [
-    { id: 'cs_1', image: 'connorIg1', caption: '📍West Hollywood, baby.', comments: [] },
+    { id: 'cs_1', image: 'connorIg1', caption: 'Early morning espresso. Worth it.', comments: [] },
     { id: 'cs_2', image: 'connorIg2', caption: 'Should I learn ballet next?', comments: [] },
-    { id: 'cs_3', image: 'connorIg3', caption: 'Early morning espresso. Worth it.', comments: [] },
+    { id: 'cs_3', image: 'connorIg3', objectPosition: 'top', caption: '📍West Hollywood, baby.', comments: [{ username: 'victorhalberg', text: 'You are so special' }] },
+  ],
+};
+
+const TAYTAY_PROFILE = {
+  username: 'taytay',
+  displayName: 'Tayler S.',
+  avatar: 'taytayAvatar',
+  isFollowing: true,
+  posts: [
+    { id: 'tt_1', image: 'taytayIg1', objectPosition: 'top', caption: 'Proud of my brother even when he won\'t pick up the phone 🙄❤️', comments: [] },
+    { id: 'tt_2', image: 'taytayIg2', caption: 'Texas forever honestly', comments: [] },
+    { id: 'tt_3', image: 'taytayIg3', caption: 'Main character behavior starts now', comments: [] },
+  ],
+};
+
+const DOGTHERAPY_PROFILE = {
+  username: 'dogtherapy',
+  displayName: 'Dog Therapy',
+  avatar: 'dogsAvatar',
+  isFollowing: true,
+  posts: [
+    { id: 'dt_1', image: 'dogsIg1', caption: 'I don\'t know what you\'re going through but I think you should pet me', comments: [] },
+    { id: 'dt_2', image: 'dogsIg2', caption: 'Availability: always. Judgment: never.', comments: [] },
+    { id: 'dt_3', image: 'dogsIg3', caption: 'Psychiatrist said take it easy. This is me taking it easy', comments: [] },
+  ],
+};
+
+const HUDSON_PROFILE = {
+  username: 'hudson_w',
+  displayName: 'Hudson W.',
+  avatar: 'hudsonAvatar',
+  isFollowing: true,
+  posts: [
+    { id: 'hw_1', image: 'hudsonIg1', caption: 'Sometimes it feels like we exist in two different worlds', comments: [] },
+    { id: 'hw_2', image: 'hudsonIg2', caption: 'I blinked and you were gone', comments: [] },
+    { id: 'hw_3', image: 'hudsonIg3', caption: 'I wish next month would hurry up and get here, already', comments: [] },
+  ],
+};
+
+const VICTOR_PROFILE = {
+  username: 'victorhalberg',
+  displayName: 'Victor Halberg',
+  avatar: 'victorAvatar',
+  isFollowing: true,
+  posts: [
+    { id: 'vh_1', image: 'victorIg1', caption: 'Some artistic partnerships are impossible to define. That\'s what makes them worth exploring. Honored to play Bruhn opposite @connor_s\'s Nureyev.', comments: [] },
+    { id: 'vh_2', image: 'victorIg2', caption: 'Stockholm in the summer.', comments: [] },
+    { id: 'vh_3', image: 'victorIg3', objectPosition: 'top', caption: 'The work asks everything of you. Give it.', comments: [] },
   ],
 };
 
@@ -81,7 +129,13 @@ export default function S1_07_FirstPostChoice() {
       };
     }
 
-    return { connor_s: connorProfile };
+    return {
+      connor_s: connorProfile,
+      taytay: TAYTAY_PROFILE,
+      dogtherapy: DOGTHERAPY_PROFILE,
+      hudson_w: HUDSON_PROFILE,
+      victorhalberg: VICTOR_PROFILE,
+    };
   };
 
   return (

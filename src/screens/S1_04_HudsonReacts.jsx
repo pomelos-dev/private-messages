@@ -18,6 +18,7 @@ const scriptGood = [
 
 const scriptBad = [
   { type: 'their', from: 'hudson', text: 'Ouch' },
+  { type: 'wait', ms: 2500 },
   { type: 'gameover', message: 'You refused Hudson\'s support. Something shifts.', retryScreen: 'S1_04' },
 ];
 

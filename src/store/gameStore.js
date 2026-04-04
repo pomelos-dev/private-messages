@@ -11,9 +11,14 @@ import { create } from 'zustand';
 const useGameStore = create((set, get) => ({
   // ── Current screen ──────────────────────────────────────────────
   currentScreen: 'S0',
+  sessionId: 0,
 
   goToScreen: (screenId) =>
-    set({ currentScreen: screenId, notifications: [] }),
+    set((state) => ({
+      currentScreen: screenId,
+      notifications: [],
+      sessionId: state.sessionId + 1,
+    })),
 
   // ── Player choices ──────────────────────────────────────────────
   choices: {},
@@ -53,6 +58,7 @@ const useGameStore = create((set, get) => ({
   resetGame: () =>
     set({
       currentScreen: 'S0',
+      sessionId: 0,
       choices: {},
       flags: {
         followedVictor: false,

@@ -39,6 +39,7 @@ const SCREENS = {
 
 export default function App() {
   const currentScreen = useGameStore((s) => s.currentScreen);
+  const sessionId = useGameStore((s) => s.sessionId);
 
   const screen = SCREENS[currentScreen];
 
@@ -56,7 +57,7 @@ export default function App() {
 
   return (
     <PhoneShell darkMode={screen.darkMode} time={screen.time}>
-      <div key={currentScreen} className="animate-slide-in-right flex-1 min-h-0 flex flex-col overflow-hidden">
+      <div key={`${currentScreen}_${sessionId}`} className="animate-slide-in-right flex-1 min-h-0 flex flex-col overflow-hidden">
         <ScreenComponent />
       </div>
     </PhoneShell>

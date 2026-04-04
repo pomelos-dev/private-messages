@@ -29,7 +29,7 @@ const script = [
   {
     type: 'notification',
     id: 'n_s1_05',
-    from: 'Hudson',
+    from: 'Huddy',
     avatar: 'hudsonAvatar',
     preview: 'How did it go?',
     target: 'S1_06',

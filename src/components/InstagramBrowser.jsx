@@ -222,7 +222,7 @@ export default function InstagramBrowser({
               }}
               className="w-full rounded-xl border border-neutral-200 overflow-hidden active:scale-[0.98] transition-transform text-left"
             >
-              <div className="aspect-video bg-neutral-100">
+              <div className="aspect-square bg-neutral-100">
                 <img
                   src={getImage(option.image)}
                   alt=""
@@ -253,7 +253,7 @@ export default function InstagramBrowser({
         {newPostOptions && (
           <button
             onClick={() => setShowNewPost(true)}
-            className="w-8 h-8 flex items-center justify-center rounded-lg border border-neutral-300 text-black"
+            className="w-8 h-8 flex items-center justify-center rounded-lg bg-blue-500 text-white"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path strokeLinecap="round" d="M12 5v14m-7-7h14" />
