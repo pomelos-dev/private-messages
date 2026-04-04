@@ -15,17 +15,15 @@ import InstagramBrowser from '../components/InstagramBrowser';
 
 const CONNOR_PROFILE = {
   username: 'connor_s',
-  displayName: 'Connor Storrie',
+  displayName: 'Connor S.',
   avatar: 'connorAvatar',
   isFollowing: true, // it's your own profile
   posts: [
     {
       id: 'cs_1',
       image: 'connorIg1',
-      caption: '📍West Hollywood, baby.',
-      comments: [
-        // Victor's comment appears after trigger 1
-      ],
+      caption: 'Early morning espresso. Worth it.',
+      comments: [],
     },
     {
       id: 'cs_2',
@@ -36,15 +34,17 @@ const CONNOR_PROFILE = {
     {
       id: 'cs_3',
       image: 'connorIg3',
-      caption: 'Early morning espresso. Worth it.',
-      comments: [],
+      caption: '📍West Hollywood, baby.',
+      comments: [
+        // Victor's comment appears after trigger 1
+      ],
     },
   ],
 };
 
 const HUDSON_PROFILE = {
   username: 'hudson_w',
-  displayName: 'Hudson Williams',
+  displayName: 'Hudson W.',
   avatar: 'hudsonAvatar',
   isFollowing: true,
   posts: [
@@ -71,7 +71,7 @@ const HUDSON_PROFILE = {
 
 const TAYTAY_PROFILE = {
   username: 'taytay',
-  displayName: 'Taylor Storrie',
+  displayName: 'Tayler S.',
   avatar: 'taytayAvatar',
   isFollowing: true,
   posts: [
@@ -164,7 +164,7 @@ const triggers = [
       preview: 'You are so special',
       target: null, // handled by onTap below
     },
-    postTarget: { profile: 'connor_s', postId: 'cs_1' },
+    postTarget: { profile: 'connor_s', postId: 'cs_3' },
     once: true,
   },
   {
@@ -173,7 +173,7 @@ const triggers = [
     profile: 'victorhalberg',
     action: 'notification',
     notification: {
-      from: 'Hudson',
+      from: 'Huddy',
       avatar: 'hudsonAvatar',
       preview: 'Looks like someone\'s excited to work with you 👀',
       target: 'S1_04',
@@ -203,7 +203,7 @@ export default function S1_03_InstagramBrowse() {
         connor_s: {
           ...CONNOR_PROFILE,
           posts: CONNOR_PROFILE.posts.map((post) =>
-            post.id === 'cs_1'
+            post.id === 'cs_3'
               ? { ...post, comments: [{ username: 'victorhalberg', text: 'You are so special' }] }
               : post
           ),

@@ -21,7 +21,7 @@ export const IMAGES = {
   connorGoodnight:    `${base}connor-goodnight.jpg`,
   victorHeadshot:     `${base}victor-headshot.jpeg`,
   connorEncouraging:  `${base}connor-encouraging.jpg`,
-  hudsonEncouraging:  `${base}hudson-encouraging.jpg`,
+  hudsonEncouraging:  `${base}hudson-encouraging.jpeg`,
   victorTableRead:    `${base}victor-table-read.jpg`,
   connorBlushing:     `${base}connor-blushing.jpg`,
   connorHudsonSunset: `${base}connor-hudson-sunset.jpg`,
