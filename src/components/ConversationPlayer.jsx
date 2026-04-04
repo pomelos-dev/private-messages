@@ -121,7 +121,7 @@ export default function ConversationPlayer({ contact, script, onBack }) {
       processingRef.current = true;
       setIsTyping(true);
 
-      const delay = node.image ? 1200 : 800 + Math.random() * 800;
+      const delay = node.image ? 2400 : 1600 + Math.random() * 1600;
 
       setTimeout(() => {
         setIsTyping(false);
@@ -159,15 +159,19 @@ export default function ConversationPlayer({ contact, script, onBack }) {
       },
     ]);
 
-    // If this choice branches, navigate
+    // If this choice branches, navigate after a short beat
     if (option.goto) {
-      // Small delay so the player sees their message
-      setTimeout(() => goToScreen(option.goto), 500);
+      setTimeout(() => goToScreen(option.goto), 600);
       return;
     }
 
-    // Otherwise, continue script
-    setScriptIndex((i) => i + 1);
+    // Pause before the other person "responds" — feels like they're reading
+    const responseDelay = 1800 + Math.random() * 1200;
+    setPaused(true);
+    setTimeout(() => {
+      setPaused(false);
+      setScriptIndex((i) => i + 1);
+    }, responseDelay);
   };
 
   // ── Back button handler ────────────────────────────────────────

@@ -56,7 +56,9 @@ export default function App() {
 
   return (
     <PhoneShell darkMode={screen.darkMode}>
-      <ScreenComponent />
+      <div key={currentScreen} className="animate-slide-in-right flex-1 min-h-0 flex flex-col overflow-hidden">
+        <ScreenComponent />
+      </div>
     </PhoneShell>
   );
 }

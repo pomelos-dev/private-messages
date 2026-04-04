@@ -9,18 +9,18 @@ export default function S0_Menu() {
   return (
     <div className="flex-1 flex flex-col items-center justify-center bg-black px-8 text-center">
       {/* Title */}
-      <h1 className="text-white text-3xl font-bold tracking-tight mb-1">
+      <h1 className="animate-fade-in text-white text-3xl font-bold tracking-tight mb-1" style={{ animationDuration: '1s' }}>
         Private Messages
       </h1>
-      <p className="text-neutral-400 text-sm mb-3">
+      <p className="animate-fade-in text-neutral-400 text-sm mb-3" style={{ animationDelay: '300ms', animationDuration: '1s' }}>
         An Interactive Mobile Story
       </p>
-      <p className="text-neutral-500 text-xs italic mb-12 max-w-[260px]">
+      <p className="animate-fade-in text-neutral-500 text-xs italic mb-12 max-w-[260px]" style={{ animationDelay: '600ms', animationDuration: '1s' }}>
         In public, they're best friends. This is everything else…
       </p>
 
       {/* Chapter list */}
-      <div className="w-full max-w-[280px] space-y-3">
+      <div className="animate-fade-in w-full max-w-[280px] space-y-3" style={{ animationDelay: '900ms', animationDuration: '1s' }}>
         {/* Chapter 1 — active */}
         <button
           onClick={() => goToScreen('S1_01')}
