@@ -1,121 +1,60 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import useGameStore from './store/gameStore';
+import PhoneShell from './components/PhoneShell';
 
-function App() {
-  const [count, setCount] = useState(0)
+// ── Screen imports ───────────────────────────────────────────────
+import S0_Menu from './screens/S0_Menu';
+import S1_01_TheOffer from './screens/S1_01_TheOffer';
+import S1_02_TellHudson from './screens/S1_02_TellHudson';
+import S1_03_InstagramBrowse from './screens/S1_03_InstagramBrowse';
+import { S1_04_HudsonReacts, S1_04_Good, S1_04_Bad } from './screens/S1_04_HudsonReacts';
+import S1_05_VictorReaches from './screens/S1_05_VictorReaches';
+import { S1_06_HudsonMisses, S1_06_Good, S1_06_Bad } from './screens/S1_06_HudsonMisses';
+import S1_07_Home from './screens/S1_07_Home';
+import S1_07_FirstPostChoice from './screens/S1_07_FirstPostChoice';
+
+/**
+ * Screen registry: maps screen IDs to { component, darkMode }.
+ * To add a new screen:
+ *   1. Create the screen file in src/screens/
+ *   2. Import it above
+ *   3. Add an entry here
+ */
+const SCREENS = {
+  'S0':           { component: S0_Menu,             darkMode: true  },
+  'S1_01':        { component: S1_01_TheOffer,      darkMode: false },
+  'S1_02':        { component: S1_02_TellHudson,    darkMode: true  },
+  'S1_03':        { component: S1_03_InstagramBrowse, darkMode: false },
+  'S1_04':        { component: S1_04_HudsonReacts,  darkMode: true  },
+  'S1_04_GOOD':   { component: S1_04_Good,          darkMode: true  },
+  'S1_04_BAD':    { component: S1_04_Bad,           darkMode: true  },
+  'S1_05':        { component: S1_05_VictorReaches, darkMode: true  },
+  'S1_06':        { component: S1_06_HudsonMisses,  darkMode: true  },
+  'S1_06_GOOD':   { component: S1_06_Good,          darkMode: true  },
+  'S1_06_BAD':    { component: S1_06_Bad,           darkMode: true  },
+  'S1_07_HOME':   { component: S1_07_Home,          darkMode: true  },
+  'S1_07':        { component: S1_07_FirstPostChoice, darkMode: false },
+};
+
+export default function App() {
+  const currentScreen = useGameStore((s) => s.currentScreen);
+
+  const screen = SCREENS[currentScreen];
+
+  if (!screen) {
+    return (
+      <PhoneShell>
+        <div className="flex-1 flex items-center justify-center bg-black text-red-400 text-sm p-8 text-center">
+          Screen "{currentScreen}" not found. Check App.jsx screen registry.
+        </div>
+      </PhoneShell>
+    );
+  }
+
+  const ScreenComponent = screen.component;
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+    <PhoneShell darkMode={screen.darkMode}>
+      <ScreenComponent />
+    </PhoneShell>
+  );
 }
-
-export default App
