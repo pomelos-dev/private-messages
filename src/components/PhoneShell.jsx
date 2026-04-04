@@ -28,8 +28,8 @@ export default function PhoneShell({ children, darkMode = true }) {
         {/* Notification layer */}
         <NotificationBanner />
 
-        {/* Screen content */}
-        <div className="flex-1 overflow-hidden flex flex-col">
+        {/* Screen content — sm:pb-10 keeps content clear of rounded bottom corners */}
+        <div className="flex-1 overflow-hidden flex flex-col sm:pb-10">
           {children}
         </div>
       </div>

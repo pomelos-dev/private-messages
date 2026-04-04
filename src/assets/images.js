@@ -17,9 +17,9 @@ export const IMAGES = {
   dogsAvatar:         `${base}dogs-avatar.jpg`,
 
   // Story photos
-  hudsonKissSelfie:   `${base}hudson-kiss-selfie.jpg`,
+  hudsonKissSelfie:   `${base}hudson-kiss_selfie.jpg`,
   connorGoodnight:    `${base}connor-goodnight.jpg`,
-  victorHeadshot:     `${base}victor-headshot.jpg`,
+  victorHeadshot:     `${base}victor-headshot.jpeg`,
   connorEncouraging:  `${base}connor-encouraging.jpg`,
   hudsonEncouraging:  `${base}hudson-encouraging.jpg`,
   victorTableRead:    `${base}victor-table-read.jpg`,
