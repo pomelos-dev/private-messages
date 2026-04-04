@@ -121,7 +121,7 @@ export default function ConversationPlayer({ contact, script, onBack }) {
       processingRef.current = true;
       setIsTyping(true);
 
-      const delay = node.image ? 600 : 400 + Math.random() * 400;
+      const delay = node.image ? 1200 : 800 + Math.random() * 800;
 
       setTimeout(() => {
         setIsTyping(false);
@@ -191,7 +191,7 @@ export default function ConversationPlayer({ contact, script, onBack }) {
 
   // ── Render ─────────────────────────────────────────────────────
   return (
-    <div className="flex-1 flex flex-col bg-black">
+    <div className="flex-1 min-h-0 flex flex-col bg-black">
       {/* Header bar — iPhone Messages style */}
       <div className="flex-shrink-0 relative flex items-center px-4 py-2 border-b border-neutral-800">
         <button
@@ -214,7 +214,7 @@ export default function ConversationPlayer({ contact, script, onBack }) {
       </div>
 
       {/* Messages area */}
-      <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-3 space-y-1">
+      <div ref={scrollRef} className="flex-1 min-h-0 overflow-y-auto px-4 py-3 space-y-1">
         {messages.map((msg, i) => {
           // Determine if we should show the avatar (first msg or different sender from previous)
           const prevMsg = messages[i - 1];

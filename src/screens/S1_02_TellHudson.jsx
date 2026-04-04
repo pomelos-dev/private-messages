@@ -1,5 +1,4 @@
 import ConversationPlayer from '../components/ConversationPlayer';
-import useGameStore from '../store/gameStore';
 
 /**
  * S1_02 — Tell Hudson
@@ -59,13 +58,10 @@ const script = [
 ];
 
 export default function S1_02_TellHudson() {
-  const goToScreen = useGameStore((s) => s.goToScreen);
-
   return (
     <ConversationPlayer
       contact={{ name: 'Hudson', avatar: 'hudsonAvatar' }}
       script={script}
-      onBack={() => goToScreen('S0')}
     />
   );
 }

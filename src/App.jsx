@@ -9,6 +9,7 @@ import S1_03_InstagramBrowse from './screens/S1_03_InstagramBrowse';
 import { S1_04_HudsonReacts, S1_04_Good, S1_04_Bad } from './screens/S1_04_HudsonReacts';
 import S1_05_VictorReaches from './screens/S1_05_VictorReaches';
 import { S1_06_HudsonMisses, S1_06_Good, S1_06_Bad } from './screens/S1_06_HudsonMisses';
+import S1_PhoneHome from './screens/S1_PhoneHome';
 import S1_07_Home from './screens/S1_07_Home';
 import S1_07_FirstPostChoice from './screens/S1_07_FirstPostChoice';
 
@@ -21,6 +22,7 @@ import S1_07_FirstPostChoice from './screens/S1_07_FirstPostChoice';
  */
 const SCREENS = {
   'S0':           { component: S0_Menu,             darkMode: true  },
+  'S1_PHONE_HOME':{ component: S1_PhoneHome,         darkMode: true  },
   'S1_01':        { component: S1_01_TheOffer,      darkMode: false },
   'S1_02':        { component: S1_02_TellHudson,    darkMode: true  },
   'S1_03':        { component: S1_03_InstagramBrowse, darkMode: false },
