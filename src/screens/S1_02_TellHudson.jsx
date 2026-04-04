@@ -14,14 +14,16 @@ const script = [
     { text: 'I hope you\'re not too sleepy to hear this…' },
   ]},
 
-  { type: 'their', from: 'hudson', text: 'I\'m wide awake now. Tell me before I panic???' },
+  { type: 'their', from: 'hudson', text: 'I\'m wide awake now.' },
+  { type: 'their', from: 'hudson', text: 'Tell me before I panic???' },
 
   { type: 'choice', options: [
     { text: 'I did it! I booked Ascension!' },
     { text: 'Call me Rudolf Nureyev, baby.' },
   ]},
 
-  { type: 'their', from: 'hudson', text: 'YES. THE WORLD IS RIGHT. I\'m so proud of you, baby' },
+  { type: 'their', from: 'hudson', text: 'YES. THE WORLD IS RIGHT.' },
+  { type: 'their', from: 'hudson', text: 'I\'m so proud of you, baby' },
   { type: 'their', from: 'hudson', image: 'hudsonKissSelfie' },
 
   { type: 'choice', options: [
@@ -29,12 +31,14 @@ const script = [
     { text: 'You always believed in me.' },
   ]},
 
-  { type: 'their', from: 'hudson', text: 'FaceTime? I want to see your smiley face rn' },
+  { type: 'their', from: 'hudson', text: 'FaceTime?' },
+  { type: 'their', from: 'hudson', text: 'I want to see your smiley face right now' },
 
   { type: 'auto', text: 'Isn\'t Keira visiting you right now?' },
 
   { type: 'their', from: 'hudson', text: 'She went out to buy cigs' },
   { type: 'their', from: 'hudson', text: 'Oh, she\'s back now' },
+  { type: 'pause', ms: 2200 },
 
   { type: 'choice', options: [
     { text: 'You know we said we\'d chill out with the late night calls.' },
@@ -42,9 +46,11 @@ const script = [
     { text: 'I\'m exhausted, and if I see your face right now I\'ll never sleep.' },
   ]},
 
-  { type: 'their', from: 'hudson', text: 'I get it. Sleep well baby' },
+  { type: 'their', from: 'hudson', text: 'I get it.' },
+  { type: 'their', from: 'hudson', text: 'Sleep well, baby' },
 
-  { type: 'auto', text: 'You should go to bed, too. I\'ve kept you up way too late every night worrying about this role' },
+  { type: 'auto', text: 'You should go to bed, too.' },
+  { type: 'auto', text: 'I\'ve kept you up way too late every night worrying about this role' },
   { type: 'auto', image: 'connorGoodnight' },
 
   { type: 'their', from: 'hudson', text: 'Talk tomorrow?' },
@@ -60,7 +66,7 @@ const script = [
 export default function S1_02_TellHudson() {
   return (
     <ConversationPlayer
-      contact={{ name: 'Hudson', avatar: 'hudsonAvatar' }}
+      contact={{ name: 'Huddy', avatar: 'hudsonAvatar' }}
       script={script}
     />
   );

@@ -98,6 +98,18 @@ export default function ConversationPlayer({ contact, script, onBack }) {
       return;
     }
 
+    // Pause — show typing indicator for a beat, then continue
+    if (node.type === 'pause') {
+      processingRef.current = true;
+      setIsTyping(true);
+      setTimeout(() => {
+        setIsTyping(false);
+        processingRef.current = false;
+        setScriptIndex((i) => i + 1);
+      }, node.ms || 1500);
+      return;
+    }
+
     // Notification — push and continue
     if (node.type === 'notification') {
       pushNotification({

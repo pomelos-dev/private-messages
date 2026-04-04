@@ -39,7 +39,10 @@ Nureyev is yours. It was unanimous. Victor Halberg has also confirmed as Erik Br
 Congrats again. I know how much you wanted this.
 
 Best,
-Nick`}
+Nick
+
+Nick Vasquez
+NVA Artist Management`}
     />
   );
 }
