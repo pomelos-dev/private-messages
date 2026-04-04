@@ -27,7 +27,7 @@ export default function S1_01_TheOffer() {
   return (
     <EmailViewer
       from={{ name: 'Nick Vasquez', avatar: 'nickAvatar' }}
-      subject="Congratulations — you got it"
+      subject="Offer: Ascension (Nureyev)"
       body={`Connor,
 
 I know it's late, so I figured I'd let you get your beauty sleep and send you an email instead of calling. But I wanted you to hear this tonight.

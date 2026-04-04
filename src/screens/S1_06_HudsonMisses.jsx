@@ -14,7 +14,7 @@ import useGameStore from '../store/gameStore';
 const scriptGood = [
   { type: 'their', from: 'hudson', text: 'Maybe when we meet up next time, we can talk?' },
   { type: 'their', from: 'hudson', text: 'Until then, please post more on Instagram' },
-  { type: 'their', from: 'hudson', text: 'How are your fans supposed to see your pretty face otherwise?' },
+  { type: 'their', from: 'hudson', text: 'How are your fans supposed to see your sexy face otherwise?' },
 
   // Script ends. Player must find the back button to leave.
   { type: 'wait_for_back', homeTarget: 'S1_07_HOME' },

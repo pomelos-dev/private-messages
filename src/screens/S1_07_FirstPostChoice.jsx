@@ -26,12 +26,12 @@ const postOptions = [
   {
     id: 'bad',
     image: 'connorTableRead',
-    caption: 'First read with the Ascension team today! I look forward to getting to know you better, too @victorhalberg 🔥',
+    caption: 'First read with the Ascension cast today! I look forward to getting to know you better, too @victorhalberg 🔥',
   },
   {
     id: 'good',
     image: 'connorHudsonSunset',
-    caption: 'Some people make everything easier. I couldn\'t do it without you 💙',
+    caption: 'Written in the stars for a reason ✨',
   },
 ];
 
@@ -153,7 +153,7 @@ export default function S1_07_FirstPostChoice() {
           {
             id: 'cs_new',
             image: 'connorHudsonSunset',
-            caption: 'Some people make everything easier. I couldn\'t do it without you 💙',
+            caption: 'Written in the stars for a reason ✨',
             comments: [{ username: 'hudson_w', text: '❤️❤️❤️' }],
           },
           ...connorProfile.posts,
@@ -166,7 +166,7 @@ export default function S1_07_FirstPostChoice() {
           {
             id: 'cs_new',
             image: 'connorTableRead',
-            caption: 'First read with the Ascension team today! I look forward to getting to know you better, too @victorhalberg 🔥',
+            caption: 'First read with the Ascension cast today! I look forward to getting to know you better, too @victorhalberg 🔥',
             comments: [{ username: 'victorhalberg', text: 'My Rudolf 🔥' }],
           },
           ...connorProfile.posts,

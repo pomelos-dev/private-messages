@@ -345,7 +345,7 @@ export default function InstagramBrowser({
         {/* Profile navigation bar — other profiles */}
         <div className="border-t border-neutral-200 px-4 py-3">
           <p className="text-xs text-neutral-400 mb-2">Profiles</p>
-          <div className="flex gap-3 overflow-x-auto pb-1">
+          <div className="flex gap-3 overflow-x-auto pb-1 pt-1">
             {Object.entries(profiles).map(([username, profile]) => (
               <button
                 key={username}
@@ -358,7 +358,7 @@ export default function InstagramBrowser({
                   src={getImage(profile.avatar)}
                   alt=""
                   className={`w-12 h-12 rounded-full object-cover bg-neutral-200 ${
-                    username === currentUsername ? 'ring-2 ring-blue-500' : ''
+                    username === currentUsername ? 'ring-2 ring-blue-500 ring-offset-1' : ''
                   }`}
                   onError={(e) => {
                     e.target.className = 'w-12 h-12 rounded-full bg-neutral-300';
