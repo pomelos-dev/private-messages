@@ -103,6 +103,16 @@ body {
   animation: bad-flash 1.6s ease-out both;
 }
 
+/* Fade to black before screen transitions */
+@keyframes fade-to-black {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.animate-fade-to-black {
+  animation: fade-to-black 0.5s ease-in forwards;
+}
+
 /* ── Scrollbar styling ──────────────────────────────────────────── */
 ::-webkit-scrollbar {
   width: 0;

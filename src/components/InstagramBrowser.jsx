@@ -39,6 +39,7 @@ export default function InstagramBrowser({
   }, [initialProfiles]);
 
   // Navigate to a specific post when parent requests it (e.g., after notification tap)
+  // Depend on the primitive values to avoid re-firing on every render
   useEffect(() => {
     if (!autoViewPost) return;
     const profileData = profilesRef.current[autoViewPost.profile];
@@ -48,7 +49,8 @@ export default function InstagramBrowser({
       setViewingPost(post);
       setShowNewPost(false);
     }
-  }, [autoViewPost]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoViewPost?.profile, autoViewPost?.postId]);
 
   const currentProfile = profiles[currentUsername];
 
@@ -133,7 +135,7 @@ export default function InstagramBrowser({
   // ── Post view ──────────────────────────────────────────────────
   if (viewingPost) {
     return (
-      <div className="flex-1 flex flex-col bg-white">
+      <div className="flex-1 min-h-0 flex flex-col bg-white">
         {/* Header */}
         <div className="flex-shrink-0 flex items-center gap-3 px-4 py-3 border-b border-neutral-200">
           <button onClick={() => setViewingPost(null)} className="text-black">
@@ -213,7 +215,7 @@ export default function InstagramBrowser({
   // ── New Post picker ────────────────────────────────────────────
   if (showNewPost && newPostOptions) {
     return (
-      <div className="flex-1 flex flex-col bg-white">
+      <div className="flex-1 min-h-0 flex flex-col bg-white">
         <div className="flex-shrink-0 flex items-center gap-3 px-4 py-3 border-b border-neutral-200">
           <button onClick={() => setShowNewPost(false)} className="text-black">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -224,7 +226,7 @@ export default function InstagramBrowser({
           <div className="w-5" />
         </div>
 
-        <div className="flex-1 min-h-0 overflow-y-auto px-4 py-4 space-y-4">
+        <div className="flex-1 min-h-0 overflow-y-auto px-6 py-4 space-y-5">
           <p className="text-sm text-neutral-500 text-center">Choose what to post:</p>
           {newPostOptions.map((option, i) => (
             <button
@@ -233,7 +235,7 @@ export default function InstagramBrowser({
                 setShowNewPost(false);
                 if (onNewPost) onNewPost(option);
               }}
-              className="w-full rounded-xl border border-neutral-200 overflow-hidden active:scale-[0.98] transition-transform text-left"
+              className="w-[82%] mx-auto block rounded-xl border border-neutral-200 overflow-hidden active:scale-[0.97] transition-transform text-left shadow-sm"
             >
               <div className="aspect-square bg-neutral-100">
                 <img
@@ -245,7 +247,7 @@ export default function InstagramBrowser({
                   }}
                 />
               </div>
-              <p className="p-3 text-sm text-black">{option.caption}</p>
+              <p className="px-3 py-2.5 text-sm text-black leading-snug">{option.caption}</p>
             </button>
           ))}
         </div>
@@ -259,7 +261,7 @@ export default function InstagramBrowser({
   }
 
   return (
-    <div className="flex-1 flex flex-col bg-white">
+    <div className="flex-1 min-h-0 flex flex-col bg-white">
       {/* Instagram header */}
       <div className="flex-shrink-0 flex items-center justify-between px-4 py-3 border-b border-neutral-200">
         <span className="font-bold text-lg text-black tracking-tight">Instagram</span>

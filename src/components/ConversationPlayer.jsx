@@ -4,6 +4,7 @@ import { getImage } from '../assets/images';
 import ChoiceButtons from './ChoiceButtons';
 import TransitionScreen from './TransitionScreen';
 import GameOverPopup from './GameOverPopup';
+import EndingAnimation from './EndingAnimation';
 
 /**
  * ConversationPlayer — processes a script array and renders an iMessage-style chat.
@@ -40,7 +41,10 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
   const [isTyping, setIsTyping] = useState(false);
   const [typingFrom, setTypingFrom] = useState('other'); // 'other' | 'self'
   const [showTransition, setShowTransition] = useState(null); // { text, to, slow }
+  const [fadingToBlack, setFadingToBlack] = useState(false);  // true while fading before transition
   const [showGameOver, setShowGameOver] = useState(null);     // { message, retryScreen }
+  const [showEndingAnimation, setShowEndingAnimation] = useState(null); // 'bad' | 'good' | null
+  const [pendingGameOver, setPendingGameOver] = useState(null);
   const [showChapterComplete, setShowChapterComplete] = useState(null);
   const [waitingForBack, setWaitingForBack] = useState(null);
   const [paused, setPaused] = useState(false);
@@ -70,9 +74,15 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
       return;
     }
 
-    // Transition
+    // Transition — fade to black first, then show transition screen
     if (node.type === 'transition') {
-      setShowTransition({ text: node.text, to: node.to, slow: node.slow || false });
+      processingRef.current = true;
+      setFadingToBlack(true);
+      setTimeout(() => {
+        setFadingToBlack(false);
+        setShowTransition({ text: node.text, to: node.to, slow: node.slow || false });
+        processingRef.current = false;
+      }, 500);
       return;
     }
 
@@ -82,9 +92,19 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
       return;
     }
 
-    // Game over
+    // Game over — optionally play ending animation first
     if (node.type === 'gameover') {
-      setShowGameOver({ message: node.message, retryScreen: node.retryScreen });
+      const gameOverData = {
+        message: node.message,
+        retryScreen: node.retryScreen,
+        variant: node.animate || 'default',
+      };
+      if (node.animate) {
+        setPendingGameOver(gameOverData);
+        setShowEndingAnimation(node.animate);
+      } else {
+        setShowGameOver(gameOverData);
+      }
       return;
     }
 
@@ -221,6 +241,15 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
     }
   };
 
+  // ── Ending animation done (gameover with animate) ──────────────
+  const handleEndingAnimationDone = () => {
+    setShowEndingAnimation(null);
+    if (pendingGameOver) {
+      setShowGameOver(pendingGameOver);
+      setPendingGameOver(null);
+    }
+  };
+
   // ── Transition screen ──────────────────────────────────────────
   if (showTransition) {
     return (
@@ -333,11 +362,22 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
         <ChoiceButtons options={currentChoices} onSelect={handleChoice} />
       )}
 
+      {/* Fade to black overlay (fires before transitions) */}
+      {fadingToBlack && (
+        <div className="absolute inset-0 bg-black animate-fade-to-black z-30 pointer-events-none" />
+      )}
+
+      {/* Ending animation overlay (fires before gameover with animate flag) */}
+      {showEndingAnimation && (
+        <EndingAnimation type={showEndingAnimation} onDone={handleEndingAnimationDone} />
+      )}
+
       {/* Game over overlay */}
       {showGameOver && (
         <GameOverPopup
           message={showGameOver.message}
           retryScreen={showGameOver.retryScreen}
+          variant={showGameOver.variant}
         />
       )}
 
