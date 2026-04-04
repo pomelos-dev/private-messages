@@ -68,6 +68,7 @@ export default function S1_02_TellHudson() {
     <ConversationPlayer
       contact={{ name: 'Huddy', avatar: 'hudsonAvatar' }}
       script={script}
+      immediateFirst
     />
   );
 }

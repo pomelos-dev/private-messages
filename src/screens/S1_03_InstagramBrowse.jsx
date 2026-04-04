@@ -78,6 +78,7 @@ const TAYTAY_PROFILE = {
     {
       id: 'tt_1',
       image: 'taytayIg1',
+      objectPosition: 'top',
       caption: 'Proud of my brother even when he won\'t pick up the phone 🙄❤️',
       comments: [],
     },
@@ -144,6 +145,7 @@ const VICTOR_PROFILE = {
     {
       id: 'vh_3',
       image: 'victorIg3',
+      objectPosition: 'top',
       caption: 'The work asks everything of you. Give it.',
       comments: [],
     },
@@ -190,9 +192,9 @@ export default function S1_03_InstagramBrowse() {
   // Build profiles — Victor only included after trigger fires
   const baseProfiles = {
     connor_s: CONNOR_PROFILE,
-    hudson_w: HUDSON_PROFILE,
     taytay: TAYTAY_PROFILE,
     dogtherapy: DOGTHERAPY_PROFILE,
+    hudson_w: HUDSON_PROFILE,
   };
 
   // When Victor's comment trigger fires, add his comment to Connor's post

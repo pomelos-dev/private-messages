@@ -61,9 +61,10 @@ export function S1_04_HudsonReacts() {
   const goToScreen = useGameStore((s) => s.goToScreen);
   return (
     <ConversationPlayer
-      contact={{ name: 'Hudson', avatar: 'hudsonAvatar' }}
+      contact={{ name: 'Huddy', avatar: 'hudsonAvatar' }}
       script={script}
       onBack={() => goToScreen('S0')}
+      immediateFirst
     />
   );
 }

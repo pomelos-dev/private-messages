@@ -24,7 +24,7 @@ import GameOverPopup from './GameOverPopup';
  *   { type: 'chapter_complete', title, message, retryLabel?, options? }
  *   { type: 'wait_for_back', homeTarget: 'SCREEN_ID' }
  */
-export default function ConversationPlayer({ contact, script, onBack }) {
+export default function ConversationPlayer({ contact, script, onBack, immediateFirst = false }) {
   const goToScreen = useGameStore((s) => s.goToScreen);
   const pushNotification = useGameStore((s) => s.pushNotification);
 
@@ -135,10 +135,13 @@ export default function ConversationPlayer({ contact, script, onBack }) {
     // Message nodes (their or auto) — show with typing delay
     if (node.type === 'their' || node.type === 'auto') {
       processingRef.current = true;
-      setTypingFrom(node.type === 'auto' ? 'self' : 'other');
-      setIsTyping(true);
+      const isFirstMessage = immediateFirst && messages.length === 0;
+      if (!isFirstMessage) {
+        setTypingFrom(node.type === 'auto' ? 'self' : 'other');
+        setIsTyping(true);
+      }
 
-      const delay = node.image ? 2400 : 1600 + Math.random() * 1600;
+      const delay = isFirstMessage ? 0 : (node.image ? 2400 : 1600 + Math.random() * 1600);
 
       setTimeout(() => {
         setIsTyping(false);

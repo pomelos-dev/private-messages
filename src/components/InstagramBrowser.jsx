@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import useGameStore from '../store/gameStore';
 import { getImage } from '../assets/images';
 
@@ -25,6 +25,7 @@ export default function InstagramBrowser({
   const goToScreen = useGameStore((s) => s.goToScreen);
 
   const [profiles, setProfiles] = useState(initialProfiles);
+  const profilesRef = useRef(profiles);
   const [currentUsername, setCurrentUsername] = useState(initialProfile);
   const [viewingPost, setViewingPost] = useState(null); // post object or null
   const [firedTriggers, setFiredTriggers] = useState(new Set());
@@ -33,6 +34,7 @@ export default function InstagramBrowser({
   // Update profiles if parent passes new ones (e.g., adding victorhalberg)
   useEffect(() => {
     setProfiles(initialProfiles);
+    profilesRef.current = initialProfiles;
   }, [initialProfiles]);
 
   const currentProfile = profiles[currentUsername];
@@ -55,9 +57,9 @@ export default function InstagramBrowser({
           target: trigger.notification.target,
           onTap: trigger.postTarget
             ? () => {
-                // Navigate to a specific post on a profile
+                // Use profilesRef so we always get the latest state (avoids stale closure)
                 setCurrentUsername(trigger.postTarget.profile);
-                const targetPost = profiles[trigger.postTarget.profile]?.posts.find(
+                const targetPost = profilesRef.current[trigger.postTarget.profile]?.posts.find(
                   (p) => p.id === trigger.postTarget.postId
                 );
                 if (targetPost) setViewingPost(targetPost);
@@ -151,7 +153,7 @@ export default function InstagramBrowser({
               <img
                 src={getImage(viewingPost.image)}
                 alt=""
-                className="w-full h-full object-cover"
+                className={`w-full h-full object-cover ${viewingPost.objectPosition === 'top' ? 'object-top' : ''}`}
                 onError={(e) => {
                   e.target.className = 'w-full h-full bg-neutral-200 flex items-center justify-center';
                 }}
@@ -308,7 +310,7 @@ export default function InstagramBrowser({
                   <img
                     src={getImage(post.image)}
                     alt=""
-                    className="w-full h-full object-cover"
+                    className={`w-full h-full object-cover ${post.objectPosition === 'top' ? 'object-top' : ''}`}
                     onError={(e) => {
                       e.target.className = 'w-full h-full bg-neutral-200';
                     }}
