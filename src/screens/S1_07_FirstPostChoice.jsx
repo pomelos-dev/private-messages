@@ -241,10 +241,10 @@ export default function S1_07_FirstPostChoice() {
       {showPopup && selectedPost === 'good' && (
         <GameOverPopup
           title="Chapter 1 Complete"
-          message="Hudson got the message. You've unlocked chapter 2."
+          message="Hudson saw your post and feels a bit less lonely. You've unlocked Chapter 2."
           variant="good"
           options={[
-            { text: 'Stay and browse your phone', action: 'close', onClose: () => setEndingStage('browsing') },
+            { text: 'Stay and browse Instagram', action: 'close', onClose: () => setEndingStage('browsing') },
             { text: 'Replay Chapter 1', action: 'S1_01' },
             { text: 'Return to main menu', action: 'S0' },
           ]}
@@ -255,7 +255,7 @@ export default function S1_07_FirstPostChoice() {
       {showPopup && selectedPost === 'bad' && (
         <GameOverPopup
           title="Game Over"
-          message="That was insensitive."
+          message="That was insensitive. Hudson falls quiet and you don't hear from him for weeks."
           variant="bad"
           retryScreen="S1_07"
         />

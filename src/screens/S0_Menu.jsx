@@ -22,7 +22,7 @@ export default function S0_Menu() {
           An Interactive Mobile Story
         </p>
         <p className="animate-fade-in text-neutral-400 text-base italic mb-12 max-w-[280px] leading-relaxed" style={{ animationDelay: '600ms', animationDuration: '1s' }}>
-          In public, they're superstars. In private, their friendship is everything…
+          In public, they're superstars.<br /> In private, their friendship is everything…
         </p>
 
         {/* Chapter list */}

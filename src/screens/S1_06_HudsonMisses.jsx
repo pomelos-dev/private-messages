@@ -23,7 +23,7 @@ const scriptGood = [
 const scriptBad = [
   { type: 'their', from: 'hudson', text: 'I guess. Maybe it\'s just me' },
   { type: 'wait', ms: 2500 },
-  { type: 'gameover', message: 'You made Hudson feel more alone. He doesn\'t bring up his feelings again.', retryScreen: 'S1_06' },
+  { type: 'gameover', animate: 'bad', message: 'You made Hudson feel more alone. He doesn\'t bring up his feelings again.', retryScreen: 'S1_06' },
 ];
 
 // ── Main script ──────────────────────────────────────────────────
@@ -95,6 +95,7 @@ export function S1_06_Bad() {
       contact={{ name: 'Huddy', avatar: 'hudsonAvatar' }}
       script={scriptBad}
       onBack={() => goToScreen('S0')}
+      variant="bad"
     />
   );
 }
