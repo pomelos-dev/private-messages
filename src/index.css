@@ -47,6 +47,17 @@ body {
   animation: fade-in 0.8s ease-out 1s both;
 }
 
+/* Very slow fade for overnight/time-skip transitions */
+@keyframes fade-in-night {
+  0%   { opacity: 0; }
+  50%  { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.animate-fade-in-night {
+  animation: fade-in-night 4s ease-in-out both;
+}
+
 /* Horizontal slide-in for screen transitions (push navigation feel) */
 @keyframes slide-in-right {
   from { transform: translateX(32px); opacity: 0; }

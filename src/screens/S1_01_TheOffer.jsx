@@ -14,7 +14,7 @@ export default function S1_01_TheOffer() {
     const timer = setTimeout(() => {
       pushNotification({
         id: 'n_s1_01',
-        from: 'Hudson',
+        from: 'Huddy',
         avatar: 'hudsonAvatar',
         preview: 'Just wrapped. I\'m beat. Talk tomorrow',
         target: 'S1_02',

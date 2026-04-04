@@ -60,7 +60,7 @@ const script = [
     { text: 'Wouldn\'t miss it.' },
   ]},
 
-  { type: 'transition', text: 'After a good night\'s sleep…', to: 'S1_03' },
+  { type: 'transition', text: 'After a good night\'s sleep…', to: 'S1_03', slow: true },
 ];
 
 export default function S1_02_TellHudson() {

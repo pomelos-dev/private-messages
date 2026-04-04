@@ -34,6 +34,7 @@ export default function ConversationPlayer({ contact, script, onBack }) {
   const [showChoices, setShowChoices] = useState(false);
   const [currentChoices, setCurrentChoices] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
+  const [typingFrom, setTypingFrom] = useState('other'); // 'other' | 'self'
   const [showTransition, setShowTransition] = useState(null); // { text, to }
   const [showGameOver, setShowGameOver] = useState(null);     // { message, retryScreen }
   const [showChapterComplete, setShowChapterComplete] = useState(null);
@@ -67,7 +68,7 @@ export default function ConversationPlayer({ contact, script, onBack }) {
 
     // Transition
     if (node.type === 'transition') {
-      setShowTransition({ text: node.text, to: node.to });
+      setShowTransition({ text: node.text, to: node.to, slow: node.slow || false });
       return;
     }
 
@@ -101,6 +102,9 @@ export default function ConversationPlayer({ contact, script, onBack }) {
     // Pause — show typing indicator for a beat, then continue
     if (node.type === 'pause') {
       processingRef.current = true;
+      // Show indicator on the side of whoever sends the next message
+      const nextNode = script[scriptIndex + 1];
+      setTypingFrom(!nextNode || nextNode.type === 'their' || nextNode.type === 'pause' ? 'other' : 'self');
       setIsTyping(true);
       setTimeout(() => {
         setIsTyping(false);
@@ -131,6 +135,7 @@ export default function ConversationPlayer({ contact, script, onBack }) {
     // Message nodes (their or auto) — show with typing delay
     if (node.type === 'their' || node.type === 'auto') {
       processingRef.current = true;
+      setTypingFrom(node.type === 'auto' ? 'self' : 'other');
       setIsTyping(true);
 
       const delay = node.image ? 2400 : 1600 + Math.random() * 1600;
@@ -200,6 +205,7 @@ export default function ConversationPlayer({ contact, script, onBack }) {
     return (
       <TransitionScreen
         text={showTransition.text}
+        slow={showTransition.slow}
         onTap={() => goToScreen(showTransition.to)}
       />
     );
@@ -286,13 +292,17 @@ export default function ConversationPlayer({ contact, script, onBack }) {
 
         {/* Typing indicator */}
         {isTyping && (
-          <div className="flex justify-start mt-1">
-            <div className="w-8 flex-shrink-0 mr-2" />
-            <div className="bg-neutral-800 rounded-2xl rounded-bl-md px-4 py-3">
+          <div className={`flex mt-1 ${typingFrom === 'self' ? 'justify-end' : 'justify-start'}`}>
+            {typingFrom === 'other' && <div className="w-8 flex-shrink-0 mr-2" />}
+            <div className={`px-4 py-3 rounded-2xl ${
+              typingFrom === 'self'
+                ? 'bg-blue-500 rounded-br-md'
+                : 'bg-neutral-800 rounded-bl-md'
+            }`}>
               <div className="flex gap-1">
-                <span className="w-2 h-2 bg-neutral-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                <span className="w-2 h-2 bg-neutral-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                <span className="w-2 h-2 bg-neutral-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                <span className={`w-2 h-2 rounded-full animate-bounce ${typingFrom === 'self' ? 'bg-blue-200' : 'bg-neutral-500'}`} style={{ animationDelay: '0ms' }} />
+                <span className={`w-2 h-2 rounded-full animate-bounce ${typingFrom === 'self' ? 'bg-blue-200' : 'bg-neutral-500'}`} style={{ animationDelay: '150ms' }} />
+                <span className={`w-2 h-2 rounded-full animate-bounce ${typingFrom === 'self' ? 'bg-blue-200' : 'bg-neutral-500'}`} style={{ animationDelay: '300ms' }} />
               </div>
             </div>
           </div>
