@@ -20,6 +20,7 @@ export default function InstagramBrowser({
   onEvent,
   newPostOptions,
   onNewPost,
+  autoViewPost,   // { profile, postId } — forces browser to open this post
 }) {
   const pushNotification = useGameStore((s) => s.pushNotification);
   const goToScreen = useGameStore((s) => s.goToScreen);
@@ -36,6 +37,18 @@ export default function InstagramBrowser({
     setProfiles(initialProfiles);
     profilesRef.current = initialProfiles;
   }, [initialProfiles]);
+
+  // Navigate to a specific post when parent requests it (e.g., after notification tap)
+  useEffect(() => {
+    if (!autoViewPost) return;
+    const profileData = profilesRef.current[autoViewPost.profile];
+    const post = profileData?.posts.find((p) => p.id === autoViewPost.postId);
+    if (post) {
+      setCurrentUsername(autoViewPost.profile);
+      setViewingPost(post);
+      setShowNewPost(false);
+    }
+  }, [autoViewPost]);
 
   const currentProfile = profiles[currentUsername];
 
@@ -211,7 +224,7 @@ export default function InstagramBrowser({
           <div className="w-5" />
         </div>
 
-        <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4">
+        <div className="flex-1 min-h-0 overflow-y-auto px-4 py-4 space-y-4">
           <p className="text-sm text-neutral-500 text-center">Choose what to post:</p>
           {newPostOptions.map((option, i) => (
             <button
