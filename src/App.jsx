@@ -21,10 +21,10 @@ import S1_07_FirstPostChoice from './screens/S1_07_FirstPostChoice';
  *   3. Add an entry here
  */
 const SCREENS = {
-  'S0':           { component: S0_Menu,             darkMode: true  },
+  'S0':           { component: S0_Menu,             darkMode: true,  time: '11:41' },
   'S1_PHONE_HOME':{ component: S1_PhoneHome,         darkMode: true  },
-  'S1_01':        { component: S1_01_TheOffer,      darkMode: false },
-  'S1_02':        { component: S1_02_TellHudson,    darkMode: true  },
+  'S1_01':        { component: S1_01_TheOffer,      darkMode: false, time: '11:41' },
+  'S1_02':        { component: S1_02_TellHudson,    darkMode: true,  time: '11:41' },
   'S1_03':        { component: S1_03_InstagramBrowse, darkMode: false },
   'S1_04':        { component: S1_04_HudsonReacts,  darkMode: true  },
   'S1_04_GOOD':   { component: S1_04_Good,          darkMode: true  },
@@ -55,7 +55,7 @@ export default function App() {
   const ScreenComponent = screen.component;
 
   return (
-    <PhoneShell darkMode={screen.darkMode}>
+    <PhoneShell darkMode={screen.darkMode} time={screen.time}>
       <div key={currentScreen} className="animate-slide-in-right flex-1 min-h-0 flex flex-col overflow-hidden">
         <ScreenComponent />
       </div>

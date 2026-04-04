@@ -9,16 +9,19 @@ import GameOverPopup from './GameOverPopup';
  * ConversationPlayer — processes a script array and renders an iMessage-style chat.
  *
  * Props:
- *   contact   — { name, avatar (image key) }
- *   script    — array of script nodes (see CLAUDE.md for format)
- *   onBack    — optional callback when back button is tapped
+ *   contact        — { name, avatar (image key) }
+ *   script         — array of script nodes (see CLAUDE.md for format)
+ *   onBack         — optional callback when back button is tapped
+ *   immediateFirst — skip typing delay for the very first message
  *
  * Script node types:
- *   { type: 'their', from: 'hudson', text: '...', image: 'imageKey' }
+ *   { type: 'their', from: 'hudson', text: '...', image: 'imageKey', objectPosition: 'top' }
  *   { type: 'auto', text: '...', image: 'imageKey' }       // Connor auto-send
- *   { type: 'choice', options: [{ text, goto? }] }
+ *   { type: 'choice', options: [{ text, goto?, extend? }] }
+ *   { type: 'pause', ms: 1500 }                            // typing indicator pause
+ *   { type: 'wait', ms: 3000 }                             // silent pause (no indicator)
  *   { type: 'navigate', to: 'SCREEN_ID' }
- *   { type: 'transition', text: '...', to: 'SCREEN_ID' }
+ *   { type: 'transition', text: '...', to: 'SCREEN_ID', slow? }
  *   { type: 'notification', id, from, avatar, preview, target }
  *   { type: 'gameover', message: '...', retryScreen: 'SCREEN_ID' }
  *   { type: 'chapter_complete', title, message, retryLabel?, options? }
@@ -29,16 +32,17 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
   const pushNotification = useGameStore((s) => s.pushNotification);
 
   // ── State ──────────────────────────────────────────────────────
-  const [messages, setMessages] = useState([]);       // rendered messages
-  const [scriptIndex, setScriptIndex] = useState(0);  // current position in script
+  const [activeScript, setActiveScript] = useState(script); // mutable copy for extend
+  const [messages, setMessages] = useState([]);
+  const [scriptIndex, setScriptIndex] = useState(0);
   const [showChoices, setShowChoices] = useState(false);
   const [currentChoices, setCurrentChoices] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
   const [typingFrom, setTypingFrom] = useState('other'); // 'other' | 'self'
-  const [showTransition, setShowTransition] = useState(null); // { text, to }
+  const [showTransition, setShowTransition] = useState(null); // { text, to, slow }
   const [showGameOver, setShowGameOver] = useState(null);     // { message, retryScreen }
   const [showChapterComplete, setShowChapterComplete] = useState(null);
-  const [waitingForBack, setWaitingForBack] = useState(null); // homeTarget string
+  const [waitingForBack, setWaitingForBack] = useState(null);
   const [paused, setPaused] = useState(false);
 
   const scrollRef = useRef(null);
@@ -54,9 +58,9 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
   // ── Script processor ───────────────────────────────────────────
   useEffect(() => {
     if (paused || processingRef.current) return;
-    if (scriptIndex >= script.length) return;
+    if (scriptIndex >= activeScript.length) return;
 
-    const node = script[scriptIndex];
+    const node = activeScript[scriptIndex];
     if (!node) return;
 
     // Choice nodes pause the script
@@ -102,8 +106,7 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
     // Pause — show typing indicator for a beat, then continue
     if (node.type === 'pause') {
       processingRef.current = true;
-      // Show indicator on the side of whoever sends the next message
-      const nextNode = script[scriptIndex + 1];
+      const nextNode = activeScript[scriptIndex + 1];
       setTypingFrom(!nextNode || nextNode.type === 'their' || nextNode.type === 'pause' ? 'other' : 'self');
       setIsTyping(true);
       setTimeout(() => {
@@ -111,6 +114,16 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
         processingRef.current = false;
         setScriptIndex((i) => i + 1);
       }, node.ms || 1500);
+      return;
+    }
+
+    // Wait — silent pause, no typing indicator (used before transitions)
+    if (node.type === 'wait') {
+      processingRef.current = true;
+      setTimeout(() => {
+        processingRef.current = false;
+        setScriptIndex((i) => i + 1);
+      }, node.ms || 1000);
       return;
     }
 
@@ -123,7 +136,6 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
         preview: node.preview,
         target: node.target,
       });
-      // If there's no target, this notification just stays and the script stops
       if (!node.target) {
         setPaused(true);
         return;
@@ -153,6 +165,7 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
             from: node.type === 'auto' ? 'connor' : node.from,
             text: node.text || null,
             image: node.image || null,
+            objectPosition: node.objectPosition || null,
           },
         ]);
         processingRef.current = false;
@@ -160,7 +173,7 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
       }, delay);
       return;
     }
-  }, [scriptIndex, paused]);
+  }, [scriptIndex, paused, activeScript]);
 
   // ── Choice handler ─────────────────────────────────────────────
   const handleChoice = (option) => {
@@ -179,13 +192,18 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
       },
     ]);
 
-    // If this choice branches, navigate after a short beat
+    // Navigate to a different screen
     if (option.goto) {
       setTimeout(() => goToScreen(option.goto), 600);
       return;
     }
 
-    // Pause before the other person "responds" — feels like they're reading
+    // Inline branch: replace remaining script with extend nodes
+    if (option.extend) {
+      setActiveScript((prev) => [...prev.slice(0, scriptIndex + 1), ...option.extend]);
+    }
+
+    // Pause before the other person "responds"
     const responseDelay = 1800 + Math.random() * 1200;
     setPaused(true);
     setTimeout(() => {
@@ -241,7 +259,6 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
       {/* Messages area */}
       <div ref={scrollRef} className="flex-1 min-h-0 overflow-y-auto px-4 py-3 space-y-1">
         {messages.map((msg, i) => {
-          // Determine if we should show the avatar (first msg or different sender from previous)
           const prevMsg = messages[i - 1];
           const showAvatar = !msg.isOwn && (!prevMsg || prevMsg.from !== msg.from || prevMsg.isOwn);
 
@@ -280,11 +297,10 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
                     src={getImage(msg.image)}
                     alt=""
                     className={`rounded-xl object-cover bg-neutral-700 ${
-                      msg.text ? 'mt-1.5 w-full max-h-48' : 'w-48 h-48'
-                    }`}
+                      msg.objectPosition === 'top' ? 'object-top' : ''
+                    } ${msg.text ? 'mt-1.5 w-full max-h-48' : 'w-48 h-48'}`}
                     onError={(e) => {
-                      e.target.className = 'rounded-xl bg-neutral-700 w-48 h-48 flex items-center justify-center';
-                      e.target.alt = '📷 ' + (msg.image || 'Photo');
+                      e.target.className = 'rounded-xl bg-neutral-700 w-48 h-48';
                     }}
                   />
                 )}

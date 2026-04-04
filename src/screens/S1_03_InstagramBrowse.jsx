@@ -34,6 +34,7 @@ const CONNOR_PROFILE = {
     {
       id: 'cs_3',
       image: 'connorIg3',
+      objectPosition: 'top',
       caption: '📍West Hollywood, baby.',
       comments: [
         // Victor's comment appears after trigger 1
