@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react';
 import useGameStore from './store/gameStore';
 import PhoneShell from './components/PhoneShell';
 
@@ -56,10 +57,13 @@ export default function App() {
   const ScreenComponent = screen.component;
 
   return (
-    <PhoneShell darkMode={screen.darkMode} time={screen.time}>
-      <div key={`${currentScreen}_${sessionId}`} className="animate-slide-in-right flex-1 min-h-0 flex flex-col overflow-hidden">
-        <ScreenComponent />
-      </div>
-    </PhoneShell>
+    <>
+      <PhoneShell darkMode={screen.darkMode} time={screen.time}>
+        <div key={`${currentScreen}_${sessionId}`} className="animate-slide-in-right flex-1 min-h-0 flex flex-col overflow-hidden">
+          <ScreenComponent />
+        </div>
+      </PhoneShell>
+      <Analytics />
+    </>
   );
 }
