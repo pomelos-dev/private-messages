@@ -127,7 +127,7 @@ const DOGTHERAPY_PROFILE = {
 
 const VICTOR_PROFILE = {
   username: 'victorhalberg',
-  displayName: 'Victor Halberg',
+  displayName: 'Victor Hallberg',
   avatar: 'victorAvatar',
   isFollowing: false, // player needs to follow him
   posts: [
@@ -225,6 +225,7 @@ export default function S1_03_InstagramBrowse() {
     <InstagramBrowser
       profiles={profiles}
       initialProfile="connor_s"
+      ownUsername="connor_s"
       triggers={triggers}
       onEvent={handleEvent}
     />

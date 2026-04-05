@@ -21,6 +21,7 @@ export default function InstagramBrowser({
   newPostOptions,
   onNewPost,
   autoViewPost,   // { profile, postId } — forces browser to open this post
+  ownUsername,    // the player's own username — shows "Edit Profile" instead of "Following"
 }) {
   const pushNotification = useGameStore((s) => s.pushNotification);
   const goToScreen = useGameStore((s) => s.goToScreen);
@@ -300,7 +301,11 @@ export default function InstagramBrowser({
                 </p>
               )}
               <div className="mt-2">
-                {currentProfile.isFollowing ? (
+                {currentUsername === ownUsername ? (
+                  <span className="inline-block px-4 py-1.5 rounded-lg bg-neutral-100 text-sm font-medium text-neutral-400 border border-neutral-200">
+                    Edit Profile
+                  </span>
+                ) : currentProfile.isFollowing ? (
                   <span className="inline-block px-4 py-1.5 rounded-lg bg-neutral-200 text-sm font-medium text-neutral-600">
                     Following
                   </span>

@@ -37,7 +37,7 @@ export default function S2_04_VictorsInvitation() {
   const goToScreen = useGameStore((s) => s.goToScreen);
   return (
     <ConversationPlayer
-      contact={{ name: 'Victor Halberg', avatar: 'victorAvatar' }}
+      contact={{ name: 'Victor Hallberg', avatar: 'victorAvatar' }}
       script={script}
       onBack={() => goToScreen('S0')}
       immediateFirst

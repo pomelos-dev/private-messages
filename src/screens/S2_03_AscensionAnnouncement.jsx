@@ -40,7 +40,7 @@ export default function S2_03_AscensionAnnouncement() {
       } else {
         pushNotification({
           id: 'n_s2_03_victor',
-          from: 'Victor Halberg',
+          from: 'Victor Hallberg',
           avatar: 'victorAvatar',
           preview: 'I just saw the announcement. You should be proud.',
           target: 'S2_04',
@@ -65,7 +65,7 @@ export default function S2_03_AscensionAnnouncement() {
           {/* Article */}
           <div className="px-5 py-5">
             <h1 className="text-xl font-bold text-black leading-tight mb-4">
-              Connor S. and Victor Halberg Set to Star in Nureyev Biopic &lsquo;Ascension&rsquo;
+              Connor S. and Victor Hallberg Set to Star in Nureyev Biopic &lsquo;Ascension&rsquo;
             </h1>
 
             {/* Headshot images — full-width split */}
@@ -78,7 +78,7 @@ export default function S2_03_AscensionAnnouncement() {
               />
               <img
                 src={getImage('victorAvatar')}
-                alt="Victor Halberg"
+                alt="Victor Hallberg"
                 className="flex-1 h-44 rounded-lg object-cover object-top bg-neutral-200"
                 onError={(e) => { e.target.className = 'flex-1 h-44 rounded-lg bg-neutral-200'; }}
               />
@@ -90,9 +90,9 @@ export default function S2_03_AscensionAnnouncement() {
 
             <div className="space-y-4 text-[0.875rem] text-neutral-800 leading-[1.65]">
               <p>
-                Victor Halberg and Connor S. are set to star in <em>Ascension</em>, the
+                Victor Hallberg and Connor S. are set to star in <em>Ascension</em>, the
                 highly anticipated biopic about legendary ballet dancer Rudolf Nureyev.
-                Halberg will play Erik Bruhn, Nureyev&rsquo;s longtime partner and artistic
+                Hallberg will play Erik Bruhn, Nureyev&rsquo;s longtime partner and artistic
                 collaborator, opposite Connor S.&rsquo;s Nureyev. Filming begins this month in
                 Los Angeles under the direction of acclaimed filmmaker James Okafor.
               </p>
@@ -103,7 +103,7 @@ export default function S2_03_AscensionAnnouncement() {
               </blockquote>
 
               <p>
-                When asked about their collaboration, Halberg added: &ldquo;My instincts as an actor
+                When asked about their collaboration, Hallberg added: &ldquo;My instincts as an actor
                 told me immediately that Connor was Nureyev. There is something deeply
                 alive in the way he inhabits a role. I look forward to exploring
                 that together.&rdquo;

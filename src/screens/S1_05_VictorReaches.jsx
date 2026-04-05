@@ -41,7 +41,7 @@ export default function S1_05_VictorReaches() {
 
   return (
     <ConversationPlayer
-      contact={{ name: 'Victor Halberg', avatar: 'victorAvatar' }}
+      contact={{ name: 'Victor Hallberg', avatar: 'victorAvatar' }}
       script={script}
       onBack={() => goToScreen('S0')}
     />

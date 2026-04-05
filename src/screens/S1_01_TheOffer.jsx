@@ -34,7 +34,7 @@ I know it's late, so I figured I'd let you get your beauty sleep and send you an
 
 You booked Ascension.
 
-Nureyev is yours. It was unanimous. Victor Halberg has also confirmed as Erik Bruhn. We'll talk tomorrow and I'll walk you through the full timeline.
+Nureyev is yours. It was unanimous. Victor Hallberg has also confirmed as Erik Bruhn. We'll talk tomorrow and I'll walk you through the full timeline.
 
 Congrats again. I know how much you wanted this.
 

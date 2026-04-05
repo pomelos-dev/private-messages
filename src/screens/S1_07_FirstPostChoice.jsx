@@ -31,7 +31,7 @@ const postOptions = [
   {
     id: 'good',
     image: 'connorHudsonSunset',
-    caption: 'Written in the stars for a reason ✨',
+    caption: 'He matches my enthusiasm ♒️♓️✨',
   },
 ];
 
@@ -86,11 +86,11 @@ const HUDSON_PROFILE = {
 
 const VICTOR_PROFILE = {
   username: 'victorhalberg',
-  displayName: 'Victor Halberg',
+  displayName: 'Victor Hallberg',
   avatar: 'victorAvatar',
   isFollowing: true,
   posts: [
-    { id: 'vh_1', image: 'victorIg1', caption: 'Some artistic partnerships are impossible to define. That\'s what makes them worth exploring. Honored to play Bruhn opposite @connor_s\'s Nureyev.', comments: [] },
+    { id: 'vh_1', image: 'victorIg1', caption: 'Erik Bruhn and Rudolf Nureyev were mirrors, shadows, and something harder to name. I can already tell this film will ask the same of us. Honored to be working opposite @connor_s on Ascension.', comments: [] },
     { id: 'vh_2', image: 'victorIg2', caption: 'Stockholm in the summer.', comments: [] },
     { id: 'vh_3', image: 'victorIg3', objectPosition: 'top', caption: 'The work asks everything of you. Give it.', comments: [] },
   ],
@@ -153,7 +153,7 @@ export default function S1_07_FirstPostChoice() {
           {
             id: 'cs_new',
             image: 'connorHudsonSunset',
-            caption: 'Written in the stars for a reason ✨',
+            caption: 'He matches my enthusiasm ♒️♓️✨',
             comments: [{ username: 'hudson_w', text: '❤️❤️❤️' }],
           },
           ...connorProfile.posts,
@@ -191,6 +191,7 @@ export default function S1_07_FirstPostChoice() {
       <InstagramBrowser
         profiles={profiles}
         initialProfile="connor_s"
+        ownUsername="connor_s"
         triggers={[]}
         newPostOptions={selectedPost ? null : postOptions}
         onNewPost={handlePostRequest}

@@ -63,7 +63,7 @@ const CONNOR_PROFILE = {
   avatar: 'connorAvatar',
   isFollowing: true,
   posts: [
-    { id: 'cs_0', image: 'connorHudsonSunset', caption: 'Written in the stars for a reason \u2728', comments: [{ username: 'hudson_w', text: '\u2764\uFE0F\u2764\uFE0F\u2764\uFE0F' }] },
+    { id: 'cs_0', image: 'connorHudsonSunset', caption: 'He matches my enthusiasm ♒️♓️✨', comments: [{ username: 'hudson_w', text: '\u2764\uFE0F\u2764\uFE0F\u2764\uFE0F' }] },
     { id: 'cs_1', image: 'connorIg1', caption: 'Early morning espresso. Worth it.', comments: [] },
     { id: 'cs_2', image: 'connorIg2', caption: 'Should I learn ballet next?', comments: [] },
     { id: 'cs_3', image: 'connorIg3', objectPosition: 'top', caption: '\uD83D\uDCCDWest Hollywood, baby.', comments: [{ username: 'victorhalberg', text: 'You are so special' }] },
@@ -108,11 +108,11 @@ const HUDSON_PROFILE = {
 
 const VICTOR_PROFILE = {
   username: 'victorhalberg',
-  displayName: 'Victor Halberg',
+  displayName: 'Victor Hallberg',
   avatar: 'victorAvatar',
   isFollowing: true,
   posts: [
-    { id: 'vh_1', image: 'victorIg1', caption: 'Some artistic partnerships are impossible to define. That\'s what makes them worth exploring. Honored to play Bruhn opposite @connor_s\'s Nureyev.', comments: [] },
+    { id: 'vh_1', image: 'victorIg1', caption: 'Erik Bruhn and Rudolf Nureyev were mirrors, shadows, and something harder to name. I can already tell this film will ask the same of us. Honored to be working opposite @connor_s on Ascension.', comments: [] },
     { id: 'vh_2', image: 'victorIg2', caption: 'Stockholm in the summer.', comments: [] },
     { id: 'vh_3', image: 'victorIg3', objectPosition: 'top', caption: 'The work asks everything of you. Give it.', comments: [] },
   ],
@@ -158,6 +158,7 @@ export default function S2_05_Spotted() {
     <InstagramBrowser
       profiles={profilesOrdered}
       initialProfile="hudsonw_updates"
+      ownUsername="connor_s"
       triggers={TRIGGERS}
     />
   );
