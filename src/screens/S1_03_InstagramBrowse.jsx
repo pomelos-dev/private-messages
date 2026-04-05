@@ -126,7 +126,7 @@ const DOGTHERAPY_PROFILE = {
 };
 
 const VICTOR_PROFILE = {
-  username: 'victorhalberg',
+  username: 'victorhallberg',
   displayName: 'Victor Hallberg',
   avatar: 'victorAvatar',
   isFollowing: false, // player needs to follow him
@@ -162,7 +162,7 @@ const triggers = [
     profile: 'hudson_w',
     action: 'notification',
     notification: {
-      from: 'victorhalberg',
+      from: 'victorhallberg',
       avatar: 'victorAvatar',
       preview: 'You are so special',
       target: null, // handled by onTap below
@@ -173,7 +173,7 @@ const triggers = [
   {
     id: 'hudson_message',
     when: 'follow',
-    profile: 'victorhalberg',
+    profile: 'victorhallberg',
     action: 'notification',
     notification: {
       from: 'Huddy',
@@ -207,11 +207,11 @@ export default function S1_03_InstagramBrowse() {
           ...CONNOR_PROFILE,
           posts: CONNOR_PROFILE.posts.map((post) =>
             post.id === 'cs_3'
-              ? { ...post, comments: [{ username: 'victorhalberg', text: 'You are so special' }] }
+              ? { ...post, comments: [{ username: 'victorhallberg', text: 'You are so special' }] }
               : post
           ),
         },
-        victorhalberg: VICTOR_PROFILE,
+        victorhallberg: VICTOR_PROFILE,
       }
     : baseProfiles;
 

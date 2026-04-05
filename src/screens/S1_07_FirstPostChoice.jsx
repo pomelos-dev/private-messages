@@ -26,7 +26,7 @@ const postOptions = [
   {
     id: 'bad',
     image: 'connorTableRead',
-    caption: 'First read with the Ascension cast today! I look forward to getting to know you better, too @victorhalberg 🔥',
+    caption: 'First read with the Ascension cast today! I look forward to getting to know you better, too @victorhallberg 🔥',
   },
   {
     id: 'good',
@@ -44,7 +44,7 @@ const baseConnorProfile = {
   posts: [
     { id: 'cs_1', image: 'connorIg1', caption: 'Early morning espresso. Worth it.', comments: [] },
     { id: 'cs_2', image: 'connorIg2', caption: 'Should I learn ballet next?', comments: [] },
-    { id: 'cs_3', image: 'connorIg3', objectPosition: 'top', caption: '📍West Hollywood, baby.', comments: [{ username: 'victorhalberg', text: 'You are so special' }] },
+    { id: 'cs_3', image: 'connorIg3', objectPosition: 'top', caption: '📍West Hollywood, baby.', comments: [{ username: 'victorhallberg', text: 'You are so special' }] },
   ],
 };
 
@@ -85,7 +85,7 @@ const HUDSON_PROFILE = {
 };
 
 const VICTOR_PROFILE = {
-  username: 'victorhalberg',
+  username: 'victorhallberg',
   displayName: 'Victor Hallberg',
   avatar: 'victorAvatar',
   isFollowing: true,
@@ -129,7 +129,7 @@ export default function S1_07_FirstPostChoice() {
 
     pushNotification({
       id: `n_s1_07_${option.id}`,
-      from: isGood ? 'hudson_w' : 'victorhalberg',
+      from: isGood ? 'hudson_w' : 'victorhallberg',
       avatar: isGood ? 'hudsonAvatar' : 'victorAvatar',
       preview: isGood ? '❤️❤️❤️' : 'My Rudolf 🔥',
       target: null,
@@ -166,8 +166,8 @@ export default function S1_07_FirstPostChoice() {
           {
             id: 'cs_new',
             image: 'connorTableRead',
-            caption: 'First read with the Ascension cast today! I look forward to getting to know you better, too @victorhalberg 🔥',
-            comments: [{ username: 'victorhalberg', text: 'My Rudolf 🔥' }],
+            caption: 'First read with the Ascension cast today! I look forward to getting to know you better, too @victorhallberg 🔥',
+            comments: [{ username: 'victorhallberg', text: 'My Rudolf 🔥' }],
           },
           ...connorProfile.posts,
         ],
@@ -179,7 +179,7 @@ export default function S1_07_FirstPostChoice() {
       taytay: TAYTAY_PROFILE,
       dogtherapy: DOGTHERAPY_PROFILE,
       hudson_w: HUDSON_PROFILE,
-      victorhalberg: VICTOR_PROFILE,
+      victorhallberg: VICTOR_PROFILE,
     };
   }, [selectedPost]);
 

@@ -33,7 +33,7 @@ export default function InstagramBrowser({
   const [firedTriggers, setFiredTriggers] = useState(new Set());
   const [showNewPost, setShowNewPost] = useState(false);
 
-  // Update profiles if parent passes new ones (e.g., adding victorhalberg)
+  // Update profiles if parent passes new ones (e.g., adding victorhallberg)
   useEffect(() => {
     setProfiles(initialProfiles);
     profilesRef.current = initialProfiles;

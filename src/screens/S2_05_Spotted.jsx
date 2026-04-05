@@ -66,7 +66,7 @@ const CONNOR_PROFILE = {
     { id: 'cs_0', image: 'connorHudsonSunset', caption: 'He matches my enthusiasm ♒️♓️✨', comments: [{ username: 'hudson_w', text: '\u2764\uFE0F\u2764\uFE0F\u2764\uFE0F' }] },
     { id: 'cs_1', image: 'connorIg1', caption: 'Early morning espresso. Worth it.', comments: [] },
     { id: 'cs_2', image: 'connorIg2', caption: 'Should I learn ballet next?', comments: [] },
-    { id: 'cs_3', image: 'connorIg3', objectPosition: 'top', caption: '\uD83D\uDCCDWest Hollywood, baby.', comments: [{ username: 'victorhalberg', text: 'You are so special' }] },
+    { id: 'cs_3', image: 'connorIg3', objectPosition: 'top', caption: '\uD83D\uDCCDWest Hollywood, baby.', comments: [{ username: 'victorhallberg', text: 'You are so special' }] },
   ],
 };
 
@@ -107,7 +107,7 @@ const HUDSON_PROFILE = {
 };
 
 const VICTOR_PROFILE = {
-  username: 'victorhalberg',
+  username: 'victorhallberg',
   displayName: 'Victor Hallberg',
   avatar: 'victorAvatar',
   isFollowing: true,
@@ -141,7 +141,7 @@ export default function S2_05_Spotted() {
     taytay: TAYTAY_PROFILE,
     dogtherapy: DOGTHERAPY_PROFILE,
     hudson_w: HUDSON_PROFILE,
-    victorhalberg: VICTOR_PROFILE,
+    victorhallberg: VICTOR_PROFILE,
   }), []);
 
   // Move hudsonw_updates to the end of the profile navigation bar
@@ -150,7 +150,7 @@ export default function S2_05_Spotted() {
     taytay: TAYTAY_PROFILE,
     dogtherapy: DOGTHERAPY_PROFILE,
     hudson_w: HUDSON_PROFILE,
-    victorhalberg: VICTOR_PROFILE,
+    victorhallberg: VICTOR_PROFILE,
     hudsonw_updates: profiles.hudsonw_updates,
   }), [profiles]);
 
