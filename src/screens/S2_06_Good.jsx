@@ -7,7 +7,7 @@ import useGameStore from '../store/gameStore';
  */
 
 const script = [
-  { type: 'auto', text: 'Okay, getting in the car now.' },
+  { type: 'auto', text: 'OK, getting in the car now.' },
 
   { type: 'their', from: 'hudson', text: '\u2764\uFE0F' },
 

@@ -24,17 +24,9 @@ const EMAIL_BODY = `Connor,
 
 We're finalizing the official feature on Ascension for Deadline tomorrow morning. They want a quote from you about the role and working with Victor.
 
-Here are a few options we've drafted. Pick whichever feels right:
+Here are a few options we've drafted. Pick whichever feels right:`;
 
-  A) ${QUOTES.A}
-
-  B) ${QUOTES.B}
-
-  C) ${QUOTES.C}
-
-  D) ${QUOTES.D}
-
-Let me know which direction by 5pm.
+const EMAIL_FOOTER = `Let me know which direction by 5pm.
 
 Best,
 Sarah`;
@@ -74,7 +66,23 @@ export default function S2_02_AscensionQuote() {
         from={{ name: 'Sarah Chen', avatar: 'sarahChenAvatar' }}
         subject="Deadline feature: Quote needed by EOD"
         body={EMAIL_BODY}
-      />
+      >
+        {/* Styled quote option cards */}
+        <div className="space-y-2 mt-1 mb-4">
+          {Object.entries(QUOTES).map(([letter, text]) => (
+            <div key={letter} className="rounded-xl border border-neutral-200 bg-neutral-50 px-3 py-2.5">
+              <p className="text-xs font-semibold text-neutral-400 uppercase tracking-wide mb-1">Option {letter}</p>
+              <p className="text-sm text-neutral-800 leading-relaxed italic">{text}</p>
+            </div>
+          ))}
+        </div>
+        {/* Footer */}
+        <div>
+          {EMAIL_FOOTER.split('\n').map((line, i) => (
+            <p key={i} className={`text-sm text-neutral-800 leading-relaxed ${line === '' ? 'h-3' : ''}`}>{line}</p>
+          ))}
+        </div>
+      </EmailViewer>
 
       {/* Choice buttons */}
       {phase === 'reading' && (

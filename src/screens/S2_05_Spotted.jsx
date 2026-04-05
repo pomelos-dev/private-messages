@@ -22,7 +22,7 @@ const HUDSON_UPDATES_PROFILE = {
     {
       id: 'hwu_1',
       image: 'hudsonAirport',
-      caption: 'GUYS. someone just sent us this from Vancouver airport this morning \uD83D\uDC40',
+      caption: 'GUYS. someone just sent us this from Vancouver airport this morning \uD83D\uDC40 (if you saw me tag his soulmate earlier, no i didn\'t)',
       comments: [
         { username: 'ilyad0wnbad', text: 'WAIT WAIT WAIT' },
         { username: 'berthardy', text: 'he looks so good omg the hat' },

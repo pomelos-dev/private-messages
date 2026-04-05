@@ -46,7 +46,7 @@ export default function S2_03_AscensionAnnouncement() {
           target: 'S2_04',
         });
       }
-    }, 3000);
+    }, 1500);
 
     return () => clearTimeout(timer);
   }, [shared]);
@@ -88,7 +88,7 @@ export default function S2_03_AscensionAnnouncement() {
               Production begins this month in Los Angeles
             </p>
 
-            <div className="space-y-3 text-sm text-neutral-800 leading-relaxed">
+            <div className="space-y-4 text-[0.875rem] text-neutral-800 leading-[1.65]">
               <p>
                 Victor Halberg and Connor S. are set to star in <em>Ascension</em>, the
                 highly anticipated biopic about legendary ballet dancer Rudolf Nureyev.
@@ -97,7 +97,10 @@ export default function S2_03_AscensionAnnouncement() {
                 Los Angeles under the direction of acclaimed filmmaker James Okafor.
               </p>
 
-              <p>{QUOTES[quoteLetter]}</p>
+              {/* Player's chosen quote — styled as a pull-quote */}
+              <blockquote className="border-l-4 border-neutral-300 pl-3 py-0.5 text-neutral-600 italic">
+                {QUOTES[quoteLetter]}
+              </blockquote>
 
               <p>
                 When asked about their collaboration, Halberg added: &ldquo;My instincts as an actor
@@ -142,7 +145,7 @@ export default function S2_03_AscensionAnnouncement() {
 
       {showGameOver && (
         <GameOverPopup
-          message="Hudson saw the announcement. Something shifts."
+          message="Hudson read your quote. Something shifts."
           retryScreen="S2_02"
           restartScreen="S2_01"
           restartLabel="Restart Chapter 2"

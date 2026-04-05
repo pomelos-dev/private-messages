@@ -10,7 +10,7 @@ import { getImage } from '../assets/images';
  *   body        — email body text (plain text with \n for line breaks)
  *   onScrollEnd — optional callback fired once when user scrolls to bottom
  */
-export default function EmailViewer({ from, subject, body, onScrollEnd }) {
+export default function EmailViewer({ from, subject, body, children, onScrollEnd }) {
   const firedRef = useRef(false);
 
   const handleScroll = useCallback((e) => {
@@ -65,6 +65,11 @@ export default function EmailViewer({ from, subject, body, onScrollEnd }) {
             </p>
           ))}
         </div>
+
+        {/* Optional rich content (e.g. styled option cards) */}
+        {children && (
+          <div className="px-5 pb-5">{children}</div>
+        )}
       </div>
     </div>
   );

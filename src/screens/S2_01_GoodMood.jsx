@@ -32,7 +32,7 @@ const script = [
 
   { type: 'choice', options: [
     { text: 'You seem weird today.' },
-    { text: 'Okay, what\'s going on with you?' },
+    { text: 'OK, what\'s going on with you?' },
     { text: 'You\'re deflecting again.' },
   ]},
 

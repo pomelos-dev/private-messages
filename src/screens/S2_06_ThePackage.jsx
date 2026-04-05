@@ -27,7 +27,7 @@ const script = [
     { text: 'I have dinner plans actually.' },
   ]},
 
-  { type: 'their', from: 'hudson', text: 'Okay so don\'t freak out' },
+  { type: 'their', from: 'hudson', text: 'OK so don\'t freak out' },
   { type: 'their', from: 'hudson', text: 'But there\'s a package being delivered to your place' },
   { type: 'their', from: 'hudson', text: 'It needs a signature and they\'re arriving around 7' },
   { type: 'their', from: 'hudson', text: 'Can you get home by then?' },
@@ -39,7 +39,7 @@ const script = [
   ]},
 
   { type: 'their', from: 'hudson', text: 'You\'ll like what it is' },
-  { type: 'their', from: 'hudson', text: 'Just trust me okay' },
+  { type: 'their', from: 'hudson', text: 'Just trust me' },
   { type: 'their', from: 'hudson', text: 'Please?' },
   { type: 'their', from: 'hudson', image: 'hudsonBegging' },
 
