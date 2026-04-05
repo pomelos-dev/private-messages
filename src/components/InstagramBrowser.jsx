@@ -294,6 +294,11 @@ export default function InstagramBrowser({
               {currentProfile.displayName && (
                 <p className="text-sm text-neutral-500">{currentProfile.displayName}</p>
               )}
+              {currentProfile.followers && (
+                <p className="text-xs text-neutral-500 mt-0.5">
+                  <span className="font-semibold text-black">{currentProfile.followers}</span> followers
+                </p>
+              )}
               <div className="mt-2">
                 {currentProfile.isFollowing ? (
                   <span className="inline-block px-4 py-1.5 rounded-lg bg-neutral-200 text-sm font-medium text-neutral-600">
@@ -310,6 +315,9 @@ export default function InstagramBrowser({
               </div>
             </div>
           </div>
+          {currentProfile.bio && (
+            <p className="text-xs text-black mt-3 leading-relaxed">{currentProfile.bio}</p>
+          )}
         </div>
 
         {/* Posts grid */}

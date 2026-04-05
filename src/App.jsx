@@ -14,6 +14,19 @@ import S1_PhoneHome from './screens/S1_PhoneHome';
 import S1_07_Home from './screens/S1_07_Home';
 import S1_07_FirstPostChoice from './screens/S1_07_FirstPostChoice';
 
+// ── Chapter 2 screens ───────────────────────────────────────────
+import S2_01_GoodMood from './screens/S2_01_GoodMood';
+import S2_02_AscensionQuote from './screens/S2_02_AscensionQuote';
+import S2_03_AscensionAnnouncement from './screens/S2_03_AscensionAnnouncement';
+import S2_04_VictorsInvitation from './screens/S2_04_VictorsInvitation';
+import S2_05_Spotted from './screens/S2_05_Spotted';
+import S2_06_ThePackage from './screens/S2_06_ThePackage';
+import S2_06_Good from './screens/S2_06_Good';
+import S2_07_Arrival from './screens/S2_07_Arrival';
+import S2_08_PRReminder from './screens/S2_08_PRReminder';
+import S2_09_WestHollywood from './screens/S2_09_WestHollywood';
+import S2_10_TheChoice from './screens/S2_10_TheChoice';
+
 /**
  * Screen registry: maps screen IDs to { component, darkMode }.
  * To add a new screen:
@@ -36,6 +49,19 @@ const SCREENS = {
   'S1_06_BAD':    { component: S1_06_Bad,           darkMode: true,  time: '6:18' },
   'S1_07_HOME':   { component: S1_07_Home,          darkMode: true,  time: '6:18' },
   'S1_07':        { component: S1_07_FirstPostChoice, darkMode: false, time: '6:18' },
+
+  // ── Chapter 2 ─────────────────────────────────────────────────
+  'S2_01':        { component: S2_01_GoodMood,          darkMode: true,  time: '8:38' },
+  'S2_02':        { component: S2_02_AscensionQuote,    darkMode: false, time: '2:21' },
+  'S2_03':        { component: S2_03_AscensionAnnouncement, darkMode: false, time: '10:14' },
+  'S2_04':        { component: S2_04_VictorsInvitation, darkMode: true,  time: '10:14' },
+  'S2_05':        { component: S2_05_Spotted,           darkMode: false, time: '10:14' },
+  'S2_06':        { component: S2_06_ThePackage,        darkMode: true,  time: '10:14' },
+  'S2_06_GOOD':   { component: S2_06_Good,              darkMode: true,  time: '6:29' },
+  'S2_07':        { component: S2_07_Arrival,           darkMode: true,  time: '6:50' },
+  'S2_08':        { component: S2_08_PRReminder,        darkMode: false, time: '5:21' },
+  'S2_09':        { component: S2_09_WestHollywood,     darkMode: true,  time: '5:21' },
+  'S2_10':        { component: S2_10_TheChoice,         darkMode: true,  time: '5:21', transition: 'slow_fade' },
 };
 
 export default function App() {
@@ -59,7 +85,7 @@ export default function App() {
   return (
     <>
       <PhoneShell darkMode={screen.darkMode} time={screen.time}>
-        <div key={`${currentScreen}_${sessionId}`} className="animate-slide-in-right flex-1 min-h-0 flex flex-col overflow-hidden">
+        <div key={`${currentScreen}_${sessionId}`} className={`${screen.transition === 'slow_fade' ? 'animate-fade-in-slow' : screen.transition === 'fade' ? 'animate-fade-in' : 'animate-slide-in-right'} flex-1 min-h-0 flex flex-col overflow-hidden`}>
           <ScreenComponent />
         </div>
       </PhoneShell>

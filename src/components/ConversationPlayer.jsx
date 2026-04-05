@@ -41,7 +41,8 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
   const [isTyping, setIsTyping] = useState(false);
   const [typingFrom, setTypingFrom] = useState('other'); // 'other' | 'self'
   const [showTransition, setShowTransition] = useState(null); // { text, to, slow }
-  const [fadingToBlack, setFadingToBlack] = useState(false);  // true while fading before transition
+  const [fadingToBlack, setFadingToBlack] = useState(false);      // true while fading before transition
+  const [fadingToBlackSlow, setFadingToBlackSlow] = useState(false); // slower cinematic fade
   const [showGameOver, setShowGameOver] = useState(null);     // { message, retryScreen }
   const [showEndingAnimation, setShowEndingAnimation] = useState(null); // 'bad' | 'good' | null
   const [pendingGameOver, setPendingGameOver] = useState(null);
@@ -80,7 +81,7 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
       setFadingToBlack(true);
       setTimeout(() => {
         setFadingToBlack(false);
-        setShowTransition({ text: node.text, to: node.to, slow: node.slow || false });
+        setShowTransition({ text: node.text, to: node.to, slow: node.slow || false, image: node.image, imageClass: node.imageClass });
         processingRef.current = false;
       }, 500);
       return;
@@ -92,12 +93,36 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
       return;
     }
 
+    // Fade-to-black then navigate immediately (no interstitial tap screen)
+    if (node.type === 'fade_navigate') {
+      processingRef.current = true;
+      setFadingToBlack(true);
+      setTimeout(() => {
+        goToScreen(node.to);
+        processingRef.current = false;
+      }, 600);
+      return;
+    }
+
+    // Slow cinematic fade-to-black then navigate (used for S2_09 → S2_10)
+    if (node.type === 'slow_fade_navigate') {
+      processingRef.current = true;
+      setFadingToBlackSlow(true);
+      setTimeout(() => {
+        goToScreen(node.to);
+        processingRef.current = false;
+      }, 1400);
+      return;
+    }
+
     // Game over — optionally play ending animation first
     if (node.type === 'gameover') {
       const gameOverData = {
         message: node.message,
         retryScreen: node.retryScreen,
         variant: node.animate || 'default',
+        restartScreen: node.restartScreen,
+        restartLabel: node.restartLabel,
       };
       if (node.animate) {
         setPendingGameOver(gameOverData);
@@ -255,6 +280,8 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
     return (
       <TransitionScreen
         text={showTransition.text}
+        image={showTransition.image}
+        imageClass={showTransition.imageClass}
         slow={showTransition.slow}
         onTap={() => goToScreen(showTransition.to)}
       />
@@ -363,8 +390,8 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
       )}
 
       {/* Fade to black overlay (fires before transitions) */}
-      {fadingToBlack && (
-        <div className="absolute inset-0 bg-black animate-fade-to-black z-30 pointer-events-none" />
+      {(fadingToBlack || fadingToBlackSlow) && (
+        <div className={`absolute inset-0 bg-black ${fadingToBlackSlow ? 'animate-fade-to-black-slow' : 'animate-fade-to-black'} z-30 pointer-events-none`} />
       )}
 
       {/* Ending animation overlay (fires before gameover with animate flag) */}
@@ -378,6 +405,8 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
           message={showGameOver.message}
           retryScreen={showGameOver.retryScreen}
           variant={showGameOver.variant}
+          restartScreen={showGameOver.restartScreen}
+          restartLabel={showGameOver.restartLabel}
         />
       )}
 

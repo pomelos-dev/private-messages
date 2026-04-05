@@ -16,13 +16,15 @@ export default function GameOverPopup({
   retryScreen,
   options,
   variant = 'default',
+  restartScreen = 'S1_01',
+  restartLabel = 'Restart Chapter 1',
 }) {
   const goToScreen = useGameStore((s) => s.goToScreen);
 
   // Default buttons for game over
   const defaultOptions = [
     retryScreen && { text: 'Try a different response', action: retryScreen },
-    { text: 'Restart Chapter 1', action: 'S1_01' },
+    { text: restartLabel, action: restartScreen },
     { text: 'Return to main menu', action: 'S0' },
   ].filter(Boolean);
 

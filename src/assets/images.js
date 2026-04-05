@@ -10,6 +10,8 @@ const base = '/assets/';
 export const IMAGES = {
   // Profile avatars
   connorAvatar:       `${base}connor-avatar.jpg`,
+  sarahChenAvatar:    `${base}sarah-chen-avatar.jpg`,
+  hudsonwUpdatesAvatar:`${base}hudsonwupdates-avatar.jpg`,
   hudsonAvatar:       `${base}hudson-avatar.jpg`,
   victorAvatar:       `${base}victor-avatar.jpg`,
   nickAvatar:         `${base}nick-avatar.jpg`,
@@ -26,6 +28,19 @@ export const IMAGES = {
   connorBlushing:     `${base}connor-blushing.jpg`,
   connorHudsonSunset: `${base}connor-hudson-sunset.jpg`,
   connorTableRead:    `${base}connor-table-read.jpg`,
+
+  // Chapter 2 story photos
+  goodMorning:              `${base}good-morning.jpg`,
+  secretiveOrKnowingMeme:   `${base}secretive-meme.jpg`,
+  connorHeadshot:           `${base}connor-headshot.jpg`,
+  hudsonAirport:            `${base}hudson-airport.jpeg`,
+  hudsonRedCarpet:          `${base}hudson-red-carpet.jpg`,
+  hudsonBTS:                `${base}hudson-bts.jpg`,
+  hudsonBegging:            `${base}hudson-begging.jpg`,
+  connorHudsonHug:          `${base}hudcon-hug.jpg`,
+  hudsonFacingCamera:       `${base}hudson-facing-camera.jpg`,
+  hudsonConnorWestHollywood:`${base}hudcon-west-hollywood.jpeg`,
+  hudsonConnorApartment:    `${base}hudcon-apartment.jpg`,
 
   // Instagram post images
   connorIg1:          `${base}connor-ig-1.jpg`,

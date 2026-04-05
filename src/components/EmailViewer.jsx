@@ -1,14 +1,27 @@
+import { useRef, useCallback } from 'react';
 import { getImage } from '../assets/images';
 
 /**
  * EmailViewer — displays an email in clean email-client style.
  *
  * Props:
- *   from    — { name, avatar (image key) }
- *   subject — email subject line
- *   body    — email body text (plain text with \n for line breaks)
+ *   from        — { name, avatar (image key) }
+ *   subject     — email subject line
+ *   body        — email body text (plain text with \n for line breaks)
+ *   onScrollEnd — optional callback fired once when user scrolls to bottom
  */
-export default function EmailViewer({ from, subject, body }) {
+export default function EmailViewer({ from, subject, body, onScrollEnd }) {
+  const firedRef = useRef(false);
+
+  const handleScroll = useCallback((e) => {
+    if (!onScrollEnd || firedRef.current) return;
+    const el = e.target;
+    if (el.scrollTop + el.clientHeight >= el.scrollHeight - 20) {
+      firedRef.current = true;
+      onScrollEnd();
+    }
+  }, [onScrollEnd]);
+
   return (
     <div className="flex-1 min-h-0 flex flex-col bg-white text-black">
       {/* Inbox nav bar */}
@@ -26,7 +39,7 @@ export default function EmailViewer({ from, subject, body }) {
       </div>
 
       {/* Scrollable email content */}
-      <div className="flex-1 min-h-0 overflow-y-auto animate-fade-in" style={{ animationDuration: '0.9s' }}>
+      <div className="flex-1 min-h-0 overflow-y-auto animate-fade-in" onScroll={handleScroll} style={{ animationDuration: '0.9s' }}>
         {/* Sender + subject */}
         <div className="border-b border-neutral-200 px-5 py-4">
           <div className="flex items-center gap-3 mb-3">

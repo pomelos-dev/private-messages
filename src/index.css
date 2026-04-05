@@ -113,6 +113,30 @@ body {
   animation: fade-to-black 0.5s ease-in forwards;
 }
 
+.animate-fade-to-black-slow {
+  animation: fade-to-black 1.2s ease-in forwards;
+}
+
+/* Opacity-only fade in for cinematic screen entries (no translateY drift) */
+@keyframes fade-in-opacity {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.animate-fade-in-slow {
+  animation: fade-in-opacity 1.5s ease-in-out both;
+}
+
+/* Slide-up from bottom (Sarah reply card, sheets) */
+@keyframes slide-up {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 /* ── Scrollbar styling ──────────────────────────────────────────── */
 ::-webkit-scrollbar {
   width: 0;
