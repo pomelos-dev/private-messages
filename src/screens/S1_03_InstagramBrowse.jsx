@@ -134,7 +134,7 @@ const VICTOR_PROFILE = {
     {
       id: 'vh_1',
       image: 'victorIg1',
-      caption: 'Some artistic partnerships are impossible to define. That\'s what makes them worth exploring. Honored to play Bruhn opposite @connor_s\'s Nureyev.',
+      caption: 'Erik Bruhn and Rudolf Nureyev were mirrors, shadows, and something harder to name. I can already tell this film will ask the same of us. Honored to be working opposite @connor_s on Ascension.',
       comments: [],
     },
     {

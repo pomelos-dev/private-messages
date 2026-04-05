@@ -345,7 +345,7 @@ export default function InstagramBrowser({
         {/* Profile navigation bar — other profiles */}
         <div className="border-t border-neutral-200 px-4 py-3">
           <p className="text-xs text-neutral-400 mb-2">Profiles</p>
-          <div className="flex gap-3 overflow-x-auto pb-1 pt-1">
+          <div className="flex gap-3 overflow-x-auto pb-1 pt-1 pl-1">
             {Object.entries(profiles).map(([username, profile]) => (
               <button
                 key={username}
