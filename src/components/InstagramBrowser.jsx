@@ -338,6 +338,7 @@ export default function InstagramBrowser({
                   <img
                     src={getImage(post.image)}
                     alt=""
+                    loading="lazy"
                     className={`w-full h-full object-cover ${post.objectPosition === 'top' ? 'object-top' : ''}`}
                     onError={(e) => {
                       e.target.className = 'w-full h-full bg-neutral-200';
@@ -370,6 +371,7 @@ export default function InstagramBrowser({
                 <img
                   src={getImage(profile.avatar)}
                   alt=""
+                  loading="lazy"
                   className={`w-12 h-12 rounded-full object-cover bg-neutral-200 ${
                     username === currentUsername ? 'ring-2 ring-blue-500 ring-offset-1' : ''
                   }`}
