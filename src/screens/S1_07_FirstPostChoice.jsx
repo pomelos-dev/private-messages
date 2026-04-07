@@ -18,7 +18,7 @@ import EndingAnimation from '../components/EndingAnimation';
  *   5. 2.5s pause on the post
  *   6. Ending animation plays (fireworks or sad)
  *   7. Final popup appears
- *   8. "Stay and browse" dismisses popup — player can freely explore
+ *   8. "Continue to Chapter 2" navigates to S2_01
  */
 
 // ── Post options (Ascension first, Hudson second) ─────────────────
@@ -245,7 +245,7 @@ export default function S1_07_FirstPostChoice() {
           message="Hudson saw your post and feels a bit less lonely. You've unlocked Chapter 2."
           variant="good"
           options={[
-            { text: 'Stay and browse Instagram', action: 'close', onClose: () => setEndingStage('browsing') },
+            { text: 'Continue to Chapter 2', action: 'S2_01' },
             { text: 'Replay Chapter 1', action: 'S1_01' },
             { text: 'Return to main menu', action: 'S0' },
           ]}
