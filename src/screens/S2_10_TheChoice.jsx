@@ -16,7 +16,7 @@ import EndingAnimation from '../components/EndingAnimation';
  */
 
 // Full-bleed image view used for both ending transitions
-function FullBleedTransition({ imageKey, onTap }) {
+function FullBleedTransition({ imageKey, onTap, slow = false }) {
   return (
     <button
       onClick={onTap}
@@ -27,7 +27,7 @@ function FullBleedTransition({ imageKey, onTap }) {
         src={getImage(imageKey)}
         alt=""
         className="absolute inset-0 w-full h-full object-cover animate-fade-in"
-        style={{ animationDuration: '1s' }}
+        style={{ animationDuration: slow ? '3s' : '1s' }}
         onError={(e) => { e.target.className = 'absolute inset-0 w-full h-full bg-neutral-900'; }}
       />
       <div className="absolute bottom-8 left-0 right-0 text-center z-10">
@@ -87,6 +87,7 @@ export default function S2_10_TheChoice() {
       <FullBleedTransition
         imageKey="hudsonConnorWestHollywood"
         onTap={() => setPhase('animation_good')}
+        slow
       />
     );
   }

@@ -294,8 +294,8 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
       {/* Header bar — iPhone Messages style */}
       <div className="flex-shrink-0 relative flex items-center px-4 py-2 border-b border-neutral-800">
         <button
-          onClick={handleBack}
-          className="absolute left-2 text-blue-400 text-sm font-medium p-1 active:opacity-60"
+          onClick={waitingForBack ? handleBack : undefined}
+          className={`absolute left-2 text-blue-400 text-sm font-medium p-1 ${waitingForBack ? 'active:opacity-60' : 'pointer-events-none'}`}
           aria-label="Back"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">

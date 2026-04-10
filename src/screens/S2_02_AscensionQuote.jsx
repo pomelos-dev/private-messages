@@ -93,7 +93,7 @@ export default function S2_02_AscensionQuote() {
               onClick={() => handleQuoteChoice(letter)}
               className="w-full px-4 py-2.5 rounded-2xl border border-blue-400 bg-blue-50 text-blue-700 text-sm text-left active:bg-blue-100 active:scale-[0.98] transition-all"
             >
-              Go with Option {letter}
+              Go with Option {letter} 🙌
             </button>
           ))}
         </div>

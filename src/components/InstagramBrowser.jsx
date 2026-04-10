@@ -265,6 +265,11 @@ export default function InstagramBrowser({
     <div className="flex-1 min-h-0 flex flex-col bg-white">
       {/* Instagram header */}
       <div className="flex-shrink-0 flex items-center justify-between px-4 py-3 border-b border-neutral-200">
+        <span className="pointer-events-none text-black">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+        </span>
         <span className="font-bold text-lg text-black tracking-tight">Instagram</span>
         {newPostOptions && (
           <button
