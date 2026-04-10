@@ -7,7 +7,7 @@ export default function S0_Menu() {
   const goToScreen = useGameStore((s) => s.goToScreen);
 
   return (
-    <div className="flex-1 flex flex-col items-center justify-between bg-black px-8 py-10 text-center">
+    <div className="flex-1 flex flex-col items-center justify-between bg-black px-8 py-8 text-center">
 
       {/* Main content — vertically centered */}
       <div className="flex-1 flex flex-col items-center justify-center w-full">
@@ -53,28 +53,45 @@ export default function S0_Menu() {
         </div>
       </div>
 
-      {/* Footer credits */}
-      <div className="animate-fade-in text-neutral-600 text-xs space-y-1" style={{ animationDelay: '1200ms', animationDuration: '1s' }}>
-        <p>made by</p>
-        <div className="flex items-center justify-center gap-3">
-          <a
-            href="https://archiveofourown.org/users/pomelos/works"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-neutral-400 hover:text-white transition-colors underline underline-offset-2"
-          >
-            @pomelos
-          </a>
-          <span className="text-neutral-700">·</span>
-          <a
-            href="https://x.com/pomelos_writes"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-neutral-400 hover:text-white transition-colors underline underline-offset-2"
-          >
-            𝕏 @pomelos_writes
-          </a>
+      {/* Footer credits + Ko-fi */}
+      <div className="animate-fade-in flex flex-col items-center gap-3" style={{ animationDelay: '1200ms', animationDuration: '1s' }}>
+        <div className="text-neutral-600 text-xs space-y-1">
+          <p>created by</p>
+          <div className="flex items-center justify-center gap-3">
+            <a
+              href="https://archiveofourown.org/users/pomelos/works"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-neutral-400 hover:text-white transition-colors underline underline-offset-2"
+            >
+              @pomelos
+            </a>
+            <span className="text-neutral-700">·</span>
+            <a
+              href="https://x.com/pomelos_writes"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-neutral-400 hover:text-white transition-colors underline underline-offset-2"
+            >
+              𝕏 @pomelos_writes
+            </a>
+          </div>
         </div>
+        <a
+          href="https://ko-fi.com/pomelos"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-semibold active:opacity-80 transition-opacity"
+          style={{ backgroundColor: '#262626', color: '#ffffff' }}
+        >
+          <img
+            src="https://storage.ko-fi.com/cdn/cup-border.png"
+            alt=""
+            className="w-5 h-5"
+            loading="lazy"
+          />
+          Support Me
+        </a>
       </div>
 
     </div>
