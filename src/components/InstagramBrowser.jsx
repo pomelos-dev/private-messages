@@ -33,6 +33,12 @@ export default function InstagramBrowser({
   const [firedTriggers, setFiredTriggers] = useState(new Set());
   const [showNewPost, setShowNewPost] = useState(false);
 
+  // Reset scroll to top whenever the view changes
+  const scrollRef = useRef(null);
+  useEffect(() => {
+    if (scrollRef.current) scrollRef.current.scrollTop = 0;
+  }, [viewingPost, currentUsername, showNewPost]);
+
   // Update profiles if parent passes new ones (e.g., adding victorhallberg)
   useEffect(() => {
     setProfiles(initialProfiles);
@@ -147,7 +153,7 @@ export default function InstagramBrowser({
           <span className="font-semibold text-sm text-black">Post</span>
         </div>
 
-        <div className="flex-1 overflow-y-auto">
+        <div ref={scrollRef} className="flex-1 overflow-y-auto">
           {/* Post author */}
           <div className="flex items-center gap-2 px-4 py-3">
             <img
@@ -227,7 +233,7 @@ export default function InstagramBrowser({
           <div className="w-5" />
         </div>
 
-        <div className="flex-1 min-h-0 overflow-y-auto px-6 py-4 space-y-5">
+        <div ref={scrollRef} className="flex-1 min-h-0 overflow-y-auto px-6 py-4 space-y-5">
           <p className="text-sm text-neutral-500 text-center">Choose what to post:</p>
           {newPostOptions.map((option, i) => (
             <button
@@ -283,7 +289,7 @@ export default function InstagramBrowser({
         )}
       </div>
 
-      <div className="flex-1 overflow-y-auto">
+      <div ref={scrollRef} className="flex-1 overflow-y-auto">
         {/* Profile header */}
         <div className="px-4 py-4">
           <div className="flex items-center gap-4">
