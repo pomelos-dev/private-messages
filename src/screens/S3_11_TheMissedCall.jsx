@@ -20,6 +20,7 @@ const VOICEMAIL_OPTIONS = [
 export default function S3_11_TheMissedCall() {
   const goToScreen = useGameStore((s) => s.goToScreen);
   const [phase, setPhase] = useState(0); // 0=recents, 1=calling, 2=voicemail
+  const [selectedVoicemail, setSelectedVoicemail] = useState(null);
 
   // Advance from calling (phase 1) to voicemail (phase 2) after 2.5s
   useEffect(() => {
@@ -86,10 +87,20 @@ export default function S3_11_TheMissedCall() {
           {VOICEMAIL_OPTIONS.map((opt, i) => (
             <button
               key={i}
-              onClick={() => setTimeout(() => goToScreen('S3_12'), 2000)}
-              className="w-full py-4 rounded-2xl bg-neutral-800 border border-neutral-700 text-white text-sm font-medium active:bg-neutral-700 active:scale-[0.98] transition-all"
+              disabled={selectedVoicemail !== null}
+              onClick={() => {
+                setSelectedVoicemail(i);
+                setTimeout(() => goToScreen('S3_12'), 2000);
+              }}
+              className={`w-full py-4 rounded-2xl text-sm font-medium transition-all ${
+                selectedVoicemail === i
+                  ? 'bg-blue-600 border border-blue-500 text-white scale-[0.98]'
+                  : selectedVoicemail !== null
+                  ? 'bg-neutral-800 border border-neutral-700 text-neutral-500 opacity-40'
+                  : 'bg-neutral-800 border border-neutral-700 text-white active:bg-neutral-700 active:scale-[0.98]'
+              }`}
             >
-              {opt.text}
+              {selectedVoicemail === i ? 'Sending...' : opt.text}
             </button>
           ))}
         </div>

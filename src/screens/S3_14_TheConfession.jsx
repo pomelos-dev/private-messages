@@ -132,7 +132,7 @@ const script = [
   { type: 'their', from: 'hudson', text: 'I promise I\'m not going anywhere' },
 
   { type: 'choice', options: [
-    { text: 'I\'m in love with you. I think I have been for a long time.', extend: scriptRomanticBold },
+    { text: 'Hudson... I\'m in love with you. I think I have been for a long time.', extend: scriptRomanticBold },
     { text: 'You\'re my person, Huddy. That\'s the only way I know how to say it.', extend: scriptRomanticSoft },
     { text: 'You\'re my best friend. The best I\'ve ever had. That\'s what I want this to be.', extend: scriptWarm },
   ]},

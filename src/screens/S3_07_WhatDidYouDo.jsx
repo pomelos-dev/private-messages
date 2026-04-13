@@ -77,9 +77,8 @@ const scriptA_bad = [
 ];
 
 const scriptA_ok = [
-  { type: 'their', from: 'hudson', text: 'Yeah' },
-  { type: 'their', from: 'hudson', text: 'I think I just needed to hear that' },
-  ...closingOk,
+  { type: 'their', from: 'hudson', text: 'OK' },
+  ...closingOk.slice(1),
 ];
 
 const scriptA = [

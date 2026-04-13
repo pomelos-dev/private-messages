@@ -244,7 +244,7 @@ export default function S3_09_SixMonths() {
 
   return (
     <div className="flex-1 min-h-0 flex flex-col bg-white">
-      <div className="flex-1 min-h-0">
+      <div className="flex-1 min-h-0 flex flex-col">
         <InstagramBrowser
           profiles={profiles}
           initialProfile="connor_s"

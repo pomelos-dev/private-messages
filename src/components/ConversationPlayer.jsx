@@ -28,13 +28,13 @@ import EndingAnimation from './EndingAnimation';
  *   { type: 'chapter_complete', title, message, retryLabel?, options? }
  *   { type: 'wait_for_back', homeTarget: 'SCREEN_ID' }
  */
-export default function ConversationPlayer({ contact, script, onBack, immediateFirst = false, bgClass = 'bg-black' }) {
+export default function ConversationPlayer({ contact, script, onBack, immediateFirst = false, bgClass = 'bg-black', initialMessages = [] }) {
   const goToScreen = useGameStore((s) => s.goToScreen);
   const pushNotification = useGameStore((s) => s.pushNotification);
 
   // ── State ──────────────────────────────────────────────────────
   const [activeScript, setActiveScript] = useState(script); // mutable copy for extend
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState(initialMessages);
   const [scriptIndex, setScriptIndex] = useState(0);
   const [showChoices, setShowChoices] = useState(false);
   const [currentChoices, setCurrentChoices] = useState([]);
@@ -327,8 +327,17 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
       {/* Messages area */}
       <div ref={scrollRef} className="flex-1 min-h-0 overflow-y-auto px-4 py-3 space-y-1">
         {messages.map((msg, i) => {
+          // Separator (time label)
+          if (msg.type === 'separator') {
+            return (
+              <div key={msg.id} className="flex justify-center my-4">
+                <span className="text-neutral-500 text-xs px-3 py-1 rounded-full bg-neutral-800/60">{msg.text}</span>
+              </div>
+            );
+          }
+
           const prevMsg = messages[i - 1];
-          const showAvatar = !msg.isOwn && (!prevMsg || prevMsg.from !== msg.from || prevMsg.isOwn);
+          const showAvatar = !msg.isOwn && (!prevMsg || prevMsg.from !== msg.from || prevMsg.isOwn || prevMsg.type === 'separator');
 
           return (
             <div
