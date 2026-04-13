@@ -28,7 +28,7 @@ import EndingAnimation from './EndingAnimation';
  *   { type: 'chapter_complete', title, message, retryLabel?, options? }
  *   { type: 'wait_for_back', homeTarget: 'SCREEN_ID' }
  */
-export default function ConversationPlayer({ contact, script, onBack, immediateFirst = false }) {
+export default function ConversationPlayer({ contact, script, onBack, immediateFirst = false, bgClass = 'bg-black' }) {
   const goToScreen = useGameStore((s) => s.goToScreen);
   const pushNotification = useGameStore((s) => s.pushNotification);
 
@@ -47,6 +47,7 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
   const [showEndingAnimation, setShowEndingAnimation] = useState(null); // 'bad' | 'good' | null
   const [pendingGameOver, setPendingGameOver] = useState(null);
   const [showChapterComplete, setShowChapterComplete] = useState(null);
+  const [pendingChapterComplete, setPendingChapterComplete] = useState(null);
   const [waitingForBack, setWaitingForBack] = useState(null);
   const [paused, setPaused] = useState(false);
 
@@ -83,7 +84,7 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
         setFadingToBlack(false);
         setShowTransition({ text: node.text, to: node.to, slow: node.slow || false, image: node.image, imageClass: node.imageClass });
         processingRef.current = false;
-      }, 500);
+      }, 900);
       return;
     }
 
@@ -100,7 +101,7 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
       setTimeout(() => {
         goToScreen(node.to);
         processingRef.current = false;
-      }, 600);
+      }, 1000);
       return;
     }
 
@@ -133,12 +134,20 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
       return;
     }
 
-    // Chapter complete
+    // Chapter complete — wait 3s, then play good ending animation, then show popup
     if (node.type === 'chapter_complete') {
-      setShowChapterComplete({
-        title: node.title || 'Chapter 1 Complete',
+      const chapterData = {
+        title: node.title || 'Chapter Complete',
+        subtitle: node.subtitle,
         message: node.message,
-      });
+        options: node.options,
+      };
+      processingRef.current = true;
+      setTimeout(() => {
+        setPendingChapterComplete(chapterData);
+        setShowEndingAnimation('good');
+        processingRef.current = false;
+      }, 3000);
       return;
     }
 
@@ -266,12 +275,15 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
     }
   };
 
-  // ── Ending animation done (gameover with animate) ──────────────
+  // ── Ending animation done (gameover with animate, or chapter complete) ──
   const handleEndingAnimationDone = () => {
     setShowEndingAnimation(null);
     if (pendingGameOver) {
       setShowGameOver(pendingGameOver);
       setPendingGameOver(null);
+    } else if (pendingChapterComplete) {
+      setShowChapterComplete(pendingChapterComplete);
+      setPendingChapterComplete(null);
     }
   };
 
@@ -290,7 +302,7 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
 
   // ── Render ─────────────────────────────────────────────────────
   return (
-    <div className="flex-1 min-h-0 flex flex-col bg-black">
+    <div className={`flex-1 min-h-0 flex flex-col ${bgClass}`}>
       {/* Header bar — iPhone Messages style */}
       <div className="flex-shrink-0 relative flex items-center px-4 py-2 border-b border-neutral-800">
         <button
@@ -414,10 +426,13 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
       {showChapterComplete && (
         <GameOverPopup
           title={showChapterComplete.title}
+          subtitle={showChapterComplete.subtitle}
           message={showChapterComplete.message}
-          options={[
-            { text: 'Stay and browse your phone', action: 'close', onClose: () => setShowChapterComplete(null) },
-            { text: 'Replay Chapter 1', action: 'S1_01' },
+          variant="good"
+          options={showChapterComplete.options || [
+            { text: 'Try a different ending', action: 'S3_14' },
+            { text: 'Try a different PR strategy', action: 'S3_05' },
+            { text: 'Try a different project', action: 'S3_10' },
             { text: 'Return to main menu', action: 'S0' },
           ]}
         />

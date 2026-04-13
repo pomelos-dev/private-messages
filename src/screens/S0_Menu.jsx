@@ -45,11 +45,14 @@ export default function S0_Menu() {
             <p className="text-blue-100 text-xs">What Friends Do</p>
           </button>
 
-          {/* Chapter 3 — locked */}
-          <div className="w-full px-5 py-4 rounded-2xl bg-neutral-900 border border-neutral-800 text-left opacity-50">
-            <p className="font-semibold text-sm text-neutral-400">Chapter 3</p>
-            <p className="text-neutral-600 text-xs">The Real Us · Coming soon</p>
-          </div>
+          {/* Chapter 3 — active */}
+          <button
+            onClick={() => goToScreen('S3_00')}
+            className="w-full px-5 py-4 rounded-2xl bg-blue-500 text-white text-left active:bg-blue-600 active:scale-[0.98] transition-all"
+          >
+            <p className="font-semibold text-sm">Chapter 3</p>
+            <p className="text-blue-100 text-xs">The Real Us</p>
+          </button>
         </div>
       </div>
 
