@@ -25,17 +25,6 @@ export default function InstagramBrowser({
 }) {
   const pushNotification = useGameStore((s) => s.pushNotification);
   const goToScreen = useGameStore((s) => s.goToScreen);
-  const notificationCount = useGameStore((s) => s.notifications.length);
-
-  // When a notification arrives, close any sub-view so the banner
-  // lands on the profile page where it can be tapped (not obscuring back buttons)
-  useEffect(() => {
-    if (notificationCount > 0) {
-      setViewingPost(null);
-      setShowNewPost(false);
-    }
-  }, [notificationCount]);
-
   const [profiles, setProfiles] = useState(initialProfiles);
   const profilesRef = useRef(profiles);
   const [currentUsername, setCurrentUsername] = useState(initialProfile);
