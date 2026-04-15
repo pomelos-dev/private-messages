@@ -15,9 +15,8 @@ const script = [
     { text: 'I\'m a bit overwhelmed...' },
   ]},
 
-  { type: 'their', from: 'victor', text: 'I\'ll leave strategic discussions to our teams.' },
   { type: 'their', from: 'victor', text: 'I wanted to check in on you.' },
-  { type: 'their', from: 'victor', text: 'You seemed lighter yesterday, at rehearsal.' },
+  { type: 'their', from: 'victor', text: 'You seemed lighter yesterday, after you heard from your friend.' },
   { type: 'their', from: 'victor', text: 'But now the weight of the world has followed you home.' },
 
   { type: 'choice', options: [
@@ -26,7 +25,7 @@ const script = [
     { text: 'Any wisdom to share?' },
   ]},
 
-  { type: 'their', from: 'victor', text: 'Never deny the full depth of your emotions, even if they bring pain.' },
+  { type: 'their', from: 'victor', text: 'Never deny the full depth of your emotions, even if they are hard to live with.' },
   { type: 'their', from: 'victor', text: 'Can I tell you something?' },
 
   { type: 'choice', options: [
@@ -35,9 +34,9 @@ const script = [
   ]},
 
   { type: 'their', from: 'victor', text: 'When I was your age, I made a decision to keep something private.' },
-  { type: 'their', from: 'victor', text: 'Not because I was ashamed of it.' },
-  { type: 'their', from: 'victor', text: 'Because I was afraid that it would somehow stop belonging to me.' },
-  { type: 'their', from: 'victor', text: 'The world is very good at taking things that are yours and making them into something you no longer recognize.' },
+  { type: 'their', from: 'victor', text: 'It wasn\'t anything shameful.' },
+  { type: 'their', from: 'victor', text: 'But I was terrified that it would somehow stop belonging to me.' },
+  { type: 'their', from: 'victor', text: 'The world is very good at making things that are precious into something you no longer recognize.' },
 
   { type: 'choice', options: [
     { text: 'I think I already know what that feels like.' },

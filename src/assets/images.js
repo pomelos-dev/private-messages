@@ -83,6 +83,7 @@ export const IMAGES = {
   connorSeductive:    `${base}connor-come-hither.jpg`,
   epilogueFriends:    `${base}epilogue-friends.jpeg`,
   faneSad:            `${base}fane-sad.jpg`,
+  hudconSleeping:     `${base}hudcon-sleeping.jpg`,
 };
 
 /**
