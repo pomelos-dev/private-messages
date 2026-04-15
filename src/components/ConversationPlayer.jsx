@@ -45,6 +45,7 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
   const [fadingToBlack, setFadingToBlack] = useState(false);            // true while fading before transition
   const [fadingToBlackSlow, setFadingToBlackSlow] = useState(false);   // slower cinematic fade
   const [fadingToBlackVerySlow, setFadingToBlackVerySlow] = useState(false); // very slow (before image transitions)
+  const [fadingBetweenTransitions, setFadingBetweenTransitions] = useState(false); // fade between chained transitions
   const [showGameOver, setShowGameOver] = useState(null);     // { message, retryScreen }
   const [showEndingAnimation, setShowEndingAnimation] = useState(null); // 'bad' | 'good' | null
   const [pendingGameOver, setPendingGameOver] = useState(null);
@@ -81,7 +82,7 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
     // Transition — fade to black first, then show transition screen
     if (node.type === 'transition') {
       processingRef.current = true;
-      const transitionData = { text: node.text, to: node.to, slow: node.slow || false, image: node.image, imageClass: node.imageClass, fullscreen: node.fullscreen || false, next: node.next };
+      const transitionData = { text: node.text, to: node.to, slow: node.slow || false, image: node.image, imageClass: node.imageClass, fullscreen: node.fullscreen || false, quote: node.quote, speaker: node.speaker, next: node.next };
       if (node.slow) {
         // Very slow fade for cinematic image transitions
         setFadingToBlackVerySlow(true);
@@ -316,20 +317,38 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
   // ── Transition screen ──────────────────────────────────────────
   if (showTransition) {
     return (
-      <TransitionScreen
-        text={showTransition.text}
-        image={showTransition.image}
-        imageClass={showTransition.imageClass}
-        fullscreen={showTransition.fullscreen}
-        slow={showTransition.slow}
-        onTap={() => {
-          if (showTransition.next) {
-            setShowTransition(showTransition.next);
-          } else {
-            goToScreen(showTransition.to);
-          }
-        }}
-      />
+      <div className="flex-1 relative flex flex-col">
+        <TransitionScreen
+          text={showTransition.text}
+          image={showTransition.image}
+          imageClass={showTransition.imageClass}
+          fullscreen={showTransition.fullscreen}
+          slow={showTransition.slow}
+          quote={showTransition.quote}
+          speaker={showTransition.speaker}
+          onTap={() => {
+            if (showTransition.next) {
+              const next = showTransition.next;
+              if (next.slow) {
+                // Slow fade to black before revealing the next transition screen
+                setFadingBetweenTransitions(true);
+                setTimeout(() => {
+                  setFadingBetweenTransitions(false);
+                  setShowTransition(next);
+                }, 2800);
+              } else {
+                setShowTransition(next);
+              }
+            } else {
+              goToScreen(showTransition.to);
+            }
+          }}
+        />
+        {/* Fade overlay between chained transitions */}
+        {fadingBetweenTransitions && (
+          <div className="absolute inset-0 bg-black animate-fade-to-black-very-slow z-50 pointer-events-none" />
+        )}
+      </div>
     );
   }
 

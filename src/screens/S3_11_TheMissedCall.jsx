@@ -102,7 +102,7 @@ export default function S3_11_TheMissedCall() {
                   : 'bg-neutral-800 border border-neutral-700 text-white active:bg-neutral-700 active:scale-[0.98]'
               }`}
             >
-              {selectedVoicemail === i ? 'Sending...' : opt.text}
+              {selectedVoicemail === i ? 'Recording...' : opt.text}
             </button>
           ))}
         </div>
@@ -118,7 +118,7 @@ export default function S3_11_TheMissedCall() {
   return (
     <RecentCallsViewer
       contact={{ name: 'Huddy', avatar: 'hudsonAvatar' }}
-      missedAt="11:45 AM"
+      missedAt="11:51 AM"
       onCallBack={handleCallBack}
       onText={handleText}
     />

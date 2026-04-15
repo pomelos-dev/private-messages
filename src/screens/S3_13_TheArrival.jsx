@@ -18,19 +18,26 @@ export default function S3_13_TheArrival() {
 
   const handleImageTap = () => {
     setPhase('fading');
-    setTimeout(() => goToScreen('S3_14'), 1400);
+    setTimeout(() => goToScreen('S3_14'), 2700);
   };
 
   if (phase === 'image' || phase === 'fading') {
     return (
       <div className="flex-1 relative bg-black overflow-hidden">
-        {/* Sleeping image — slow fade in from black */}
+        {/* Sleeping image — very slow fade in from black */}
         <img
           src={getImage('hudconSleeping')}
           alt=""
-          className="absolute inset-0 w-full h-full object-cover animate-fade-in-slow"
+          className="absolute inset-0 w-full h-full object-cover animate-fade-in-very-slow"
           onError={(e) => { e.target.style.display = 'none'; }}
         />
+
+        {/* Caption overlay */}
+        {phase === 'image' && (
+          <div className="absolute bottom-24 left-0 right-0 px-8 text-center animate-fade-in-delayed pointer-events-none z-10">
+            <p className="text-white/80 text-sm italic">Reunited at last...</p>
+          </div>
+        )}
 
         {/* Tap target — only active during image phase */}
         {phase === 'image' && (
@@ -49,7 +56,7 @@ export default function S3_13_TheArrival() {
 
         {/* Fade to black overlay on tap */}
         {phase === 'fading' && (
-          <div className="absolute inset-0 bg-black animate-fade-to-black-slow z-20 pointer-events-none" />
+          <div className="absolute inset-0 bg-black animate-fade-to-black-very-slow z-20 pointer-events-none" />
         )}
       </div>
     );

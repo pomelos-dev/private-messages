@@ -18,7 +18,7 @@ const goodFarewell = [
   { type: 'their', from: 'hudson', text: 'You too, Con Con.' },
   { type: 'their', from: 'hudson', text: '❤️' },
   { type: 'wait', ms: 2500 },
-  { type: 'transition', image: 'faneSad', slow: true, fullscreen: true,
+  { type: 'transition', image: 'faneSad', slow: true, fullscreen: true, speaker: 'Hudson', quote: 'I have to go now.',
     next: { text: 'Six months later…', to: 'S3_08', slow: true } },
 ];
 
@@ -29,7 +29,7 @@ const okFarewell = [
   { type: 'their', from: 'hudson', text: 'You too, Con Con.' },
   { type: 'their', from: 'hudson', text: '❤️' },
   { type: 'wait', ms: 2500 },
-  { type: 'transition', image: 'faneSad', slow: true, fullscreen: true,
+  { type: 'transition', image: 'faneSad', slow: true, fullscreen: true, speaker: 'Hudson', quote: 'I have to go now.',
     next: { text: 'Six months later…', to: 'S3_08', slow: true } },
 ];
 

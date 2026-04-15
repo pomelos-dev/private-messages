@@ -47,7 +47,7 @@ body {
   animation: fade-in 0.8s ease-out 1s both;
 }
 
-/* Very slow fade for overnight/time-skip transitions */
+/* Very slow fade for overnight/time-skip transitions (kept for legacy use) */
 @keyframes fade-in-night {
   0%   { opacity: 0; }
   50%  { opacity: 0; }
@@ -56,6 +56,11 @@ body {
 
 .animate-fade-in-night {
   animation: fade-in-night 4s ease-in-out both;
+}
+
+/* Slow text on transition screens — delays 3s then fades in over 1s */
+.animate-fade-in-delayed-slow {
+  animation: fade-in 1s ease-out 3s both;
 }
 
 /* Horizontal slide-in for screen transitions (push navigation feel) */
@@ -129,6 +134,15 @@ body {
 
 .animate-fade-in-slow {
   animation: fade-in-opacity 1.5s ease-in-out both;
+}
+
+.animate-fade-in-very-slow {
+  animation: fade-in-opacity 2.5s ease-in-out both;
+}
+
+/* Very delayed fade in — used for "tap to continue" after slow text (appears after 3s+1s text) */
+.animate-fade-in-very-delayed {
+  animation: fade-in 0.8s ease-out 4.3s both;
 }
 
 /* Slide-up from bottom (Sarah reply card, sheets) */

@@ -59,7 +59,7 @@ export default function GameOverPopup({
         {subtitle && (
           <p className="text-blue-400 text-sm font-semibold mb-2">{subtitle}</p>
         )}
-        <p className="text-neutral-400 text-sm mb-6">{message}</p>
+        <p className="text-neutral-400 text-sm mb-6 whitespace-pre-line">{message}</p>
 
         <div className="flex flex-col gap-2">
           {buttons.map((btn, i) => (
