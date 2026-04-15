@@ -23,7 +23,7 @@ const SPAM_NOTIFICATIONS = [
   { id: 'spam_5', type: 'ig',                                      text: 'ohmyhollander tagged you in a post',   dismissAfter: 900  },
   { id: 'spam_6', type: 'ig',                                      text: 'hudconstrong tagged you in a post',    dismissAfter: 700  },
   { id: 'spam_7', type: 'messages', avatar: 'nickAvatar',          from: 'Nick', preview: 'Please check your emails', dismissAfter: 2400 },
-  { id: 'spam_8', type: 'messages', avatar: 'nickAvatar',          from: 'Nick', preview: 'It\'s urgent',         dismissAfter: 500  },
+  { id: 'spam_8', type: 'messages', avatar: 'nickAvatar',          from: 'Nick', preview: 'It\'s urgent',         dismissAfter: 1800 },
 ];
 
 // ── Instagram gradient icon ────────────────────────────────────────
@@ -208,7 +208,7 @@ export default function S3_03_TheArticle() {
               <span className="text-2xl">📈</span>
               <div>
                 <p className="text-white text-sm font-bold">65,000+ likes</p>
-                <p className="text-neutral-400 text-xs">@hudcon_down's "six years of evidence" thread on X</p>
+                <p className="text-neutral-400 text-xs">@hudcon_down's "six years of evidence that Hudcon is real" thread on X</p>
               </div>
             </div>
 

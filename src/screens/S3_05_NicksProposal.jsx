@@ -55,7 +55,7 @@ export default function S3_05_NicksProposal() {
     setFlag('ch3_strategy', opt.flag);
     setChosen(opt);
     setShowReply(true);
-    // If distraction: Victor's tag notification appears straight away on the email
+    // If distraction: Victor's tag notification fires after a delay — user taps it to navigate
     if (opt.flag === 'distraction') {
       setTimeout(() => {
         pushNotification({
@@ -65,12 +65,14 @@ export default function S3_05_NicksProposal() {
           preview: 'victorhallberg tagged you in a photo.',
           target: 'S3_06_B',
         });
-      }, 600);
+      }, 3000);
     }
   };
 
   useEffect(() => {
     if (!showReply || !chosen) return;
+    // Distraction path: notification handles navigation — don't auto-advance
+    if (chosen.flag === 'distraction') return;
     const t = setTimeout(() => goToScreen(chosen.next), 4000);
     return () => clearTimeout(t);
   }, [showReply]);

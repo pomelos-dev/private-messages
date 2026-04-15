@@ -249,7 +249,7 @@ export default function InstagramBrowser({
                   >
                     {comment.username}
                   </button>
-                  {comment.text}
+                  {renderCaption(comment.text)}
                 </p>
               ))}
             </div>

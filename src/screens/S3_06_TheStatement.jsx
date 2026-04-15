@@ -43,7 +43,7 @@ export default function S3_06_TheStatement() {
 
           {/* Headline */}
           <h1 className="text-xl font-bold text-black leading-tight mb-1" style={{ fontFamily: 'Georgia, serif' }}>
-            Hudson W. Confirms Split from Keira K.; Connor S. Says He Was "Just There as a Friend"
+            Hudson W. Confirms Split from Keira K.; Connor S. Says "I Was Just There as a Friend"
           </h1>
 
           {/* Byline */}
@@ -79,7 +79,7 @@ export default function S3_06_TheStatement() {
           {/* Pull quote */}
           <div className="border-t-4 border-red-600 pt-3 pb-3 mb-3">
             <p className="text-base font-bold text-black leading-snug italic" style={{ fontFamily: 'Georgia, serif' }}>
-              "Connor was just there for Hudson as a friend. <em>Nothing more.</em>"
+              "I was just there for Hudson as a friend. <em>Nothing more.</em>"
             </p>
             <p className="text-xs text-neutral-500 mt-1">— Connor S., via representative</p>
           </div>

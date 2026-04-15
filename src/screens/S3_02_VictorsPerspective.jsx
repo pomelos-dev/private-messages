@@ -21,8 +21,9 @@ const script = [
   { type: 'their', from: 'victor', text: 'But now the weight of the world has followed you home.' },
 
   { type: 'choice', options: [
-    { text: 'I felt so happy yesterday!' },
-    { text: 'Any wisdom to share? I\'ll take it.' },
+    { text: 'I wasn\'t expecting this.' },
+    { text: 'Things seemed so simple yesterday.' },
+    { text: 'Any wisdom to share?' },
   ]},
 
   { type: 'their', from: 'victor', text: 'Never deny the full depth of your emotions, even if they bring pain.' },
