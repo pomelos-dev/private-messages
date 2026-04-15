@@ -18,7 +18,7 @@ const goodFarewell = [
   { type: 'their', from: 'hudson', text: 'You too, Con Con.' },
   { type: 'their', from: 'hudson', text: '❤️' },
   { type: 'wait', ms: 2500 },
-  { type: 'transition', image: 'faneSad', slow: true,
+  { type: 'transition', image: 'faneSad', slow: true, fullscreen: true,
     next: { text: 'Six months later…', to: 'S3_08', slow: true } },
 ];
 
@@ -28,7 +28,7 @@ const okFarewell = [
   { type: 'their', from: 'hudson', text: 'You too, Con Con.' },
   { type: 'their', from: 'hudson', text: '❤️' },
   { type: 'wait', ms: 2500 },
-  { type: 'transition', image: 'faneSad', slow: true,
+  { type: 'transition', image: 'faneSad', slow: true, fullscreen: true,
     next: { text: 'Six months later…', to: 'S3_08', slow: true } },
 ];
 
@@ -131,8 +131,9 @@ const scriptB_good = [
     { text: 'Go quiet how?' },
   ]},
   { type: 'their', from: 'hudson', text: 'I\'m going to fly home tonight' },
-  { type: 'their', from: 'hudson', text: 'And I think we should try not to talk for a while too' },
-  { type: 'their', from: 'hudson', text: 'You\'ve got Ascension to focus on' },
+  { type: 'their', from: 'hudson', text: 'And I think I need to not talk to you for a while, too' },
+  { type: 'their', from: 'hudson', text: 'I can\'t think clearly otherwise' },
+  { type: 'their', from: 'hudson', text: 'And you\'ve got Ascension to focus on' },
   { type: 'their', from: 'hudson', text: 'I don\'t want to be another thing you\'re managing right now' },
   { type: 'choice', options: [
     { text: 'Are you sure?' },
@@ -204,8 +205,9 @@ const scriptC_good = [
     { text: 'Go quiet how?' },
   ]},
   { type: 'their', from: 'hudson', text: 'I\'m going to fly home tonight' },
-  { type: 'their', from: 'hudson', text: 'And I think we should try not to talk for a while too' },
-  { type: 'their', from: 'hudson', text: 'You\'ve got Ascension to focus on' },
+  { type: 'their', from: 'hudson', text: 'And I think I need to not talk to you for a while, too' },
+  { type: 'their', from: 'hudson', text: 'I can\'t think clearly otherwise' },
+  { type: 'their', from: 'hudson', text: 'And you\'ve got Ascension to focus on' },
   { type: 'their', from: 'hudson', text: 'I don\'t want to be another thing you\'re managing right now' },
   { type: 'choice', options: [
     { text: 'Are you sure?' },

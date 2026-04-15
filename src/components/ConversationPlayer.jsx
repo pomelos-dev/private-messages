@@ -82,7 +82,7 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
       setFadingToBlack(true);
       setTimeout(() => {
         setFadingToBlack(false);
-        setShowTransition({ text: node.text, to: node.to, slow: node.slow || false, image: node.image, imageClass: node.imageClass, next: node.next });
+        setShowTransition({ text: node.text, to: node.to, slow: node.slow || false, image: node.image, imageClass: node.imageClass, fullscreen: node.fullscreen || false, next: node.next });
         processingRef.current = false;
       }, 900);
       return;
@@ -294,6 +294,7 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
         text={showTransition.text}
         image={showTransition.image}
         imageClass={showTransition.imageClass}
+        fullscreen={showTransition.fullscreen}
         slow={showTransition.slow}
         onTap={() => {
           if (showTransition.next) {
