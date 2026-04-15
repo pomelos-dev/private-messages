@@ -295,7 +295,13 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
         image={showTransition.image}
         imageClass={showTransition.imageClass}
         slow={showTransition.slow}
-        onTap={() => goToScreen(showTransition.to)}
+        onTap={() => {
+          if (showTransition.next) {
+            setShowTransition(showTransition.next);
+          } else {
+            goToScreen(showTransition.to);
+          }
+        }}
       />
     );
   }
