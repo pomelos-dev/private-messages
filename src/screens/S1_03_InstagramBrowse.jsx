@@ -18,6 +18,8 @@ const CONNOR_PROFILE = {
   displayName: 'Connor S.',
   avatar: 'connorAvatar',
   isFollowing: true, // it's your own profile
+  followers: '6.2M',
+  bio: 'Actor',
   posts: [
     {
       id: 'cs_1',
@@ -48,6 +50,8 @@ const HUDSON_PROFILE = {
   displayName: 'Hudson W.',
   avatar: 'hudsonAvatar',
   isFollowing: true,
+  followers: '6.3M',
+  bio: 'Actor',
   posts: [
     {
       id: 'hw_1',
@@ -75,6 +79,8 @@ const TAYTAY_PROFILE = {
   displayName: 'Tayler S.',
   avatar: 'taytayAvatar',
   isFollowing: true,
+  followers: '25K',
+  bio: 'Artist',
   posts: [
     {
       id: 'tt_1',
@@ -103,6 +109,8 @@ const DOGTHERAPY_PROFILE = {
   displayName: 'Dog Therapy',
   avatar: 'dogsAvatar',
   isFollowing: true,
+  followers: '80K',
+  bio: 'The dogtor is in.',
   posts: [
     {
       id: 'dt_1',
@@ -130,6 +138,8 @@ const VICTOR_PROFILE = {
   displayName: 'Victor Hallberg',
   avatar: 'victorAvatar',
   isFollowing: false, // player needs to follow him
+  followers: '4M',
+  bio: 'Actor',
   posts: [
     {
       id: 'vh_1',

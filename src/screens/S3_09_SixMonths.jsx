@@ -22,6 +22,8 @@ const CONNOR_PROFILE = {
   displayName: 'Connor S.',
   avatar: 'connorAvatar',
   isFollowing: true,
+  followers: '6.2M',
+  bio: 'Actor',
   posts: [
     { id: 'cs_ascension', image: 'nureyevDancing', caption: 'Ascension. In theatres now.', comments: [
       { username: 'victorhallberg', text: 'So proud of you.' },
@@ -40,6 +42,8 @@ const makeVictorProfile = (distractionComment) => ({
   displayName: 'Victor Hallberg',
   avatar: 'victorAvatar',
   isFollowing: true,
+  followers: '4M',
+  bio: 'Actor',
   posts: [
     { id: 'vh_ascension', image: 'nureyevDancing', caption: 'Ascension opens this week. I am proud of what we made. @connor_s', comments: [
       { username: 'genz_movies', text: 'this film is EVERYTHING' },
@@ -73,6 +77,8 @@ const TAYTAY_PROFILE = {
   displayName: 'Tayler S.',
   avatar: 'taytayAvatar',
   isFollowing: true,
+  followers: '25K',
+  bio: 'Artist',
   posts: [
     { id: 'tt_checkin', image: 'taytayCandid', caption: 'Checking in on my brother who never checks in on me 🙄❤️', comments: [] },
     { id: 'tt_ascension', image: 'nureyevDancing', caption: 'Ascension was incredible btw. I cried. Don\'t tell him', comments: [
@@ -90,6 +96,8 @@ const DOGS_PROFILE = {
   displayName: 'Dog Therapy',
   avatar: 'dogsAvatar',
   isFollowing: true,
+  followers: '80K',
+  bio: 'The dogtor is in.',
   posts: [
     { id: 'dg_presence', image: 'dogsPresence', caption: 'Absence doesn\'t make the heart grow fonder. Presence does', comments: [] },
     { id: 'dg_message', image: 'dogsMessage', caption: 'My human tells me to use my words to communicate', comments: [] },
@@ -184,6 +192,8 @@ const makeHudsonProfile = (connorComment) => ({
   displayName: 'Hudson W.',
   avatar: 'hudsonAvatar',
   isFollowing: true,
+  followers: '6.3M',
+  bio: 'Actor',
   posts: [
     {
       id: 'hw_dot',
