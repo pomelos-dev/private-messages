@@ -82,7 +82,7 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
       setFadingToBlack(true);
       setTimeout(() => {
         setFadingToBlack(false);
-        setShowTransition({ text: node.text, to: node.to, slow: node.slow || false, image: node.image, imageClass: node.imageClass });
+        setShowTransition({ text: node.text, to: node.to, slow: node.slow || false, image: node.image, imageClass: node.imageClass, next: node.next });
         processingRef.current = false;
       }, 900);
       return;
