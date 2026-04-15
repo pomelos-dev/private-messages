@@ -31,6 +31,7 @@ import EndingAnimation from './EndingAnimation';
 export default function ConversationPlayer({ contact, script, onBack, immediateFirst = false, bgClass = 'bg-black', initialMessages = [] }) {
   const goToScreen = useGameStore((s) => s.goToScreen);
   const pushNotification = useGameStore((s) => s.pushNotification);
+  const setFlag = useGameStore((s) => s.setFlag);
 
   // ── State ──────────────────────────────────────────────────────
   const [activeScript, setActiveScript] = useState(script); // mutable copy for extend
@@ -41,8 +42,9 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
   const [isTyping, setIsTyping] = useState(false);
   const [typingFrom, setTypingFrom] = useState('other'); // 'other' | 'self'
   const [showTransition, setShowTransition] = useState(null); // { text, to, slow }
-  const [fadingToBlack, setFadingToBlack] = useState(false);      // true while fading before transition
-  const [fadingToBlackSlow, setFadingToBlackSlow] = useState(false); // slower cinematic fade
+  const [fadingToBlack, setFadingToBlack] = useState(false);            // true while fading before transition
+  const [fadingToBlackSlow, setFadingToBlackSlow] = useState(false);   // slower cinematic fade
+  const [fadingToBlackVerySlow, setFadingToBlackVerySlow] = useState(false); // very slow (before image transitions)
   const [showGameOver, setShowGameOver] = useState(null);     // { message, retryScreen }
   const [showEndingAnimation, setShowEndingAnimation] = useState(null); // 'bad' | 'good' | null
   const [pendingGameOver, setPendingGameOver] = useState(null);
@@ -79,12 +81,31 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
     // Transition — fade to black first, then show transition screen
     if (node.type === 'transition') {
       processingRef.current = true;
-      setFadingToBlack(true);
-      setTimeout(() => {
-        setFadingToBlack(false);
-        setShowTransition({ text: node.text, to: node.to, slow: node.slow || false, image: node.image, imageClass: node.imageClass, fullscreen: node.fullscreen || false, next: node.next });
-        processingRef.current = false;
-      }, 900);
+      const transitionData = { text: node.text, to: node.to, slow: node.slow || false, image: node.image, imageClass: node.imageClass, fullscreen: node.fullscreen || false, next: node.next };
+      if (node.slow) {
+        // Very slow fade for cinematic image transitions
+        setFadingToBlackVerySlow(true);
+        setTimeout(() => {
+          setFadingToBlackVerySlow(false);
+          setShowTransition(transitionData);
+          processingRef.current = false;
+        }, 2800);
+      } else {
+        setFadingToBlack(true);
+        setTimeout(() => {
+          setFadingToBlack(false);
+          setShowTransition(transitionData);
+          processingRef.current = false;
+        }, 900);
+      }
+      return;
+    }
+
+    // Set a flag in game state without any visual side effects
+    if (node.type === 'set_flag') {
+      setFlag(node.key, node.value);
+      processingRef.current = false;
+      setScriptIndex((i) => i + 1);
       return;
     }
 
@@ -245,6 +266,11 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
         image: null,
       },
     ]);
+
+    // Store a flag value if specified on the option
+    if (option.setFlag) {
+      setFlag(option.setFlag.key, option.setFlag.value);
+    }
 
     // Navigate to a different screen
     if (option.goto) {
@@ -418,8 +444,8 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
       )}
 
       {/* Fade to black overlay (fires before transitions) */}
-      {(fadingToBlack || fadingToBlackSlow) && (
-        <div className={`absolute inset-0 bg-black ${fadingToBlackSlow ? 'animate-fade-to-black-slow' : 'animate-fade-to-black'} z-30 pointer-events-none`} />
+      {(fadingToBlack || fadingToBlackSlow || fadingToBlackVerySlow) && (
+        <div className={`absolute inset-0 bg-black ${fadingToBlackVerySlow ? 'animate-fade-to-black-very-slow' : fadingToBlackSlow ? 'animate-fade-to-black-slow' : 'animate-fade-to-black'} z-30 pointer-events-none`} />
       )}
 
       {/* Ending animation overlay (fires before gameover with animate flag) */}

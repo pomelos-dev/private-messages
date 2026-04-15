@@ -25,8 +25,7 @@ export default function TransitionScreen({ text, image, imageClass, onTap, slow 
           className="absolute inset-0 w-full h-full object-cover animate-fade-in"
           onError={(e) => { e.target.style.display = 'none'; }}
         />
-        <p className={`absolute bottom-8 left-0 right-0 text-center text-white/50 text-xs ${slow ? 'animate-fade-in-night' : 'animate-fade-in-delayed'}`}
-           style={slow ? { animationDelay: '2s' } : undefined}>
+        <p className={`absolute bottom-8 left-0 right-0 text-center text-white/50 text-xs animate-fade-in-delayed`}>
           Tap anywhere to continue
         </p>
       </button>
@@ -52,8 +51,7 @@ export default function TransitionScreen({ text, image, imageClass, onTap, slow 
           {text}
         </p>
       )}
-      <p className={`text-neutral-600 text-xs mt-8 ${slow ? 'animate-fade-in-night' : 'animate-fade-in-delayed'}`}
-         style={slow ? { animationDelay: '2s' } : undefined}>
+      <p className={`text-neutral-600 text-xs mt-8 animate-fade-in-delayed`}>
         Tap anywhere to continue
       </p>
     </button>

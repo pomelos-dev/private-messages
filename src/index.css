@@ -117,6 +117,10 @@ body {
   animation: fade-to-black 1.2s ease-in forwards;
 }
 
+.animate-fade-to-black-very-slow {
+  animation: fade-to-black 2.5s ease-in forwards;
+}
+
 /* Opacity-only fade in for cinematic screen entries (no translateY drift) */
 @keyframes fade-in-opacity {
   from { opacity: 0; }

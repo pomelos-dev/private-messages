@@ -21,6 +21,7 @@ export default function S3_11_TheMissedCall() {
   const goToScreen = useGameStore((s) => s.goToScreen);
   const [phase, setPhase] = useState(0); // 0=recents, 1=calling, 2=voicemail
   const [selectedVoicemail, setSelectedVoicemail] = useState(null);
+  const [fadingOut, setFadingOut] = useState(false);
 
   // Advance from calling (phase 1) to voicemail (phase 2) after 2.5s
   useEffect(() => {
@@ -65,7 +66,7 @@ export default function S3_11_TheMissedCall() {
   // Phase 2 — Voicemail
   if (phase === 2) {
     return (
-      <div className="flex-1 flex flex-col items-center justify-between bg-neutral-900 px-8 py-16">
+      <div className="flex-1 flex flex-col items-center justify-between bg-neutral-900 px-8 py-16 relative">
         <div className="flex flex-col items-center gap-4 mt-8">
           <img
             src={getImage('hudsonAvatar')}
@@ -90,7 +91,8 @@ export default function S3_11_TheMissedCall() {
               disabled={selectedVoicemail !== null}
               onClick={() => {
                 setSelectedVoicemail(i);
-                setTimeout(() => goToScreen('S3_12'), 2000);
+                setTimeout(() => setFadingOut(true), 1600);
+                setTimeout(() => goToScreen('S3_12'), 3000);
               }}
               className={`w-full py-4 rounded-2xl text-sm font-medium transition-all ${
                 selectedVoicemail === i
@@ -104,6 +106,10 @@ export default function S3_11_TheMissedCall() {
             </button>
           ))}
         </div>
+
+        {fadingOut && (
+          <div className="absolute inset-0 bg-black animate-fade-to-black-slow z-20 pointer-events-none" />
+        )}
       </div>
     );
   }

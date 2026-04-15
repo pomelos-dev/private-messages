@@ -24,6 +24,8 @@ import TransitionScreen from '../components/TransitionScreen';
 export default function S3_08_UnsentMessages() {
   const goToScreen = useGameStore((s) => s.goToScreen);
   const setTimeOverride = useGameStore((s) => s.setTimeOverride);
+  const ch3Goodbye = useGameStore((s) => s.flags?.ch3_goodbye ?? 'take_care');
+  const goodbyeText = ch3Goodbye === 'miss_you' ? 'I\'ll miss you.' : 'OK. Take care of yourself, Huddy.';
 
   const [phase, setPhase] = useState(0);
   const [hudsonTyping, setHudsonTyping] = useState(false);
@@ -79,7 +81,7 @@ export default function S3_08_UnsentMessages() {
       t = setTimeout(() => {
         setHudsonTyping(false);
         setTimeout(() => setPhase(2), 1000);
-      }, 3000);
+      }, 5500);
     } else if (phase === 2) {
       // Connor hesitation at 11:49 — advance 5s after user types, or 18s fallback
       setTimeOverride('11:49');
@@ -96,7 +98,7 @@ export default function S3_08_UnsentMessages() {
       t = setTimeout(() => {
         setHudsonTyping(false);
         setTimeout(() => setPhase(4), 1000);
-      }, 2000);
+      }, 4500);
     } else if (phase === 4) {
       // Connor hesitation at 10:35 — advance 5s after user types, or 18s fallback
       setTimeOverride('10:35');
@@ -155,7 +157,7 @@ export default function S3_08_UnsentMessages() {
         {/* The goodbye messages */}
         <div className="flex justify-end mt-3">
           <div className="max-w-[75%] bg-blue-500 text-white rounded-2xl rounded-br-md px-3 py-2">
-            <p className="text-sm leading-relaxed">OK. Take care of yourself, Huddy.</p>
+            <p className="text-sm leading-relaxed">{goodbyeText}</p>
           </div>
         </div>
 

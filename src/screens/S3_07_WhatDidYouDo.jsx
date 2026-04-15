@@ -12,8 +12,8 @@ import ConversationPlayer from '../components/ConversationPlayer';
 // GOOD paths end with a choice farewell
 const goodFarewell = [
   { type: 'choice', options: [
-    { text: 'OK. Take care of yourself, Huddy.' },
-    { text: 'I\'ll miss you.' },
+    { text: 'OK. Take care of yourself, Huddy.', setFlag: { key: 'ch3_goodbye', value: 'take_care' } },
+    { text: 'I\'ll miss you.',                   setFlag: { key: 'ch3_goodbye', value: 'miss_you'  } },
   ]},
   { type: 'their', from: 'hudson', text: 'You too, Con Con.' },
   { type: 'their', from: 'hudson', text: '❤️' },
@@ -22,8 +22,9 @@ const goodFarewell = [
     next: { text: 'Six months later…', to: 'S3_08', slow: true } },
 ];
 
-// OK paths end with an auto farewell
+// OK paths end with an auto farewell (goodbye is always "take_care" on OK paths)
 const okFarewell = [
+  { type: 'set_flag', key: 'ch3_goodbye', value: 'take_care' },
   { type: 'auto', text: 'OK. Take care of yourself, Huddy.' },
   { type: 'their', from: 'hudson', text: 'You too, Con Con.' },
   { type: 'their', from: 'hudson', text: '❤️' },

@@ -14,9 +14,9 @@ const EMAIL_BODY = `Connor,
 
 Got a call from Hudson's people just now.
 
-They're pitching a collaborative indie project. Still waiting on the details, but they want the two of you developing something together.
+They're pitching a collaborative indie project. Sounds like they're open to all creative avenues between you two.
 
-We didn't see this coming. That said, if you want to clear the air, bringing the focus back to work isn't a bad way to do it. The money will be there with both of you attached. And of course, you can make of it what you like publicly.
+I know the last months have been hard. If you want to clear the air, bringing the focus back to work isn't a bad way to do it. The money will be there with both of you attached. And of course, you can make of it what you like publicly.
 
 Let me know if you want to set up a call this week.
 
