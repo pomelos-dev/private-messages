@@ -6,19 +6,18 @@ import { getImage } from '../assets/images';
  * S3_08 — Unsent Messages
  * Six months of near-silence rendered in iMessage style.
  * - Hudson's typing bubbles appear and disappear
- * - Connor has two hesitation moments: text input is active but send is disabled
- * - Draft auto-clears after a few seconds of inactivity
+ * - Connor has one hesitation moment: text input is active but send is disabled
+ * - Draft auto-clears after a few seconds of inactivity; trash button clears immediately
+ * - Trash tap triggers the same advance timer as typing
  * - Phone clock changes via timeOverride
- * - Delete button replaces send; placeholder is a gentle deterrent
  * - Ends with fade to black → tap to continue → S3_09
  */
 
 // Timeline of events
-// phase 0: show goodbye messages, then after 2s...
-// phase 1: time 2:01  — Hudson types (5.5s), disappears
-// phase 2: time 11:49 — Connor hesitation (input active), then clears
-// phase 3: time 8:21  — Hudson types (4.5s), disappears quickly
-// phase 4: time 10:35 — Connor hesitation (input active), then clears
+// phase 0: show goodbye messages, then after 2.5s...
+// phase 1: time 2:01  — Hudson types (5.5s), disappears → phase 2
+// phase 2: time 11:49 — Connor hesitation (input active) → user types/deletes → phase 3
+// phase 3: time 8:21  — Hudson types (4.5s), disappears → auto phase 5 after 3s
 // phase 5: stillness, then fade → tap to continue
 
 export default function S3_08_UnsentMessages() {
@@ -43,15 +42,14 @@ export default function S3_08_UnsentMessages() {
 
   useEffect(() => { phaseRef.current = phase; }, [phase]);
 
-  // Shared advance function for Connor hesitation phases
+  // Advance from Connor's hesitation phase → Hudson's second typing
   const doAdvanceFromConnor = useCallback(() => {
     clearTimeout(fallbackTimerRef.current);
     clearTimeout(typeAdvanceTimerRef.current);
     clearTimeout(draftTimerRef.current);
     setConnorActive(false);
     setDraftText('');
-    const p = phaseRef.current;
-    setTimeout(() => setPhase(p === 2 ? 3 : 5), 1200);
+    setTimeout(() => setPhase(3), 1200);
   }, []);
 
   // Clear timeOverride on unmount
@@ -93,16 +91,9 @@ export default function S3_08_UnsentMessages() {
       setHudsonTyping(true);
       t = setTimeout(() => {
         setHudsonTyping(false);
-        setTimeout(() => setPhase(4), 1000);
+        // Auto-advance to fade a few seconds after Hudson's ellipses disappear
+        setTimeout(() => setPhase(5), 3000);
       }, 4500);
-    } else if (phase === 4) {
-      setTimeOverride('10:35');
-      setConnorActive(true);
-      fallbackTimerRef.current = setTimeout(doAdvanceFromConnor, 18000);
-      return () => {
-        clearTimeout(fallbackTimerRef.current);
-        clearTimeout(typeAdvanceTimerRef.current);
-      };
     } else if (phase === 5) {
       t = setTimeout(() => {
         setShowFade(true);
@@ -222,13 +213,11 @@ export default function S3_08_UnsentMessages() {
             <span className="flex-1 text-neutral-600 text-sm select-none">Don't do it, Connor. He asked for space.</span>
           )}
         </div>
-        {/* Delete button — clears draft when active, disabled otherwise */}
+        {/* Delete button — clears draft and triggers advance when active */}
         <button
           onClick={() => {
             if (connorActive && draftText) {
-              clearTimeout(draftTimerRef.current);
-              clearTimeout(typeAdvanceTimerRef.current);
-              setDraftText('');
+              doAdvanceFromConnor();
             }
           }}
           className={`w-8 h-8 rounded-full flex items-center justify-center transition-opacity ${
