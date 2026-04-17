@@ -62,6 +62,8 @@ const CONNOR_PROFILE = {
   displayName: 'Connor S.',
   avatar: 'connorAvatar',
   isFollowing: true,
+  followers: '6.2M',
+  bio: 'Actor',
   posts: [
     { id: 'cs_0', image: 'connorHudsonSunset', caption: 'He matches my enthusiasm ♒️♓️✨', comments: [{ username: 'hudson_w', text: '\u2764\uFE0F\u2764\uFE0F\u2764\uFE0F' }] },
     { id: 'cs_1', image: 'connorIg1', caption: 'Early morning espresso. Worth it.', comments: [] },
@@ -75,6 +77,8 @@ const TAYTAY_PROFILE = {
   displayName: 'Tayler S.',
   avatar: 'taytayAvatar',
   isFollowing: true,
+  followers: '25K',
+  bio: 'Artist',
   posts: [
     { id: 'tt_1', image: 'taytayIg1', objectPosition: 'top', caption: 'Proud of my brother even when he won\'t pick up the phone \uD83D\uDE44\u2764\uFE0F', comments: [] },
     { id: 'tt_2', image: 'taytayIg2', caption: 'Texas forever honestly', comments: [] },
@@ -87,6 +91,8 @@ const DOGTHERAPY_PROFILE = {
   displayName: 'Dog Therapy',
   avatar: 'dogsAvatar',
   isFollowing: true,
+  followers: '80K',
+  bio: 'The dogtor is in.',
   posts: [
     { id: 'dt_1', image: 'dogsIg1', caption: 'I don\'t know what you\'re going through but I think you should pet me', comments: [] },
     { id: 'dt_2', image: 'dogsIg2', caption: 'Availability: always. Judgment: never.', comments: [] },
@@ -99,6 +105,8 @@ const HUDSON_PROFILE = {
   displayName: 'Hudson W.',
   avatar: 'hudsonAvatar',
   isFollowing: true,
+  followers: '6.3M',
+  bio: 'Actor',
   posts: [
     { id: 'hw_1', image: 'hudsonIg1', caption: 'Sometimes it feels like we exist in two different worlds', comments: [] },
     { id: 'hw_2', image: 'hudsonIg2', caption: 'I blinked and you were gone', comments: [] },
@@ -111,6 +119,8 @@ const VICTOR_PROFILE = {
   displayName: 'Victor Hallberg',
   avatar: 'victorAvatar',
   isFollowing: true,
+  followers: '4M',
+  bio: 'Actor',
   posts: [
     { id: 'vh_1', image: 'victorIg1', caption: 'Erik Bruhn and Rudolf Nureyev were mirrors, shadows, and something harder to name. I can already tell this film will ask the same of us. Honored to be working opposite @connor_s on Ascension.', comments: [] },
     { id: 'vh_2', image: 'victorIg2', caption: 'Stockholm in the summer.', comments: [] },

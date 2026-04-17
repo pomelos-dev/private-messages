@@ -28,25 +28,29 @@ import EndingAnimation from './EndingAnimation';
  *   { type: 'chapter_complete', title, message, retryLabel?, options? }
  *   { type: 'wait_for_back', homeTarget: 'SCREEN_ID' }
  */
-export default function ConversationPlayer({ contact, script, onBack, immediateFirst = false }) {
+export default function ConversationPlayer({ contact, script, onBack, immediateFirst = false, bgClass = 'bg-black', initialMessages = [] }) {
   const goToScreen = useGameStore((s) => s.goToScreen);
   const pushNotification = useGameStore((s) => s.pushNotification);
+  const setFlag = useGameStore((s) => s.setFlag);
 
   // ── State ──────────────────────────────────────────────────────
   const [activeScript, setActiveScript] = useState(script); // mutable copy for extend
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState(initialMessages);
   const [scriptIndex, setScriptIndex] = useState(0);
   const [showChoices, setShowChoices] = useState(false);
   const [currentChoices, setCurrentChoices] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
   const [typingFrom, setTypingFrom] = useState('other'); // 'other' | 'self'
   const [showTransition, setShowTransition] = useState(null); // { text, to, slow }
-  const [fadingToBlack, setFadingToBlack] = useState(false);      // true while fading before transition
-  const [fadingToBlackSlow, setFadingToBlackSlow] = useState(false); // slower cinematic fade
+  const [fadingToBlack, setFadingToBlack] = useState(false);            // true while fading before transition
+  const [fadingToBlackSlow, setFadingToBlackSlow] = useState(false);   // slower cinematic fade
+  const [fadingToBlackVerySlow, setFadingToBlackVerySlow] = useState(false); // very slow (before image transitions)
+  const [fadingBetweenTransitions, setFadingBetweenTransitions] = useState(false); // fade between chained transitions
   const [showGameOver, setShowGameOver] = useState(null);     // { message, retryScreen }
   const [showEndingAnimation, setShowEndingAnimation] = useState(null); // 'bad' | 'good' | null
   const [pendingGameOver, setPendingGameOver] = useState(null);
   const [showChapterComplete, setShowChapterComplete] = useState(null);
+  const [pendingChapterComplete, setPendingChapterComplete] = useState(null);
   const [waitingForBack, setWaitingForBack] = useState(null);
   const [paused, setPaused] = useState(false);
 
@@ -78,12 +82,31 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
     // Transition — fade to black first, then show transition screen
     if (node.type === 'transition') {
       processingRef.current = true;
-      setFadingToBlack(true);
-      setTimeout(() => {
-        setFadingToBlack(false);
-        setShowTransition({ text: node.text, to: node.to, slow: node.slow || false, image: node.image, imageClass: node.imageClass });
-        processingRef.current = false;
-      }, 500);
+      const transitionData = { text: node.text, to: node.to, slow: node.slow || false, image: node.image, imageClass: node.imageClass, fullscreen: node.fullscreen || false, quote: node.quote, speaker: node.speaker, next: node.next };
+      if (node.slow) {
+        // Very slow fade for cinematic image transitions
+        setFadingToBlackVerySlow(true);
+        setTimeout(() => {
+          setFadingToBlackVerySlow(false);
+          setShowTransition(transitionData);
+          processingRef.current = false;
+        }, 2800);
+      } else {
+        setFadingToBlack(true);
+        setTimeout(() => {
+          setFadingToBlack(false);
+          setShowTransition(transitionData);
+          processingRef.current = false;
+        }, 900);
+      }
+      return;
+    }
+
+    // Set a flag in game state without any visual side effects
+    if (node.type === 'set_flag') {
+      setFlag(node.key, node.value);
+      processingRef.current = false;
+      setScriptIndex((i) => i + 1);
       return;
     }
 
@@ -100,7 +123,7 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
       setTimeout(() => {
         goToScreen(node.to);
         processingRef.current = false;
-      }, 600);
+      }, 1000);
       return;
     }
 
@@ -133,12 +156,20 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
       return;
     }
 
-    // Chapter complete
+    // Chapter complete — wait 3s, then play good ending animation, then show popup
     if (node.type === 'chapter_complete') {
-      setShowChapterComplete({
-        title: node.title || 'Chapter 1 Complete',
+      const chapterData = {
+        title: node.title || 'Chapter Complete',
+        subtitle: node.subtitle,
         message: node.message,
-      });
+        options: node.options,
+      };
+      processingRef.current = true;
+      setTimeout(() => {
+        setPendingChapterComplete(chapterData);
+        setShowEndingAnimation('good');
+        processingRef.current = false;
+      }, 3000);
       return;
     }
 
@@ -237,6 +268,11 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
       },
     ]);
 
+    // Store a flag value if specified on the option
+    if (option.setFlag) {
+      setFlag(option.setFlag.key, option.setFlag.value);
+    }
+
     // Navigate to a different screen
     if (option.goto) {
       setTimeout(() => goToScreen(option.goto), 600);
@@ -266,31 +302,59 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
     }
   };
 
-  // ── Ending animation done (gameover with animate) ──────────────
+  // ── Ending animation done (gameover with animate, or chapter complete) ──
   const handleEndingAnimationDone = () => {
     setShowEndingAnimation(null);
     if (pendingGameOver) {
       setShowGameOver(pendingGameOver);
       setPendingGameOver(null);
+    } else if (pendingChapterComplete) {
+      setShowChapterComplete(pendingChapterComplete);
+      setPendingChapterComplete(null);
     }
   };
 
   // ── Transition screen ──────────────────────────────────────────
   if (showTransition) {
     return (
-      <TransitionScreen
-        text={showTransition.text}
-        image={showTransition.image}
-        imageClass={showTransition.imageClass}
-        slow={showTransition.slow}
-        onTap={() => goToScreen(showTransition.to)}
-      />
+      <div className="flex-1 relative flex flex-col">
+        <TransitionScreen
+          text={showTransition.text}
+          image={showTransition.image}
+          imageClass={showTransition.imageClass}
+          fullscreen={showTransition.fullscreen}
+          slow={showTransition.slow}
+          quote={showTransition.quote}
+          speaker={showTransition.speaker}
+          onTap={() => {
+            if (showTransition.next) {
+              const next = showTransition.next;
+              if (next.slow) {
+                // Slow fade to black before revealing the next transition screen
+                setFadingBetweenTransitions(true);
+                setTimeout(() => {
+                  setFadingBetweenTransitions(false);
+                  setShowTransition(next);
+                }, 2800);
+              } else {
+                setShowTransition(next);
+              }
+            } else {
+              goToScreen(showTransition.to);
+            }
+          }}
+        />
+        {/* Fade overlay between chained transitions */}
+        {fadingBetweenTransitions && (
+          <div className="absolute inset-0 bg-black animate-fade-to-black-very-slow z-50 pointer-events-none" />
+        )}
+      </div>
     );
   }
 
   // ── Render ─────────────────────────────────────────────────────
   return (
-    <div className="flex-1 min-h-0 flex flex-col bg-black">
+    <div className={`flex-1 min-h-0 flex flex-col ${bgClass}`}>
       {/* Header bar — iPhone Messages style */}
       <div className="flex-shrink-0 relative flex items-center px-4 py-2 border-b border-neutral-800">
         <button
@@ -315,8 +379,17 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
       {/* Messages area */}
       <div ref={scrollRef} className="flex-1 min-h-0 overflow-y-auto px-4 py-3 space-y-1">
         {messages.map((msg, i) => {
+          // Separator (time label)
+          if (msg.type === 'separator') {
+            return (
+              <div key={msg.id} className="flex justify-center my-4">
+                <span className="text-neutral-500 text-xs px-3 py-1 rounded-full bg-neutral-800/60">{msg.text}</span>
+              </div>
+            );
+          }
+
           const prevMsg = messages[i - 1];
-          const showAvatar = !msg.isOwn && (!prevMsg || prevMsg.from !== msg.from || prevMsg.isOwn);
+          const showAvatar = !msg.isOwn && (!prevMsg || prevMsg.from !== msg.from || prevMsg.isOwn || prevMsg.type === 'separator');
 
           return (
             <div
@@ -390,8 +463,8 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
       )}
 
       {/* Fade to black overlay (fires before transitions) */}
-      {(fadingToBlack || fadingToBlackSlow) && (
-        <div className={`absolute inset-0 bg-black ${fadingToBlackSlow ? 'animate-fade-to-black-slow' : 'animate-fade-to-black'} z-30 pointer-events-none`} />
+      {(fadingToBlack || fadingToBlackSlow || fadingToBlackVerySlow) && (
+        <div className={`absolute inset-0 bg-black ${fadingToBlackVerySlow ? 'animate-fade-to-black-very-slow' : fadingToBlackSlow ? 'animate-fade-to-black-slow' : 'animate-fade-to-black'} z-30 pointer-events-none`} />
       )}
 
       {/* Ending animation overlay (fires before gameover with animate flag) */}
@@ -414,10 +487,11 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
       {showChapterComplete && (
         <GameOverPopup
           title={showChapterComplete.title}
+          subtitle={showChapterComplete.subtitle}
           message={showChapterComplete.message}
-          options={[
-            { text: 'Stay and browse your phone', action: 'close', onClose: () => setShowChapterComplete(null) },
-            { text: 'Replay Chapter 1', action: 'S1_01' },
+          variant="good"
+          options={showChapterComplete.options || [
+            { text: 'Try a different ending', action: 'S3_10' },
             { text: 'Return to main menu', action: 'S0' },
           ]}
         />

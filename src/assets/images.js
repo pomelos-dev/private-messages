@@ -10,6 +10,7 @@ const base = '/assets/';
 export const IMAGES = {
   // Profile avatars
   connorAvatar:       `${base}connor-avatar.jpg`,
+  googleNewsAvatar:   `${base}google-news-avatar.jpeg`,
   sarahChenAvatar:    `${base}sarah-chen-avatar.jpg`,
   hudsonwUpdatesAvatar:`${base}hudsonwupdates-avatar.jpg`,
   hudsonAvatar:       `${base}hudson-avatar.jpg`,
@@ -58,6 +59,31 @@ export const IMAGES = {
   dogsIg1:            `${base}dogs-ig-1.jpg`,
   dogsIg2:            `${base}dogs-ig-2.jpg`,
   dogsIg3:            `${base}dogs-ig-3.jpg`,
+
+  // Chapter 3 story photos
+  taytayKids:         `${base}taytay-ig-kids.jpg`,
+  dogsBrave:          `${base}dogs-ig-brave.jpg`,
+  keiraGossip:        `${base}keira-gossip.jpg`,
+  hudsonSad:          `${base}hudson-sad.jpeg`,
+  hudconSelfie:       `${base}hudcon-selfie.jpg`,
+  connorSleep:        `${base}connor-sleep.jpg`,
+  hudconWalking:      `${base}hudcon-walking.jpg`,
+  nureyevDancing:     `${base}nureyev.jpeg`,
+  taytayCandid:       `${base}taytay-ig-candid.jpg`,
+  dogsPresence:       `${base}dogs-ig-presence.jpg`,
+  dogsMessage:        `${base}dogs-ig-message.jpg`,
+  hudsonSerious:      `${base}hudson-serious.jpg`,
+  hudsonThrowback:    `${base}hudson-throwback.jpg`,
+  hudsonOutdoors:     `${base}hudson-outdoors.jpeg`,
+  hudsonReunion:      `${base}hudson-facing-camera2.jpg`,
+  epilogueRomantic:   `${base}hudcon-selfie.jpg`,
+  connorTeasing:      `${base}connor-lipbite.jpg`,
+  connorWink:         `${base}connor-wink.jpg`,
+  hudsonHeadback:     `${base}hudson-headback.jpg`,
+  connorSeductive:    `${base}connor-come-hither.jpg`,
+  epilogueFriends:    `${base}epilogue-friends.jpeg`,
+  faneSad:            `${base}fane-sad.jpg`,
+  hudconSleeping:     `${base}hudcon-sleeping.jpg`,
 };
 
 /**

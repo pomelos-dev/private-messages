@@ -12,6 +12,7 @@ import useGameStore from '../store/gameStore';
  */
 export default function GameOverPopup({
   title = 'Game Over',
+  subtitle,
   message,
   retryScreen,
   options,
@@ -54,8 +55,11 @@ export default function GameOverPopup({
   return (
     <div className={`absolute inset-0 z-40 flex items-center justify-center p-6 ${overlayClass}`}>
       <div className={`w-full max-w-xs rounded-2xl border p-6 text-center ${cardClass}`}>
-        <h2 className={`text-xl font-bold mb-2 ${titleClass}`}>{title}</h2>
-        <p className="text-neutral-400 text-sm mb-6">{message}</p>
+        <h2 className={`text-xl font-bold mb-1 ${titleClass}`}>{title}</h2>
+        {subtitle && (
+          <p className="text-blue-400 text-sm font-semibold mb-2">{subtitle}</p>
+        )}
+        <p className="text-neutral-400 text-sm mb-6 whitespace-pre-line">{message}</p>
 
         <div className="flex flex-col gap-2">
           {buttons.map((btn, i) => (

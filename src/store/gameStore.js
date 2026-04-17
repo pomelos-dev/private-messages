@@ -18,6 +18,7 @@ const useGameStore = create((set, get) => ({
       currentScreen: screenId,
       notifications: [],
       sessionId: state.sessionId + 1,
+      timeOverride: null,
     })),
 
   // ── Player choices ──────────────────────────────────────────────
@@ -39,6 +40,10 @@ const useGameStore = create((set, get) => ({
     set((state) => ({
       flags: { ...state.flags, [flagName]: value },
     })),
+
+  // ── Time override (for S3_08 dynamic clock) ─────────────────────
+  timeOverride: null,
+  setTimeOverride: (time) => set({ timeOverride: time }),
 
   // ── Notifications ───────────────────────────────────────────────
   // Each: { id, from, avatar, preview, target }
@@ -66,6 +71,7 @@ const useGameStore = create((set, get) => ({
         chapter1Complete: false,
       },
       notifications: [],
+      timeOverride: null,
     }),
 }));
 

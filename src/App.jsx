@@ -27,6 +27,26 @@ import S2_08_PRReminder from './screens/S2_08_PRReminder';
 import S2_09_WestHollywood from './screens/S2_09_WestHollywood';
 import S2_10_TheChoice from './screens/S2_10_TheChoice';
 
+// ── Chapter 3 screens ───────────────────────────────────────────
+import S3_00_Intro from './screens/S3_00_Intro';
+import S3_01_TheFalloutFeed from './screens/S3_01_TheFalloutFeed';
+import S3_02_VictorsPerspective from './screens/S3_02_VictorsPerspective';
+import S3_03_TheArticle from './screens/S3_03_TheArticle';
+import S3_04_HudsonConfides from './screens/S3_04_HudsonConfides';
+import S3_05_NicksProposal from './screens/S3_05_NicksProposal';
+import S3_06_TheStatement from './screens/S3_06_TheStatement';
+import S3_06_TheDistraction from './screens/S3_06_TheDistraction';
+import S3_06_DoNothing from './screens/S3_06_DoNothing';
+import { S3_07_A, S3_07_B, S3_07_C } from './screens/S3_07_WhatDidYouDo';
+import S3_08_UnsentMessages from './screens/S3_08_UnsentMessages';
+import S3_09_SixMonths from './screens/S3_09_SixMonths';
+import S3_10_TheProject from './screens/S3_10_TheProject';
+import S3_11_TheMissedCall from './screens/S3_11_TheMissedCall';
+import S3_12_TheText from './screens/S3_12_TheText';
+import S3_13_TheArrival from './screens/S3_13_TheArrival';
+import S3_14_TheConfession from './screens/S3_14_TheConfession';
+import { S3_15_Romantic, S3_15_Warm } from './screens/S3_15_Epilogue';
+
 /**
  * Screen registry: maps screen IDs to { component, darkMode }.
  * To add a new screen:
@@ -62,6 +82,29 @@ const SCREENS = {
   'S2_08':        { component: S2_08_PRReminder,        darkMode: false, time: '5:21' },
   'S2_09':        { component: S2_09_WestHollywood,     darkMode: true,  time: '5:21' },
   'S2_10':        { component: S2_10_TheChoice,         darkMode: true,  time: '5:21', transition: 'slow_fade' },
+
+  // ── Chapter 3 ─────────────────────────────────────────────────
+  'S3_00':        { component: S3_00_Intro,             darkMode: true,  time: '12:45' },
+  'S3_01':        { component: S3_01_TheFalloutFeed,    darkMode: false, time: '12:45' },
+  'S3_02':        { component: S3_02_VictorsPerspective,darkMode: true,  time: '12:47' },
+  'S3_03':        { component: S3_03_TheArticle,        darkMode: false, time: '1:15'  },
+  'S3_04':        { component: S3_04_HudsonConfides,    darkMode: true,  time: '1:22'  },
+  'S3_05':        { component: S3_05_NicksProposal,     darkMode: false, time: '8:54'  },
+  'S3_06_A':      { component: S3_06_TheStatement,      darkMode: false, time: '3:40'  },
+  'S3_06_B':      { component: S3_06_TheDistraction,    darkMode: false, time: '3:40'  },
+  'S3_06_C':      { component: S3_06_DoNothing,         darkMode: false, time: '3:40'  },
+  'S3_07_A':      { component: S3_07_A,                 darkMode: true,  time: '3:55'  },
+  'S3_07_B':      { component: S3_07_B,                 darkMode: true,  time: '3:55'  },
+  'S3_07_C':      { component: S3_07_C,                 darkMode: true,  time: '3:55'  },
+  'S3_08':        { component: S3_08_UnsentMessages,    darkMode: true,  time: '2:01'  },
+  'S3_09':        { component: S3_09_SixMonths,         darkMode: false, time: '11:30' },
+  'S3_10':        { component: S3_10_TheProject,        darkMode: false, time: '11:44' },
+  'S3_11':        { component: S3_11_TheMissedCall,     darkMode: true,  time: '11:51' },
+  'S3_12':        { component: S3_12_TheText,           darkMode: true,  time: '11:51' },
+  'S3_13':        { component: S3_13_TheArrival,        darkMode: true,  time: '7:12',  transition: 'slow_fade' },
+  'S3_14':        { component: S3_14_TheConfession,     darkMode: true,  time: '11:23' },
+  'S3_15_ROMANTIC': { component: S3_15_Romantic,        darkMode: true,  time: '5:35'  },
+  'S3_15_WARM':   { component: S3_15_Warm,              darkMode: true,  time: '5:35'  },
 };
 
 export default function App() {

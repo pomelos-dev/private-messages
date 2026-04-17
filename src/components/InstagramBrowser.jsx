@@ -12,6 +12,7 @@ import { getImage } from '../assets/images';
  *   onEvent         — callback when a trigger fires (trigger) => void
  *   newPostOptions  — optional: if provided, shows a "+" new post button
  *   onNewPost       — callback when a post option is selected
+ *   onPostView      — callback when post view changes: (username, postId) or (null, null) when closed
  */
 export default function InstagramBrowser({
   profiles: initialProfiles,
@@ -22,37 +23,54 @@ export default function InstagramBrowser({
   onNewPost,
   autoViewPost,   // { profile, postId } — forces browser to open this post
   ownUsername,    // the player's own username — shows "Edit Profile" instead of "Following"
+  onPostView,     // callback(username, postId) | callback(null, null)
 }) {
   const pushNotification = useGameStore((s) => s.pushNotification);
   const goToScreen = useGameStore((s) => s.goToScreen);
+
   const [profiles, setProfiles] = useState(initialProfiles);
   const profilesRef = useRef(profiles);
   const [currentUsername, setCurrentUsername] = useState(initialProfile);
-  const [viewingPost, setViewingPost] = useState(null); // post object or null
+  // Store { username, postId } so that post view re-derives from live profiles data
+  const [viewingPostKey, setViewingPostKey] = useState(null);
   const [firedTriggers, setFiredTriggers] = useState(new Set());
   const [showNewPost, setShowNewPost] = useState(false);
+
+  // Derived: look up the actual post object from current profiles state
+  const viewingPost = viewingPostKey
+    ? (profiles[viewingPostKey.username]?.posts?.find((p) => p.id === viewingPostKey.postId) || null)
+    : null;
 
   // Reset scroll to top whenever the view changes
   const scrollRef = useRef(null);
   useEffect(() => {
     if (scrollRef.current) scrollRef.current.scrollTop = 0;
-  }, [viewingPost, currentUsername, showNewPost]);
+  }, [viewingPostKey, currentUsername, showNewPost]);
 
-  // Update profiles if parent passes new ones (e.g., adding victorhallberg)
+  // Update profiles if parent passes new ones (e.g., adding a comment)
   useEffect(() => {
     setProfiles(initialProfiles);
     profilesRef.current = initialProfiles;
   }, [initialProfiles]);
 
+  // Notify parent when post view changes
+  useEffect(() => {
+    if (!onPostView) return;
+    if (viewingPostKey) {
+      onPostView(viewingPostKey.username, viewingPostKey.postId);
+    } else {
+      onPostView(null, null);
+    }
+  }, [viewingPostKey]);
+
   // Navigate to a specific post when parent requests it (e.g., after notification tap)
-  // Depend on the primitive values to avoid re-firing on every render
   useEffect(() => {
     if (!autoViewPost) return;
     const profileData = profilesRef.current[autoViewPost.profile];
     const post = profileData?.posts.find((p) => p.id === autoViewPost.postId);
     if (post) {
       setCurrentUsername(autoViewPost.profile);
-      setViewingPost(post);
+      setViewingPostKey({ username: autoViewPost.profile, postId: autoViewPost.postId });
       setShowNewPost(false);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -78,12 +96,11 @@ export default function InstagramBrowser({
           target: trigger.notification.target,
           onTap: trigger.postTarget
             ? () => {
-                // Use profilesRef so we always get the latest state (avoids stale closure)
                 setCurrentUsername(trigger.postTarget.profile);
                 const targetPost = profilesRef.current[trigger.postTarget.profile]?.posts.find(
                   (p) => p.id === trigger.postTarget.postId
                 );
-                if (targetPost) setViewingPost(targetPost);
+                if (targetPost) setViewingPostKey({ username: trigger.postTarget.profile, postId: targetPost.id });
               }
             : null,
         });
@@ -95,10 +112,34 @@ export default function InstagramBrowser({
 
   // Fire trigger when viewing a profile
   useEffect(() => {
-    if (currentUsername && !viewingPost) {
+    if (currentUsername && !viewingPostKey) {
       fireTrigger('view_profile', currentUsername);
     }
   }, [currentUsername]);
+
+  // Fire trigger when opening a specific post
+  useEffect(() => {
+    if (!viewingPostKey) return;
+    triggers.forEach((trigger) => {
+      if (firedTriggers.has(trigger.id)) return;
+      if (trigger.when !== 'view_post') return;
+      if (trigger.profile && trigger.profile !== viewingPostKey.username) return;
+      if (trigger.post && trigger.post !== viewingPostKey.postId) return;
+
+      setFiredTriggers((prev) => new Set([...prev, trigger.id]));
+
+      if (trigger.action === 'notification') {
+        pushNotification({
+          id: trigger.id,
+          from: trigger.notification.from,
+          avatar: trigger.notification.avatar || null,
+          preview: trigger.notification.preview,
+          target: trigger.notification.target,
+        });
+      }
+      if (onEvent) onEvent(trigger);
+    });
+  }, [viewingPostKey?.username, viewingPostKey?.postId]);
 
   // ── Follow handler ─────────────────────────────────────────────
   const handleFollow = (username) => {
@@ -112,14 +153,14 @@ export default function InstagramBrowser({
   // ── Navigate to a profile ──────────────────────────────────────
   const navigateToProfile = (username) => {
     if (profiles[username]) {
-      setViewingPost(null);
+      setViewingPostKey(null);
       setCurrentUsername(username);
     }
   };
 
   // ── Render username as tappable link ───────────────────────────
   const renderCaption = (caption) => {
-    // Split on @mentions and make them tappable
+    if (!caption) return null;
     const parts = caption.split(/(@\w+)/g);
     return parts.map((part, i) => {
       if (part.startsWith('@')) {
@@ -144,7 +185,7 @@ export default function InstagramBrowser({
       <div className="flex-1 min-h-0 flex flex-col bg-white">
         {/* Header */}
         <div className="flex-shrink-0 flex items-center gap-3 px-4 py-3 border-b border-neutral-200">
-          <button onClick={() => setViewingPost(null)} className="text-black">
+          <button onClick={() => setViewingPostKey(null)} className="text-black">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
             </svg>
@@ -161,10 +202,10 @@ export default function InstagramBrowser({
               className="w-8 h-8 rounded-full object-cover bg-neutral-200"
             />
             <button
-              onClick={() => setViewingPost(null)}
+              onClick={() => setViewingPostKey(null)}
               className="font-semibold text-sm text-black"
             >
-              {currentUsername}
+              {viewingPostKey.username}
             </button>
           </div>
 
@@ -192,7 +233,7 @@ export default function InstagramBrowser({
           {/* Caption */}
           <div className="px-4 pb-2">
             <p className="text-sm text-black">
-              <span className="font-semibold mr-1">{currentUsername}</span>
+              <span className="font-semibold mr-1">{viewingPostKey.username}</span>
               {renderCaption(viewingPost.caption)}
             </p>
           </div>
@@ -208,7 +249,7 @@ export default function InstagramBrowser({
                   >
                     {comment.username}
                   </button>
-                  {comment.text}
+                  {renderCaption(comment.text)}
                 </p>
               ))}
             </div>
@@ -286,6 +327,7 @@ export default function InstagramBrowser({
             </svg>
           </button>
         )}
+        {!newPostOptions && <div className="w-5" />}
       </div>
 
       <div ref={scrollRef} className="flex-1 overflow-y-auto">
@@ -338,10 +380,10 @@ export default function InstagramBrowser({
         {/* Posts grid */}
         <div className="border-t border-neutral-200">
           <div className="grid grid-cols-3 gap-0.5">
-            {currentProfile.posts.map((post) => (
+            {(currentProfile.posts || []).map((post) => (
               <button
                 key={post.id}
-                onClick={() => setViewingPost(post)}
+                onClick={() => setViewingPostKey({ username: currentUsername, postId: post.id })}
                 className="aspect-square bg-neutral-100 active:opacity-80"
               >
                 {post.image ? (
