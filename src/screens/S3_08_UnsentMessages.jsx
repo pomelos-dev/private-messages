@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import useGameStore from '../store/gameStore';
 import { getImage } from '../assets/images';
-import TransitionScreen from '../components/TransitionScreen';
 
 /**
  * S3_08 — Unsent Messages
@@ -10,15 +9,16 @@ import TransitionScreen from '../components/TransitionScreen';
  * - Connor has two hesitation moments: text input is active but send is disabled
  * - Draft auto-clears after a few seconds of inactivity
  * - Phone clock changes via timeOverride
+ * - Delete button replaces send; placeholder is a gentle deterrent
  * - Ends with fade to black → tap to continue → S3_09
  */
 
 // Timeline of events
 // phase 0: show goodbye messages, then after 2s...
-// phase 1: time 2:01  — Hudson types (3s), disappears
-// phase 2: time 11:49 — Connor hesitation (input active, 5s), then clears
-// phase 3: time 8:21  — Hudson types (2s), disappears quickly
-// phase 4: time 10:35 — Connor hesitation (input active, 5s), then clears
+// phase 1: time 2:01  — Hudson types (5.5s), disappears
+// phase 2: time 11:49 — Connor hesitation (input active), then clears
+// phase 3: time 8:21  — Hudson types (4.5s), disappears quickly
+// phase 4: time 10:35 — Connor hesitation (input active), then clears
 // phase 5: stillness, then fade → tap to continue
 
 export default function S3_08_UnsentMessages() {
@@ -29,7 +29,7 @@ export default function S3_08_UnsentMessages() {
 
   const [phase, setPhase] = useState(0);
   const [hudsonTyping, setHudsonTyping] = useState(false);
-  const [connorActive, setConnorActive] = useState(false); // Connor's input is enabled
+  const [connorActive, setConnorActive] = useState(false);
   const [draftText, setDraftText] = useState('');
   const [showFade, setShowFade] = useState(false);
   const [showTap, setShowTap] = useState(false);
@@ -71,11 +71,9 @@ export default function S3_08_UnsentMessages() {
     let t;
 
     if (phase === 0) {
-      // Initial display — start sequence after 2.5s
       setTimeOverride('2:01');
       t = setTimeout(() => setPhase(1), 2500);
     } else if (phase === 1) {
-      // Hudson types at 2:01
       setTimeOverride('2:01');
       setHudsonTyping(true);
       t = setTimeout(() => {
@@ -83,7 +81,6 @@ export default function S3_08_UnsentMessages() {
         setTimeout(() => setPhase(2), 1000);
       }, 5500);
     } else if (phase === 2) {
-      // Connor hesitation at 11:49 — advance 5s after user types, or 18s fallback
       setTimeOverride('11:49');
       setConnorActive(true);
       fallbackTimerRef.current = setTimeout(doAdvanceFromConnor, 18000);
@@ -92,7 +89,6 @@ export default function S3_08_UnsentMessages() {
         clearTimeout(typeAdvanceTimerRef.current);
       };
     } else if (phase === 3) {
-      // Hudson types at 8:21
       setTimeOverride('8:21');
       setHudsonTyping(true);
       t = setTimeout(() => {
@@ -100,7 +96,6 @@ export default function S3_08_UnsentMessages() {
         setTimeout(() => setPhase(4), 1000);
       }, 4500);
     } else if (phase === 4) {
-      // Connor hesitation at 10:35 — advance 5s after user types, or 18s fallback
       setTimeOverride('10:35');
       setConnorActive(true);
       fallbackTimerRef.current = setTimeout(doAdvanceFromConnor, 18000);
@@ -109,7 +104,6 @@ export default function S3_08_UnsentMessages() {
         clearTimeout(typeAdvanceTimerRef.current);
       };
     } else if (phase === 5) {
-      // Stillness → fade to black
       t = setTimeout(() => {
         setShowFade(true);
         setTimeout(() => setShowTap(true), 700);
@@ -122,10 +116,8 @@ export default function S3_08_UnsentMessages() {
   // Auto-clear draft + advance phase 5s after last keystroke
   const handleDraftChange = useCallback((e) => {
     setDraftText(e.target.value);
-    // Auto-clear if user stops typing
     clearTimeout(draftTimerRef.current);
     draftTimerRef.current = setTimeout(() => setDraftText(''), 3000);
-    // Advance phase 5s after last keystroke (cancels fallback)
     clearTimeout(fallbackTimerRef.current);
     clearTimeout(typeAdvanceTimerRef.current);
     typeAdvanceTimerRef.current = setTimeout(doAdvanceFromConnor, 5000);
@@ -154,7 +146,7 @@ export default function S3_08_UnsentMessages() {
 
       {/* Messages area */}
       <div ref={scrollRef} className="flex-1 min-h-0 overflow-y-auto px-4 py-3 space-y-1">
-        {/* The goodbye messages */}
+        {/* The goodbye message */}
         <div className="flex justify-end mt-3">
           <div className="max-w-[75%] bg-blue-500 text-white rounded-2xl rounded-br-md px-3 py-2">
             <p className="text-sm leading-relaxed">{goodbyeText}</p>
@@ -218,20 +210,20 @@ export default function S3_08_UnsentMessages() {
               autoFocus
               value={draftText}
               onChange={handleDraftChange}
-              placeholder="iMessage"
+              placeholder="Don't do it, Connor. He asked for space."
               className="flex-1 bg-transparent text-white text-sm outline-none placeholder:text-neutral-600"
             />
           ) : (
-            <span className="flex-1 text-neutral-600 text-sm select-none">iMessage</span>
+            <span className="flex-1 text-neutral-600 text-sm select-none">Don't do it, Connor. He asked for space.</span>
           )}
         </div>
-        {/* Send button — always disabled */}
+        {/* Delete button — replaces send */}
         <button
           disabled
           className="w-8 h-8 rounded-full flex items-center justify-center bg-neutral-700 opacity-40"
         >
-          <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
           </svg>
         </button>
       </div>

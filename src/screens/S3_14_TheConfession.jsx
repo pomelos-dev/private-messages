@@ -93,7 +93,7 @@ const scriptWarm = [
   ]},
   { type: 'their', from: 'hudson', text: 'Get some sleep, Connie' },
   { type: 'their', from: 'hudson', text: 'I\'ll call you in the morning' },
-  { type: 'their', from: 'hudson', text: '❤️' },
+  { type: 'their', from: 'hudson', text: '💙' },
   { type: 'wait', ms: 2000 },
   { type: 'transition', text: 'Another six months later\n(but this time happier)…', to: 'S3_15_WARM' },
 ];
@@ -137,9 +137,9 @@ const script = [
   { type: 'their', from: 'hudson', text: 'I promise I\'m not going anywhere' },
 
   { type: 'choice', options: [
-    { text: 'Hudson... I\'m in love with you. I think I have been for a long time.', extend: scriptRomanticBold },
-    { text: 'You\'re my person, Huddy. That\'s the only way I know how to say it.',  extend: scriptRomanticSoft },
     { text: 'You\'re my best friend. The best I\'ve ever had. That\'s what I want this to be.', extend: scriptWarm },
+    { text: 'You\'re my person, Huddy. That\'s the only way I know how to say it.',             extend: scriptRomanticSoft },
+    { text: 'Hudson... I\'m in love with you. I think I have been for a long time.',            extend: scriptRomanticBold },
   ]},
 ];
 

@@ -28,6 +28,11 @@ const CONNOR_PROFILE = {
     { id: 'cs_ascension', image: 'nureyevDancing', caption: 'Ascension. In theatres now.', comments: [
       { username: 'victorhallberg', text: 'So proud of you.' },
       { username: 'taytay', text: 'my brother is a STAR 🌟' },
+      { username: 'genz_movies', text: 'THE PERFORMANCE OF HIS GENERATION. I will not elaborate.' },
+      { username: 'ohmyhollander', text: 'sobbing on the floor of the cinema. I owe you an apology for every time I doubted you.' },
+      { username: 'hudconstrong', text: 'he carried this film on his back and I am not okay about it' },
+      { username: 'claudiemtl', text: 'genuinely one of the best performances I have ever seen. please give this man his flowers.' },
+      { username: 'annabelly', text: 'the Oscar conversation starts now and I will not hear otherwise' },
     ]},
     { id: 'cs_0', image: 'connorHudsonSunset', caption: 'He matches my enthusiasm ♒️♓️✨', comments: [
       { username: 'hudson_w', text: '❤️❤️❤️' },

@@ -23,9 +23,9 @@ Let me know if you want to set up a call this week.
 Nick`;
 
 const OPTIONS = [
-  { label: 'What if we acted opposite each other again?',          flag: 'A', reply: 'Ha. I thought you might say that. Let\'s set up the call.' },
-  { label: 'I\'ve always wanted to direct Hudson in something.',    flag: 'B', reply: 'Interesting. That\'s a new angle. I\'ll put some feelers out.' },
-  { label: 'Hudson and I co-writing something could be incredible.', flag: 'C', reply: 'Interesting. That\'s a new angle. I\'ll put some feelers out.' },
+  { label: 'What if we acted opposite each other again?',             flag: 'A', reply: 'Ha. I thought you might say that. Let\'s set up the call.' },
+  { label: 'I\'ve always wanted to direct Hudson in a project.',      flag: 'B', reply: 'Interesting. That\'s a new angle. I\'ll put some feelers out.' },
+  { label: 'Hudson and I co-writing a movie could be incredible.',    flag: 'C', reply: 'Interesting. That\'s a new angle. I\'ll put some feelers out.' },
   { label: 'I\'ve always wanted to act in one of Hudson\'s projects.', flag: 'D', reply: 'Ha. I thought you might say that. Let\'s set up the call.' },
 ];
 

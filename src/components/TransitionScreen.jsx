@@ -11,7 +11,7 @@ import { getImage } from '../assets/images';
  *   quote      — optional quote text to overlay on fullscreen image
  *   speaker    — optional speaker label to overlay on fullscreen image
  *   onTap      — called when user taps anywhere
- *   slow       — use slower fade animation (text fades in over 4s; tap hint appears after)
+ *   slow       — reserved for chained transition logic; text and tap hint both use animate-fade-in-delayed
  */
 export default function TransitionScreen({ text, image, imageClass, onTap, slow = false, fullscreen = false, quote, speaker }) {
   // Full-screen image mode — image covers everything, optional quote overlay, "tap to continue" at bottom
@@ -62,12 +62,11 @@ export default function TransitionScreen({ text, image, imageClass, onTap, slow 
         />
       )}
       {text && (
-        <p className={`text-white text-lg font-light italic ${slow ? 'animate-fade-in-delayed-slow' : 'animate-fade-in'}`}>
+        <p className="text-white text-lg font-light italic animate-fade-in-delayed">
           {text}
         </p>
       )}
-      {/* Tap hint — delayed longer for slow text so it appears after the title finishes fading in */}
-      <p className={`text-neutral-600 text-xs mt-8 ${slow ? 'animate-fade-in-very-delayed' : 'animate-fade-in-delayed'}`}>
+      <p className="text-neutral-600 text-xs mt-8 animate-fade-in-delayed">
         Tap anywhere to continue
       </p>
     </button>
