@@ -210,17 +210,30 @@ export default function S3_08_UnsentMessages() {
               autoFocus
               value={draftText}
               onChange={handleDraftChange}
+              onBlur={() => {
+                // Scroll the window back after keyboard dismisses on iOS
+                window.scrollTo(0, 0);
+              }}
               placeholder="Don't do it, Connor. He asked for space."
               className="flex-1 bg-transparent text-white text-sm outline-none placeholder:text-neutral-600"
+              style={{ fontSize: '16px' }}
             />
           ) : (
             <span className="flex-1 text-neutral-600 text-sm select-none">Don't do it, Connor. He asked for space.</span>
           )}
         </div>
-        {/* Delete button — replaces send */}
+        {/* Delete button — clears draft when active, disabled otherwise */}
         <button
-          disabled
-          className="w-8 h-8 rounded-full flex items-center justify-center bg-neutral-700 opacity-40"
+          onClick={() => {
+            if (connorActive && draftText) {
+              clearTimeout(draftTimerRef.current);
+              clearTimeout(typeAdvanceTimerRef.current);
+              setDraftText('');
+            }
+          }}
+          className={`w-8 h-8 rounded-full flex items-center justify-center transition-opacity ${
+            connorActive && draftText ? 'bg-neutral-600 opacity-100 active:bg-neutral-500' : 'bg-neutral-700 opacity-40'
+          }`}
         >
           <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />

@@ -126,8 +126,7 @@ export default function S2_10_TheChoice() {
           message="You agreed to hang out with Hudson in public, for better or for worse. You've unlocked Chapter 3."
           variant="good"
           options={[
-            { text: 'Try a different response', action: 'S2_09' },
-            { text: 'Replay Chapter 2', action: 'S2_01' },
+            { text: 'Continue to Chapter 3', action: 'S3_01' },
             { text: 'Return to main menu', action: 'S0' },
           ]}
         />

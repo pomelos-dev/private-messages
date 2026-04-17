@@ -491,9 +491,7 @@ export default function ConversationPlayer({ contact, script, onBack, immediateF
           message={showChapterComplete.message}
           variant="good"
           options={showChapterComplete.options || [
-            { text: 'Try a different ending', action: 'S3_14' },
-            { text: 'Try a different PR strategy', action: 'S3_05' },
-            { text: 'Try a different project', action: 'S3_10' },
+            { text: 'Try a different ending', action: 'S3_10' },
             { text: 'Return to main menu', action: 'S0' },
           ]}
         />
