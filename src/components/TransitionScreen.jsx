@@ -62,7 +62,7 @@ export default function TransitionScreen({ text, image, imageClass, onTap, slow 
         />
       )}
       {text && (
-        <p className="text-white text-lg font-light italic animate-fade-in-delayed">
+        <p className="text-white text-lg font-light italic animate-fade-in-delayed whitespace-pre-line">
           {text}
         </p>
       )}

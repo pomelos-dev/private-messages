@@ -36,7 +36,7 @@ const scriptRomanticBold = [
   { type: 'their', from: 'hudson', text: 'I\'ll call you in the morning' },
   { type: 'their', from: 'hudson', text: '❤️' },
   { type: 'wait', ms: 2000 },
-  { type: 'transition', text: 'Another six months later\n(but this time happier)…', to: 'S3_15_ROMANTIC' },
+  { type: 'transition', text: 'Another six months later\n(this time much happier)…', to: 'S3_15_ROMANTIC' },
 ];
 
 const scriptRomanticSoft = [
@@ -65,7 +65,7 @@ const scriptRomanticSoft = [
   { type: 'their', from: 'hudson', text: 'I\'ll call you in the morning' },
   { type: 'their', from: 'hudson', text: '❤️' },
   { type: 'wait', ms: 2000 },
-  { type: 'transition', text: 'Another six months later\n(but this time happier)…', to: 'S3_15_ROMANTIC' },
+  { type: 'transition', text: 'Another six months later\n(this time much happier)…', to: 'S3_15_ROMANTIC' },
 ];
 
 const scriptWarm = [
@@ -95,7 +95,7 @@ const scriptWarm = [
   { type: 'their', from: 'hudson', text: 'I\'ll call you in the morning' },
   { type: 'their', from: 'hudson', text: '💙' },
   { type: 'wait', ms: 2000 },
-  { type: 'transition', text: 'Another six months later\n(but this time happier)…', to: 'S3_15_WARM' },
+  { type: 'transition', text: 'Another six months later\n(this time much happier)…', to: 'S3_15_WARM' },
 ];
 
 // ── Main script ───────────────────────────────────────────────────

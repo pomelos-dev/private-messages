@@ -31,7 +31,7 @@ const romanticA = [ // acted opposite each other
   { type: 'their', from: 'hudson', text: 'Fine, I ordered Sweetgreens' },
   { type: 'auto', text: 'I\'ll be there in an hour.' },
   { type: 'their', from: 'hudson', text: '❤️' },
-  { type: 'wait', ms: 3000 },
+  { type: 'wait', ms: 6000 },
   { type: 'chapter_complete', title: 'Private Messages: The End', message: 'We finally gave it a name.\nThis is the real us. ❤️' },
 ];
 
@@ -49,7 +49,7 @@ const romanticB = [ // Connor directs Hudson
   { type: 'their', from: 'hudson', text: 'Stop distracting me, I\'m trying to remember my lines' },
   { type: 'auto', text: 'You love it.' },
   { type: 'their', from: 'hudson', text: 'I really do ❤️' },
-  { type: 'wait', ms: 3000 },
+  { type: 'wait', ms: 6000 },
   { type: 'chapter_complete', title: 'Private Messages: The End', message: 'We finally gave it a name.\nThis is the real us. ❤️' },
 ];
 
@@ -73,7 +73,7 @@ const romanticC = [ // co-writing
   { type: 'their', from: 'hudson', text: 'Yeah' },
   { type: 'their', from: 'hudson', text: 'You really do' },
   { type: 'their', from: 'hudson', text: '❤️' },
-  { type: 'wait', ms: 3000 },
+  { type: 'wait', ms: 6000 },
   { type: 'chapter_complete', title: 'Private Messages: The End', message: 'We finally gave it a name.\nThis is the real us. ❤️' },
 ];
 
@@ -91,7 +91,7 @@ const romanticD = [ // act in Hudson's project
   { type: 'auto', text: 'You put me in your movie, Huddy.' },
   { type: 'their', from: 'hudson', text: 'Best decision I ever made' },
   { type: 'their', from: 'hudson', text: '❤️' },
-  { type: 'wait', ms: 3000 },
+  { type: 'wait', ms: 6000 },
   { type: 'chapter_complete', title: 'Private Messages: The End', message: 'We finally gave it a name.\nThis is the real us. ❤️' },
 ];
 
@@ -119,7 +119,7 @@ const warmA = [ // acted opposite each other
   { type: 'their', from: 'hudson', text: 'Fine, I ordered Sweetgreens' },
   { type: 'auto', text: 'I\'ll be there in an hour.' },
   { type: 'their', from: 'hudson', text: '💙' },
-  { type: 'wait', ms: 3000 },
+  { type: 'wait', ms: 6000 },
   { type: 'chapter_complete', title: 'Private Messages: The End', message: 'We finally gave it a name.\nThis is the real us. 💙' },
 ];
 
@@ -141,7 +141,7 @@ const warmB = [ // Connor directs Hudson
   { type: 'their', from: 'hudson', text: 'And I ordered Sweetgreens' },
   { type: 'auto', text: 'I\'ll be there in an hour.' },
   { type: 'their', from: 'hudson', text: '💙' },
-  { type: 'wait', ms: 3000 },
+  { type: 'wait', ms: 6000 },
   { type: 'chapter_complete', title: 'Private Messages: The End', message: 'We finally gave it a name.\nThis is the real us. 💙' },
 ];
 
@@ -162,7 +162,7 @@ const warmC = [ // co-writing
   { type: 'auto', text: 'Shut up.' },
   { type: 'their', from: 'hudson', text: 'Never' },
   { type: 'their', from: 'hudson', text: '💙' },
-  { type: 'wait', ms: 3000 },
+  { type: 'wait', ms: 6000 },
   { type: 'chapter_complete', title: 'Private Messages: The End', message: 'We finally gave it a name.\nThis is the real us. 💙' },
 ];
 
@@ -183,7 +183,7 @@ const warmD = [ // act in Hudson's project
   { type: 'auto', text: 'The casting or the best friend?' },
   { type: 'their', from: 'hudson', text: 'Yes' },
   { type: 'their', from: 'hudson', text: '💙' },
-  { type: 'wait', ms: 3000 },
+  { type: 'wait', ms: 6000 },
   { type: 'chapter_complete', title: 'Private Messages: The End', message: 'We finally gave it a name.\nThis is the real us. 💙' },
 ];
 
