@@ -30,8 +30,9 @@ const scriptRomanticBold = [
   { type: 'choice', options: [
     { text: 'I wanted to say it a long time ago.' },
     { text: 'I\'m obsessed with you, too.' },
-    { text: 'I\'ve never met anyone like you.' },
+    { text: 'I love you.' },
   ]},
+  { type: 'their', from: 'hudson', text: 'I love you' },
   { type: 'their', from: 'hudson', text: 'Get some sleep, baby' },
   { type: 'their', from: 'hudson', text: 'I\'ll call you in the morning' },
   { type: 'their', from: 'hudson', text: '❤️' },
